@@ -1,0 +1,58 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://meituan-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: member_route
+          uri: lb://meituan-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: auth_route
+          uri: lb://meituan-authserver
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: oss_route
+          uri: lb://meituan-third-party
+          predicates:
+            - Path=/api/oss/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: admin_route
+          uri: lb://meituan-admin
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
+        # 这里的域名匹配需要放在最后 方式 将所有的请求进行域名匹配 防止将真正的请求进行失效 整个链路就是 请求 - nginx - 网关 - 真正的服务
+        - id: search_host_route
+          uri: lb://gulimail-search
+          predicates:
+            - Host=search.gulimall.com
+        - id: item_host_route
+          uri: lb://gulimail-product
+          predicates:
+            - Host=item.gulimall.com
+        - id: auth_host_route
+          uri: lb://gulimail-auth
+          predicates:
+            - Host=auth.gulimall.com
+        - id: cart_host_route
+          uri: lb://gulimail-cart
+          predicates:
+            - Host=cart.gulimall.com
+        - id: gulimall_host_route
+          uri: lb://gulimail-product
+          predicates:
+            - Host=gulimall.com
+
+  #filters进行路径重写 需要注意的就是 精确的路由放在前面 模糊的路由放在后面 需要注意的一点就是 nginx
+  #在将请求代理给 网关的时候 会将host 信息进行丢弃
