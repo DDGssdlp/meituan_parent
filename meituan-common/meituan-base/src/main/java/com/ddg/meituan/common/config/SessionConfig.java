@@ -10,7 +10,7 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 /**
  * @Author: DDG
  * @Date: 2020/5/29 10:37
- * @Description: GulimallSessionConfig 类 自定义cookie
+ * @Description: SessionConfig 类 自定义cookie
  */
 //@Configuration
 public class SessionConfig {

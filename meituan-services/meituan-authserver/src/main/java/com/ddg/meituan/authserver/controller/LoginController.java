@@ -61,10 +61,9 @@ public class LoginController {
         String loginUserStr = (String) redisTemplate.opsForHash().get(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY,
                 phone);
 
-        if (StringUtils.isEmpty(loginUserStr)){
-
+        if (!StringUtils.isEmpty(loginUserStr)){
+            redisTemplate.opsForHash().delete(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY, phone);
         }
-        redisTemplate.opsForHash().delete(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY, phone);
         return R.ok();
     }
 
