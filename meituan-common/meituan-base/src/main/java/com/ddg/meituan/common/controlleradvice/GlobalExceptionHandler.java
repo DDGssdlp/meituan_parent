@@ -2,6 +2,7 @@ package com.ddg.meituan.common.controlleradvice;
 
 
 import com.ddg.meituan.common.exception.MeituanCodeEnum;
+import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MeituanSysException.class)
     public R validMeituanSysExceptionHandel(Exception e){
+        if (e instanceof MeituanLoginException) {
+            return R.error().put("login", e.getMessage());
+        }
         if (e instanceof MeituanSysException){
             MeituanSysException exception = (MeituanSysException) e;
             return R.error(MeituanCodeEnum.MEITUAN_EXCEPTION.getCode(), exception.getMessage());

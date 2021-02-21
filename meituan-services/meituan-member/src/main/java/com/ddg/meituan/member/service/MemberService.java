@@ -1,5 +1,6 @@
 package com.ddg.meituan.member.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.PageUtils;
@@ -20,6 +21,11 @@ import java.util.Map;
 public interface MemberService extends IService<MemberEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 根据手机号获取member
+     */
+    MemberEntity getOneByPhone(String phone);
 
     R register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
 
