@@ -101,6 +101,10 @@ public class MemberController {
         return memberService.login(memberRegisterVo, session);
     }
 
+    /**
+     *
+     * @param phoneNum MD5加密后的手机号
+     */
     @GetMapping("/getLoginUser/{phoneNum}")
     public R getLoginUser(@PathVariable String phoneNum) {
         String memberRegisterVoStr = (String) redisTemplate.opsForHash()
