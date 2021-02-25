@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 会员登录记录
@@ -16,6 +17,7 @@ import lombok.Data;
  */
 @Data
 @TableName("ums_member_login_log")
+@Accessors(chain = true)
 public class MemberLoginLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

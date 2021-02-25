@@ -36,6 +36,8 @@ public class MemberLoginLogController {
         PageUtils page = memberLoginLogService.queryPage(params);
 
         return R.ok().put("page", page);
+
+
     }
 
 
