@@ -1,6 +1,8 @@
 package com.ddg.meituan.common.code;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +21,15 @@ import java.util.List;
  * @email: wangzhijie0908@gmail.com
  */
 
+@Slf4j
 @Data
 @Component
 @ConfigurationProperties(prefix = "code")
-public class CodeProperties {
+public class CodeProperties implements InitializingBean {
     public  List<CodeConfig> custom;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("动态配置状态码 CodeProperties custom= {}", custom);
+    }
 }
