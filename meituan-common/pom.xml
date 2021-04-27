@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>renren-generator</module>
         <module>meituan-base</module>
         <module>meituan-gateway</module>
     </modules>
