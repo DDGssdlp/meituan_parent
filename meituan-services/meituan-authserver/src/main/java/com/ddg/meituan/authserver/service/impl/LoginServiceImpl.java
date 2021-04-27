@@ -30,11 +30,15 @@ import javax.validation.constraints.NotEmpty;
 @Service
 public class LoginServiceImpl implements LoginService {
     
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
+
+    private final MemberFeignService memberFeignService;
 
     @Autowired
-    private MemberFeignService memberFeignService;
+    public LoginServiceImpl(StringRedisTemplate redisTemplate, MemberFeignService memberFeignService) {
+        this.redisTemplate = redisTemplate;
+        this.memberFeignService = memberFeignService;
+    }
 
 
     @Override
@@ -71,8 +75,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public R login(MemberRegisterVo memberRegisterVo) throws MeituanSysException{
         // 首先获取验证码 使用第三方进行登录
-
-
         return memberFeignService.login(memberRegisterVo);
 
     }

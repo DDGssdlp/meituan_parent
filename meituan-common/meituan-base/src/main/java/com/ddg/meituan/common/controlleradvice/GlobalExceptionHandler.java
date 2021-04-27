@@ -6,10 +6,12 @@ import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
@@ -36,6 +38,12 @@ public class GlobalExceptionHandler {
         }
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
         return R.error(MeituanCodeEnum.UN_NONE_EXCEPTION.getCode(), MeituanCodeEnum.UN_NONE_EXCEPTION.getMessage());
+    }
+
+
+    @ExceptionHandler(value = OAuth2Exception.class)
+    public R handleOauth2(OAuth2Exception e) {
+        return R.error(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

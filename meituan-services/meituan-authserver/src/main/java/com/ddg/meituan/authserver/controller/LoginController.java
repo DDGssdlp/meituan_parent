@@ -32,12 +32,16 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/auth")
 public class LoginController {
 
+    private final ThirdPartyFeignService thirdPartyFeignService;
+    private final LoginService loginService;
+    private final StringRedisTemplate redisTemplate;
+
     @Autowired
-    private ThirdPartyFeignService thirdPartyFeignService;
-    @Autowired
-    private LoginService loginService;
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    public LoginController(ThirdPartyFeignService thirdPartyFeignService, LoginService loginService, StringRedisTemplate redisTemplate) {
+        this.thirdPartyFeignService = thirdPartyFeignService;
+        this.loginService = loginService;
+        this.redisTemplate = redisTemplate;
+    }
 
     @GetMapping("/send/code/{phoneNum}")
     public R sendCOde(@PathVariable("phoneNum")String phoneNum){

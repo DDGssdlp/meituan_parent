@@ -10,8 +10,6 @@ spring:
 #      transport:
 #        dashboard: localhost:8333
 
-  session:
-    store-type: redis
   redis:
     host: ${ipAddr}
     lettuce:
@@ -37,3 +35,20 @@ server:
 ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
+
+
+
+security:
+  jwt:
+    key-store: classpath:jwt.jks
+    token-expire: 86400
+    key-pair-password: 123456
+    refresh-token-expire: 604800
+    admin-app-name: admin-app
+    portal-app-name: portal-app
+    scopes: all
+    authorized-grant-types:
+      - password
+      - refresh_token
+
+

@@ -103,6 +103,13 @@
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
         </dependency>
 
+
+        <!--Spring Security-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+
     </dependencies>
 
 

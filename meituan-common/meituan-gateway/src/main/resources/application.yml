@@ -1,3 +1,4 @@
+ipAddr: 49.232.68.245
 spring:
   cloud:
     gateway:
@@ -15,6 +16,12 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>/?.*), /$\{segment}
         - id: auth_route
+          uri: lb://meituan-authserver
+          predicates:
+            - Path=/api/oauth/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: oauth_route
           uri: lb://meituan-authserver
           predicates:
             - Path=/api/auth/**
@@ -56,3 +63,19 @@ spring:
 
   #filters进行路径重写 需要注意的就是 精确的路由放在前面 模糊的路由放在后面 需要注意的一点就是 nginx
   #在将请求代理给 网关的时候 会将host 信息进行丢弃
+  # 配置 rsa 公钥地址
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:12000/rsa/publicKey'
+  redis:
+    host: ${ipAddr}
+
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/api/oauth/token"
+

@@ -26,6 +26,8 @@ public interface AuthServerConstant {
 
     String LOGIN_USER = "login_user";
 
+    String RESOURCE_ROLES_MAP = "AUTH:RESOURCE_ROLES_MAP";
+
 
 
 

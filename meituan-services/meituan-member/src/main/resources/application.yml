@@ -19,10 +19,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
-  # 指定spring session 使用reids 进行存储
-  session:
-    store-type: redis
-
   redis:
     host: ${ipAddr}
     port: 6379
