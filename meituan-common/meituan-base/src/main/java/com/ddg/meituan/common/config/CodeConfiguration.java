@@ -26,7 +26,7 @@ import java.util.*;
 //@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 public class CodeConfiguration {
 
-    @Autowired
+    @Autowired(required = false)
     private CodeProperties codeProperties;
 
     private String valuePattern = "^[A-Z][A-Z_0-9]*";

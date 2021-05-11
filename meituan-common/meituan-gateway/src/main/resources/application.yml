@@ -78,4 +78,14 @@ secure:
     urls: #配置白名单路径
       - "/actuator/**"
       - "/api/oauth/token"
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/**/v2/api-docs"
+      - "/**/*.js"
+      - "/**/*.css"
+      - "/**/*.png"
+      - "/**/*.jpg"
+      - "/**/*.ico"
+      - "/api/product/category/listWithTree"
 

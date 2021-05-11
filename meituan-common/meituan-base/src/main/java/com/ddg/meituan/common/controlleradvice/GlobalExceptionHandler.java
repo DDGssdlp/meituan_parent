@@ -6,7 +6,7 @@ import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,10 +41,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = OAuth2Exception.class)
-    public R handleOauth2(OAuth2Exception e) {
-        return R.error(e.getMessage());
-    }
+
 
     @ExceptionHandler(Exception.class)
     public R validExceptionHandle(Exception e){

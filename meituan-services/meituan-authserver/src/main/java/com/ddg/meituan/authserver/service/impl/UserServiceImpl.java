@@ -2,11 +2,10 @@ package com.ddg.meituan.authserver.service.impl;
 
 
 
-import cn.hutool.core.collection.CollUtil;
 import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
-import com.ddg.meituan.common.domain.SecurityUser;
 
+import com.ddg.meituan.common.domain.SecurityUser;
 import com.ddg.meituan.common.domain.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,10 @@ public class UserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserDto userDto = memberFeignService.loadUserByUsername(username);
+
+        //UserDto userDto = memberFeignService.loadUserByUsername(username);
+        UserDto userDto = new UserDto(1L, "zhangsan", passwordEncoder.encode("123456"), 1, "admin-app", null);
+
 
         if (userDto == null) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
@@ -69,5 +71,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
         return securityUser;
     }
+
+
 
 }

@@ -29,10 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+        http.cors().and().csrf().disable().
+                authorizeRequests()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
+                //.authorizeRequests().antMatchers("/admin/**").permitAll().and()
                 // 将获取公钥接口进行暴露
-                .antMatchers("/rsa/publicKey").permitAll()
+                .authorizeRequests().antMatchers("/rsa/publicKey").permitAll()
                 .anyRequest().authenticated();
     }
     // 可以在这里创建内存用户

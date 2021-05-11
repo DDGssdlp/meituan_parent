@@ -40,6 +40,10 @@ public interface AuthConstant {
      */
     String ADMIN_URL_PATTERN = "/api/admin/**";
 
+    String SYS_URL_PATTERN = "/api/sys/**";
+
+    String APP_URL_PATTERN = "/api/app/**";
+
     /**
      * Redis缓存权限规则key
      */
