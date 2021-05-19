@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserDetailsService {
 
 
         //UserDto userDto = memberFeignService.loadUserByUsername(username);
-        UserDto userDto = new UserDto(1L, "zhangsan", passwordEncoder.encode("123456"), 1, "admin-app", null);
+         UserDto userDto = new UserDto(1L, "zhangsan", passwordEncoder.encode("123456"), 1, "admin-app", null);
 
 
         if (userDto == null) {
