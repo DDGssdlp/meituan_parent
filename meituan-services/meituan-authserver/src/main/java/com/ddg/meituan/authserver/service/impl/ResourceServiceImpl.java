@@ -29,7 +29,7 @@ public class ResourceServiceImpl {
     @PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
-        resourceRolesMap.put("/api/hello", "ADMIN");
+        resourceRolesMap.put("/api/product/category/list", "ADMIN");
         resourceRolesMap.put("/api/user/currentUser", "ADMIN,TEST");
         redisTemplate.opsForHash().putAll(AuthServerConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }

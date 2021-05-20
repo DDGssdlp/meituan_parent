@@ -1,6 +1,8 @@
 package com.ddg.meituan.gateway.authorization;
 
 
+import cn.hutool.core.convert.Convert;
+import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
 import com.ddg.meituan.gateway.constant.AuthConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -19,6 +22,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -71,23 +75,19 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         }
         //其余需要校验权限
         //认证通过且角色匹配的用户可访问当前路径
-        //从Redis中获取当前路径可访问角色列表 TODO 从数据库中查找
+        //从Redis中获取当前路径可访问角色列表  使用 redis 进行的是路径粒度 和 权限的区分
         String roles = (String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
-        //List<String> authorities = new ArrayList<>(2);
-        if (!StringUtils.isEmpty(roles)){
 
-            return Mono.just(new AuthorizationDecision(true));
-        }
+        List<String> authorities = Convert.toList(String.class, roles);
+        authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
-        return Mono.just(new AuthorizationDecision(false));
-
-       /* return mono
+        return mono
                 .filter(Authentication::isAuthenticated)
                 .flatMapIterable(Authentication::getAuthorities)
                 .map(GrantedAuthority::getAuthority)
                 .any(authorities::contains)
                 .map(AuthorizationDecision::new)
-                .defaultIfEmpty(new AuthorizationDecision(false));*/
+                .defaultIfEmpty(new AuthorizationDecision(false));
     }
 
 }
