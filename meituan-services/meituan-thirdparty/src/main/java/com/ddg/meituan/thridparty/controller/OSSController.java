@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @email: wangzhijie0908@gmail.com
  */
 @RestController
-@RequestMapping("/oss")
+@RequestMapping("/thirdparty/oss")
 public class OSSController {
 
     @Autowired

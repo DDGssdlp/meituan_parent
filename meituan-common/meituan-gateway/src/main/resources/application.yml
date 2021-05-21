@@ -30,7 +30,7 @@ spring:
         - id: oss_route
           uri: lb://meituan-third-party
           predicates:
-            - Path=/api/oss/**
+            - Path=/api/thirdparty/**
           filters:
             - RewritePath=/api/(?<segment>/?.*), /$\{segment}
         - id: admin_route
@@ -78,6 +78,8 @@ secure:
     urls: #配置白名单路径
       - "/actuator/**"
       - "/api/oauth/token"
+      - "/api/thirdparty/msm/send/**"
+      - "/api/auth/login"
       - "/doc.html"
       - "/swagger-resources/**"
       - "/swagger/**"

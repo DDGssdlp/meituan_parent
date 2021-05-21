@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient("meituan-third-party")
 public interface ThirdPartyFeignService {
 
-    @GetMapping("/msm/send/{phoneNum}")
+    @GetMapping("/thirdparty/msm/send/{phoneNum}")
     R getSendPhoneNum(@PathVariable("phoneNum") String phoneNum);
 
 

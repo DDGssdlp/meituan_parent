@@ -2,9 +2,13 @@ package com.ddg.meituan.gateway.authorization;
 
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
 import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.gateway.domain.UserDto;
+import com.nimbusds.jose.JWSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -21,6 +25,7 @@ import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,6 +57,9 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
+
+        //return Mono.just(new AuthorizationDecision(true));
+
         ServerHttpRequest request = authorizationContext.getExchange().getRequest();
         URI uri = request.getURI();
         PathMatcher pathMatcher = new AntPathMatcher();
@@ -65,6 +73,26 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //对应跨域的预检请求直接放行
         if(request.getMethod()== HttpMethod.OPTIONS){
             return Mono.just(new AuthorizationDecision(true));
+        }
+
+        //不同用户体系登录不允许互相访问
+        try {
+            String token = request.getHeaders().getFirst(AuthConstant.JWT_TOKEN_HEADER);
+            if(StrUtil.isEmpty(token)){
+                return Mono.just(new AuthorizationDecision(false));
+            }
+            String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
+            JWSObject jwsObject = JWSObject.parse(realToken);
+            String userStr = jwsObject.getPayload().toString();
+            UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
+            if (AuthConstant.ADMIN_CLIENT_ID.equals(userDto.getClientId()) && !pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+                return Mono.just(new AuthorizationDecision(false));
+            }
+            if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+                return Mono.just(new AuthorizationDecision(false));
+            }
+        } catch (ParseException e) {
+            return Mono.just(new AuthorizationDecision(false));
         }
 
         //管理端路径直接放行( renren 请求部分 使用自己的权限控制方式)

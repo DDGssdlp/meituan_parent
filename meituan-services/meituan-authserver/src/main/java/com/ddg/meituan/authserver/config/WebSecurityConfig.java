@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
                 // 将获取公钥接口进行暴露
-                .authorizeRequests().antMatchers("/rsa/publicKey").permitAll()
+                .authorizeRequests().antMatchers("/rsa/publicKey", "/auth/**").permitAll()
                 .anyRequest().authenticated();
     }
     // 可以在这里创建内存用户

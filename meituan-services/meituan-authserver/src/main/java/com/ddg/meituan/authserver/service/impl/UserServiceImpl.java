@@ -1,7 +1,6 @@
 package com.ddg.meituan.authserver.service.impl;
 
 
-
 import cn.hutool.core.collection.CollUtil;
 import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
@@ -59,17 +58,16 @@ public class UserServiceImpl implements UserDetailsService {
     public void initData() {
         String password = passwordEncoder.encode("123456");
         userList = new ArrayList<>();
-        userList.add(new UserDto(1L,"zhangsan", password,1, "",CollUtil.toList("ADMIN")));
-        userList.add(new UserDto(2L,"lisi", password,1, "",CollUtil.toList("TEST")));
+        userList.add(new UserDto(1L, "zhangsan", password, 1, "", CollUtil.toList("ADMIN")));
+        userList.add(new UserDto(2L, "lisi", password, 1, "", CollUtil.toList("TEST")));
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-
+        // 使用远程调用进行 userDetail
         //UserDto userDto = memberFeignService.loadUserByUsername(username);
-        //UserDto userDto = new UserDto(1L, "zhangsan", passwordEncoder.encode("123456"), 1, "admin-app", null);
 
         List<UserDto> findUserList =
                 userList.stream().filter(item -> item.getUsername().equals(username)).collect(Collectors.toList());
@@ -88,7 +86,6 @@ public class UserServiceImpl implements UserDetailsService {
         }
         return securityUser;
     }
-
 
 
 }

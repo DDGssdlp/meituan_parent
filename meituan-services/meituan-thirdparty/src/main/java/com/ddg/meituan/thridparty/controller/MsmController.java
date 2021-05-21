@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @RestController
-@RequestMapping("/msm")
+@RequestMapping("/thirdparty/msm")
 public class MsmController {
 
     private final MsmService msmService;
