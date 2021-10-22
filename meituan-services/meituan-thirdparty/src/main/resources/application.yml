@@ -1,4 +1,4 @@
-ipAddr: 49.232.68.245
+ipAddr: 101.200.140.80
 spring:
   application:
     name: meituan-third-party
@@ -38,5 +38,11 @@ spring:
 server:
   port: 11000
 
+# minio
 
-
+minio:
+  client:
+    endpoint: http://${ipAddr}:9000
+    root-username: admin
+    root-password: admin123
+    bucket-name: images

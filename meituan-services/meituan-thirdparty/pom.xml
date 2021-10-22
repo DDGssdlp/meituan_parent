@@ -12,4 +12,11 @@
     <artifactId>meituan-thirdparty</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ddg</groupId>
+            <artifactId>minio-starter</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

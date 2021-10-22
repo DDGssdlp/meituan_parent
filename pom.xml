@@ -86,6 +86,7 @@
         <velocity.version>1.7</velocity.version>
         <druid.version>1.1.13</druid.version>
         <page-helper.version>1.2.10</page-helper.version>
+        <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
     </properties>
 
 
@@ -357,6 +358,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ddg</groupId>
+                <artifactId>minio-starter</artifactId>
+                <version>${minio-starter.version}</version>
             </dependency>
 
         </dependencies>
