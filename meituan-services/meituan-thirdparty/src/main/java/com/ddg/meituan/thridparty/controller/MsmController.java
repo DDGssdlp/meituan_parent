@@ -1,8 +1,11 @@
 package com.ddg.meituan.thridparty.controller;
 
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.R;
 import com.ddg.meituan.common.utils.RandomUtil;
 import com.ddg.meituan.thridparty.Service.MsmService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -30,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/thirdparty/msm")
+@Api("短信验证")
 public class MsmController {
 
     private final MsmService msmService;
@@ -43,7 +47,8 @@ public class MsmController {
     }
 
     @GetMapping("/send/{phoneNum}")
-    public R getSendPhoneNum(@PathVariable("phoneNum") String phoneNum){
+    @ApiOperation("通过手机号发送短信验证码")
+    public CommonResult getSendPhoneNum(@PathVariable("phoneNum") String phoneNum){
      return msmService.sendCode(phoneNum);
     }
 }

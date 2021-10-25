@@ -1,4 +1,5 @@
 ipAddr: 101.200.140.80
+
 spring:
   application:
     name: meituan-third-party
@@ -35,6 +36,16 @@ spring:
 #  sleuth:
 #    sampler:
 #      probability: 1
+
+  servlet:
+    multipart:
+      #       设置单个文件大小
+      max-file-size: 10MB
+      #       设置单次请求文件的总大小
+      max-request-size: 50MB
+
+
+
 server:
   port: 11000
 
@@ -46,3 +57,4 @@ minio:
     root-username: admin
     root-password: admin123
     bucket-name: images
+

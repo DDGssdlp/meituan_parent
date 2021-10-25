@@ -1,4 +1,4 @@
-package com.ddg.meituan.common.code;
+package com.ddg.meituan.common.dynamiccode;
 
 import sun.reflect.ConstructorAccessor;
 import sun.reflect.FieldAccessor;

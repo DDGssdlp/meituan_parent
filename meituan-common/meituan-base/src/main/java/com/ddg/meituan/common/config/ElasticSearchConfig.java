@@ -1,6 +1,9 @@
 package com.ddg.meituan.common.config;
 
 
+import org.apache.http.HttpHost;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Description:
  * ========================================================================
@@ -13,8 +16,8 @@ package com.ddg.meituan.common.config;
  * @date 2021/2/4 16:26
  * @email: wangzhijie0908@gmail.com
  */
-/*
-@Configuration
+
+/*@Configuration
 public class ElasticSearchConfig {
 
     private static final String host = "49.232.68.245";
@@ -36,5 +39,5 @@ public class ElasticSearchConfig {
                 RestClient.builder(new HttpHost(host, 9200, "http")));
         return client;
     }
-}
-*/
+}*/
+

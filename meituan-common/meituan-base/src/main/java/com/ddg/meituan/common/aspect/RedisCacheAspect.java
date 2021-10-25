@@ -41,11 +41,13 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 public class RedisCacheAspect {
 
-    private final StringRedisTemplate stringRedisTemplate;  //注入redis模板
+    private final StringRedisTemplate stringRedisTemplate;
 
     private final RedissonClient redissonClient;
 
-    // 默认不进行空值缓存
+    /**
+     *  默认不进行空值缓存
+     */
     @Value("${meituan.rediscache.cachenull:false}")
     private boolean cacheNull;
 
@@ -55,10 +57,19 @@ public class RedisCacheAspect {
         this.redissonClient = redissonClient;
     }
 
-    @Pointcut("@annotation(com.ddg.meituan.common.annotation.RedisCache)") //定义切点
+    /**
+     * 定义切点
+     */
+    @Pointcut("@annotation(com.ddg.meituan.common.annotation.RedisCache)")
     public void redisCachePointCut() {
     }
 
+    /**
+     *  使用环绕通知进行 redis 的缓存
+     * @param point
+     * @return
+     * @throws Throwable
+     */
     @Around("redisCachePointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
@@ -71,16 +82,17 @@ public class RedisCacheAspect {
                 String redisKey = redisCache.redisKey();
                 String lockName = redisCache.lockName();
                 Integer timeOut = Integer.parseInt(redisCache.timeOut());
-                Class resultObjClass = redisCache.resClass();
+                Class<Object> resultObjClass = redisCache.resClass();
                 boolean isList = redisCache.isList();
-                String realValue = stringRedisTemplate.opsForValue().get(redisKey); //获取redis数据
+                //获取redis数据
+                String realValue = stringRedisTemplate.opsForValue().get(redisKey);
                 if (!StringUtils.isEmpty(realValue)) {
-//                    log.info("redisValue:{}", realValue);
-                    if (isList) {//如果是list类型的返回数据
+                    //如果是list类型的返回数据
+                    if (isList) {
                         JsonParser jsonParser = new JsonParser();
                         JsonArray jsonArray = jsonParser.parse(realValue).getAsJsonArray();
 
-                        List resultList = new ArrayList();
+                        List<Object> resultList = new ArrayList<>();
                         if (jsonArray != null) {
                             for (JsonElement element : jsonArray) {
                                 resultList.add(gson.fromJson(element, resultObjClass));
@@ -108,8 +120,9 @@ public class RedisCacheAspect {
                 }
             }
         } catch (Exception e) {
-            log.error("redisCachePointCutError!", e.getMessage());
-            return point.proceed();  //异常直接执行方法
+            log.error("RedisCacheAspect redisCachePointCutError!", e);
+            //异常直接执行方法
+            return point.proceed();
         }
         return null;
     }

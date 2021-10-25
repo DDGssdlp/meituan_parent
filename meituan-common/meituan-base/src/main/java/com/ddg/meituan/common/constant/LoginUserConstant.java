@@ -5,7 +5,7 @@ package com.ddg.meituan.common.constant;
  * @Date: 2020/5/29 11:11
  * @Description: Login 类
  */
-public final class LoginUser {
+public interface LoginUserConstant {
 
-    public static final String LOGIN_USER = "loginUser";
+    String LOGIN_USER = "loginUser";
 }

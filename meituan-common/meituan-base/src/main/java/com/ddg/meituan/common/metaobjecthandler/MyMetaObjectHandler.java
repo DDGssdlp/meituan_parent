@@ -1,4 +1,4 @@
-package com.ddg.meituan.common.component;
+package com.ddg.meituan.common.metaobjecthandler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -7,10 +7,9 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * Description:
+ * Description: Mybatis-plus
  * ========================================================================
  * ------------------------------------------------------------------------
  *
@@ -31,13 +30,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName(CREATE_TIME, new Date(), metaObject);
-        this.setFieldValByName(UPDATE_TIME, new Date(), metaObject);
+        this.setFieldValByName(CREATE_TIME, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(UPDATE_TIME, LocalDateTime.now(), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName(UPDATE_TIME, new Date(), metaObject);
+        this.setFieldValByName(UPDATE_TIME, LocalDateTime.now(), metaObject);
     }
 
    /* @Override

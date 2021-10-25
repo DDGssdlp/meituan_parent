@@ -15,7 +15,10 @@ public class ListValueValidator implements ConstraintValidator<ListValue, Intege
 
     private Set<Integer> set;
 
-    //初始化方法：
+    /**
+     * 初始化方法：
+     * @param constraintAnnotation
+     */
     @Override
     public void initialize(ListValue constraintAnnotation) {
         int[] values = constraintAnnotation.values();
@@ -23,7 +26,13 @@ public class ListValueValidator implements ConstraintValidator<ListValue, Intege
         set = Arrays.stream(values).boxed().collect(Collectors.toSet());
 
     }
-    // 判断是否是校验成功：value 指定的是需要进行校验的值 context校验的上下文环境
+
+    /**
+     * 判断是否是校验成功：value 指定的是需要进行校验的值 context校验的上下文环境
+     * @param value
+     * @param context
+     * @return
+     */
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
 

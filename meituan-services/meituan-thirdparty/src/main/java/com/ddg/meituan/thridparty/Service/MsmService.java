@@ -1,5 +1,6 @@
 package com.ddg.meituan.thridparty.Service;
 
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.R;
 
 import java.util.Map;
@@ -19,5 +20,10 @@ import java.util.Map;
 public interface MsmService {
 
 
-    R sendCode(String phoneNum);
+    /**
+     *  阿里云oss 使用 短信验证码发送短信接口
+     * @param phoneNum
+     * @return
+     */
+    CommonResult<String> sendCode(String phoneNum);
 }

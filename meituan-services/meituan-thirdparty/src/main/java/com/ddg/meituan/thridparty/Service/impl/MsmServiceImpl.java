@@ -9,6 +9,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.R;
 import com.ddg.meituan.common.utils.RandomUtil;
 import com.ddg.meituan.thridparty.Service.MsmService;
@@ -50,7 +51,7 @@ public class MsmServiceImpl implements MsmService {
     }
 
     @Override
-    public R sendCode(String phoneNum){
+    public CommonResult<String> sendCode(String phoneNum){
         // 先从redis中进行获取验证码
         String code = redisTemplate.opsForValue().get(ThirdPartyConstant.REDIS_PHONE_CODE_PREFIX + phoneNum);
         boolean isSend = false;
@@ -72,13 +73,11 @@ public class MsmServiceImpl implements MsmService {
             String[] s = code.split("_");
             long l = System.currentTimeMillis();
             if (l - Long.parseLong(s[1]) > ThirdPartyConstant.ONE_MIN){
-                return  R.error("不能在60秒内重复发送");
-            }else {
-
+                return  CommonResult.failed("60秒内不可以重复的发送验证码");
             }
 
         }
-        return R.ok().put("isSend", isSend);
+        return CommonResult.success();
     }
 
     // 使用阿里云短信服务进行发送的方法

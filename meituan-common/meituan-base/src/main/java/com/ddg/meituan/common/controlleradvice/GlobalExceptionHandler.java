@@ -1,20 +1,19 @@
 package com.ddg.meituan.common.controlleradvice;
 
 
-import com.ddg.meituan.common.exception.MeituanCodeEnum;
+import com.ddg.meituan.common.api.Code;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.R;
+import com.ddg.meituan.common.exception.RRException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -28,34 +27,44 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MeituanSysException.class)
-    public R validMeituanSysExceptionHandel(Exception e){
+    public CommonResult<Object> validMeituanSysExceptionHandel(Exception e){
         if (e instanceof MeituanLoginException) {
-            return R.error().put("login", e.getMessage());
+            return CommonResult.failed(Code.UNAUTHORIZED);
         }
         if (e instanceof MeituanSysException){
             MeituanSysException exception = (MeituanSysException) e;
-            return R.error(MeituanCodeEnum.MEITUAN_EXCEPTION.getCode(), exception.getMessage());
+            return CommonResult.failed(Code.SERVER_ERROR);
         }
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-        return R.error(MeituanCodeEnum.UN_NONE_EXCEPTION.getCode(), MeituanCodeEnum.UN_NONE_EXCEPTION.getMessage());
+        return CommonResult.failed(Code.UN_NONE_EXCEPTION);
+    }
+
+    @ExceptionHandler(RRException.class)
+    public CommonResult<Object> rrExceptionHandler(Exception e){
+        if (e instanceof RRException){
+            return CommonResult.failed(Code.RR_EXCEPTION);
+        }
+        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
+        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.VALID_EXCEPTION.getHintMessage(),
+                e.getMessage());
     }
 
 
 
 
     @ExceptionHandler(Exception.class)
-    public R validExceptionHandle(Exception e){
+    public CommonResult<Object> validExceptionHandle(Exception e){
         if (e instanceof MethodArgumentNotValidException){
             MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
             BindingResult bindingResult = exception.getBindingResult();
             Map<String, String> exceptionMap = bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,
                     FieldError::getDefaultMessage, (oldVal, currVal) -> oldVal));
 
-            return R.error(MeituanCodeEnum.VALID_EXCEPTION.getCode(), MeituanCodeEnum.VALID_EXCEPTION.getMessage())
-                    .put("data", exceptionMap);
+            return CommonResult.failed(Code.VALID_EXCEPTION, exceptionMap);
         }
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-        return R.error(MeituanCodeEnum.UN_NONE_EXCEPTION.getCode(), MeituanCodeEnum.UN_NONE_EXCEPTION.getMessage()).put("data", e.getMessage());
+        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.VALID_EXCEPTION.getHintMessage(),
+                e.getMessage());
 
     }
 

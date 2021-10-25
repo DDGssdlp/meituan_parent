@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description:
+ * Description: 使用 Spring Aop 和 Redis 缓存移除注解
  * ========================================================================
  * ------------------------------------------------------------------------
  *

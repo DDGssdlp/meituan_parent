@@ -1,4 +1,4 @@
-package com.ddg.meituan.common.code;
+package com.ddg.meituan.common.api;
 
 
 /**
@@ -17,13 +17,21 @@ package com.ddg.meituan.common.code;
 public enum  Code {
 
     NO_PROBLEM("00000", "一切 OK"),
-    PARAMS_ERROR("A0001", "参数错误"),
+    PARAMS_ERROR("A0000", "参数错误"),
+    VALID_EXCEPTION("A0001", "参数校验出错"),
     ILLEGAL_VALUE("A0002", "参数值不合法"),
     DUPLICATE_NAME("A0003","名称重复"),
+    UN_NONE_EXCEPTION("B0000", "系统未知异常"),
     SAVE_ERROR("B0001", "保存失败"),
     SERVER_ERROR("B0002", "服务器异常"),
     OPERATION_FAIL("B0003", "操作失败"),
-    THIRD_SERVER_ERROR("C0001", "第三方服务异常");
+    UNAUTHORIZED("B0004", "暂未登录或token已经过期"),
+    FORBIDDEN("B0005", "没有相关权限"),
+    RR_EXCEPTION("B0006", "人人-fast 后台异常"),
+    MEITUAN_EXCEPTION("B0006", "美团系统异常"),
+    ELASTICSEARCH_EXCEPTION("B0007", "商品上架错误"),
+    THIRD_SERVER_ERROR("C0000", "第三方服务异常");
+
 
     Code(String value, String hintMessage) {
         this.value = value;

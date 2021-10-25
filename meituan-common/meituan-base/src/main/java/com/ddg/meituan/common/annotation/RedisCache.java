@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public @interface RedisCache {
     String redisKey();
     String timeOut() default "86400";  //超时时间， 单位TimeUnit.SECONDS
-    Class resClass();    //返回数据类型
+    Class<Object> resClass();    //返回数据类型
     boolean isList() default false;   //返回数据是否是List
     String lockName() default ""; // 分布式锁的名称：默认为空
 }

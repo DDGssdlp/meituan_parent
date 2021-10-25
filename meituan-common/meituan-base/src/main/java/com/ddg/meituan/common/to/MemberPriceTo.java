@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * @website http://www.bejson.com/java2pojo/
  */
 @Data
-public class MemberPrice {
+public class MemberPriceTo {
 
     private Long id;
     private String name;

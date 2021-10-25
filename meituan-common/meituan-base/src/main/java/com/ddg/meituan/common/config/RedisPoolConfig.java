@@ -34,8 +34,11 @@ public class RedisPoolConfig {
     @Value("${spring.redis.host}")
     private String host;
 
-//    @Value("${spring.redis.password: ''}")
-//    private String password;
+    /**
+     *  redis 的密码 默认的为空
+     */
+    @Value("${spring.redis.password: ''}")
+    private String password;
 
     @Value("${spring.redis.port:6379}")
     private int port;

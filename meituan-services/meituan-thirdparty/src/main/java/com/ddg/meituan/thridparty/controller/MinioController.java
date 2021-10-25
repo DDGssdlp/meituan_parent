@@ -1,7 +1,10 @@
 package com.ddg.meituan.thridparty.controller;
 
-import com.ddg.meituan.common.utils.R;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.miniostarter.MinioHelper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,13 +27,16 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/thirdparty/minio")
+@Api(value = "minio 文件上传")
+@Slf4j
 public class MinioController {
 
     @Resource
     private MinioHelper minioHelper;
 
     @PostMapping("/upload")
-    public R uploadFile(@RequestParam("file") MultipartFile file){
+    @ApiOperation("文件上传")
+    public CommonResult<String> uploadFile(@RequestParam("file") MultipartFile file){
         // 进行调用 service中的方法  返回的是文件的url地址
 
         String url = null;
@@ -38,9 +44,9 @@ public class MinioController {
             url = minioHelper.uploadFile(file.getInputStream(), file.getOriginalFilename(),
                     file.getContentType(), file.getSize());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("MinioController uploadFile error = ", e);
         }
-        return R.ok().put("data", url);
+        return CommonResult.success(url);
     }
 
 

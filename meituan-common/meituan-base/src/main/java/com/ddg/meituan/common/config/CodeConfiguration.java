@@ -1,9 +1,9 @@
 package com.ddg.meituan.common.config;
 
-import com.ddg.meituan.common.code.Code;
-import com.ddg.meituan.common.code.CodeConfig;
-import com.ddg.meituan.common.code.CodeProperties;
-import com.ddg.meituan.common.code.DynamicEnumUtils;
+import com.ddg.meituan.common.api.Code;
+import com.ddg.meituan.common.dynamiccode.CodeConfig;
+import com.ddg.meituan.common.dynamiccode.CodeProperties;
+import com.ddg.meituan.common.dynamiccode.DynamicEnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
