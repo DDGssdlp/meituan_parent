@@ -1,8 +1,12 @@
 package com.ddg.meituan.authserver.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.Oauth2TokenDto;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -36,9 +40,18 @@ public class OathController {
         this.tokenEndpoint = tokenEndpoint;
     }
 
-
+    @ApiOperation("Oauth2获取token")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "grant_type", value = "授权模式", required = true),
+            @ApiImplicitParam(name = "client_id", value = "Oauth2客户端ID", required = true),
+            @ApiImplicitParam(name = "client_secret", value = "Oauth2客户端秘钥", required = true),
+            @ApiImplicitParam(name = "refresh_token", value = "刷新token"),
+            @ApiImplicitParam(name = "username", value = "登录用户名"),
+            @ApiImplicitParam(name = "password", value = "登录密码")
+    })
     @PostMapping("/token")
-    public R postAccessToken( Principal principal,  @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public CommonResult<Oauth2TokenDto> postAccessToken(Principal principal,
+    @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 
 
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
@@ -48,6 +61,6 @@ public class OathController {
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead(AuthConstant.JWT_TOKEN_PREFIX).build();
 
-        return R.ok(oauth2TokenDto);
+        return CommonResult.success(oauth2TokenDto);
     }
 }

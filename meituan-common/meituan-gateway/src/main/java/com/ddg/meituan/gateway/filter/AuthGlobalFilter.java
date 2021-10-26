@@ -48,7 +48,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.USER_TOKEN_HEADER, userStr).build();
             exchange = exchange.mutate().request(request).build();
         } catch (ParseException e) {
-            log.error("从token中解析用户信息并设置到Header异常 AuthGlobalFilter ", e);
+            log.error("从token中解析用户信息并设置到Header异常 AuthGlobalFilter  message = {}", e.getMessage());
         }
         return chain.filter(exchange);
     }

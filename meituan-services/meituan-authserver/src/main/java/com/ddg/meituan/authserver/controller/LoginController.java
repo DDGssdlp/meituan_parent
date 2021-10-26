@@ -44,7 +44,7 @@ public class LoginController {
     }
 
     @GetMapping("/send/code/{phoneNum}")
-    public R sendCOde(@PathVariable("phoneNum")String phoneNum){
+    public R sendCode(@PathVariable("phoneNum")String phoneNum){
 
         return thirdPartyFeignService.getSendPhoneNum(phoneNum);
 

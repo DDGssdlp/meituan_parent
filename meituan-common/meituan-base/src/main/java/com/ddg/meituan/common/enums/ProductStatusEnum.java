@@ -1,4 +1,8 @@
-package com.ddg.meituan.common.constant;
+package com.ddg.meituan.common.enums;
+
+/**
+ * @author DELL
+ */
 
 public enum ProductStatusEnum {
     NEW_SPU(0, "新建状态"),

@@ -2,6 +2,7 @@ package com.ddg.meituan.authserver.controller;
 
 
 
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.Oauth2TokenDto;
 import com.ddg.meituan.common.utils.HttpUtils;
@@ -40,11 +41,11 @@ public class Oath2Controller {
 	}
 
 	@GetMapping("qq/success")
-	public R qqLogin(){
+	public CommonResult<Oauth2TokenDto> qqLogin(){
 		ResponseEntity<String> stringResponseEntity = HttpUtils.postForJson(null, null, null);
 		String body = stringResponseEntity.getBody();
 		// TODO 登录或者是注册：
-		return R.ok();
+		return CommonResult.success();
 	}
 
 
