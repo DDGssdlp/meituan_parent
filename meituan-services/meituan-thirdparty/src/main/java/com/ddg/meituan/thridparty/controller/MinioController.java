@@ -8,10 +8,12 @@ import com.ddg.miniostarter.MinioHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.ws.rs.GET;
 
 /**
  * Description:
@@ -36,11 +38,14 @@ public class MinioController {
 
     @PostMapping("/upload")
     @ApiOperation("文件上传")
-    public CommonResult<String> uploadFile(@RequestHeader(AuthConstant.USER_TOKEN_HEADER) String userInfo,
+    public CommonResult<String> uploadFile(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required = false) String userInfo,
                                            @RequestParam("file") MultipartFile file){
         // 进行调用 service中的方法  返回的是文件的url地址
-        UserDto userDto = JSON.parseObject(userInfo, UserDto.class);
-        System.out.println(userDto);
+        if(!StringUtils.isEmpty(userInfo)){
+            UserDto userDto = JSON.parseObject(userInfo, UserDto.class);
+            System.out.println(userDto);
+        }
+
         String url = null;
         try {
             url = minioHelper.uploadFile(file.getInputStream(), file.getOriginalFilename(),

@@ -14,22 +14,25 @@ package com.ddg.meituan.gateway.controlleradvice;
  */
 
 import cn.hutool.http.HttpStatus;
+import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.domain.Code;
 import com.ddg.meituan.gateway.domain.CommonResult;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
+import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.HttpMessageReader;
 import org.springframework.http.codec.HttpMessageWriter;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -57,6 +60,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
     private List<ViewResolver> viewResolvers = Collections.emptyList();
     private ThreadLocal<CommonResult<Object>> threadLocal=new ThreadLocal<>();
 
+
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable throwable) {
         log.error("网关异常全局处理 GlobalGatewayExceptionHandler handle  message = {}",throwable.getMessage());
@@ -64,19 +68,20 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
         CommonResult<Object> commonResult = CommonResult.failed(Code.SERVER_ERROR, throwable.getMessage());
         threadLocal.set(commonResult);
         ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
+
+
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse).route(newRequest)
                 .switchIfEmpty(Mono.error(throwable))
                 .flatMap((handler) -> handler.handle(newRequest))
                 .flatMap((response) -> write(exchange, response));
     }
-
     /**
      * 统一返回指定异常信息(指定json格式输出)
      * @param request
      * @return
      */
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request){
-        return ServerResponse.status(HttpStatus.HTTP_UNAVAILABLE)
+        return ServerResponse.status(HttpStatus.HTTP_NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(threadLocal.get()));
     }

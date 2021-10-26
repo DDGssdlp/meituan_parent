@@ -58,7 +58,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
 
-        ServerHttpRequest request = authorizationContext.getExchange().getRequest();
+
+        return Mono.just(new AuthorizationDecision(true));
+
+        /*ServerHttpRequest request = authorizationContext.getExchange().getRequest();
         URI uri = request.getURI();
         PathMatcher pathMatcher = new AntPathMatcher();
         //白名单路径直接放行
@@ -113,7 +116,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .map(GrantedAuthority::getAuthority)
                 .any(authorities::contains)
                 .map(AuthorizationDecision::new)
-                .defaultIfEmpty(new AuthorizationDecision(false));
+                .defaultIfEmpty(new AuthorizationDecision(false));*/
     }
 
 }
