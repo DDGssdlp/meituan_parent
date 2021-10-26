@@ -40,13 +40,21 @@ import java.util.List;
 @EnableAuthorizationServer
 public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    //加密
+    /**
+     * 加密器
+     */
     private final PasswordEncoder passwordEncoder;
-    // 加载用户信息
+    /**
+     * 加载用户信息
+     */
     private final UserServiceImpl userDetailsService;
-    // 认证管理器
+    /**
+     *  认证管理器
+     */
     private final AuthenticationManager authenticationManager;
-    // jwt内容增强器用于存储用户id
+    /**
+     *  jwt内容增强器用于存储用户id
+     */
     private final JwtTokenEnhancer jwtTokenEnhancer;
 
     private final SecurityClientConfigurationProperties properties;
@@ -78,11 +86,11 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .and()
                 // 前端门户
                 .withClient(jwt.getPortalAppName())
-                //.secret(passwordEncoder.encode(jwt.getKeyPairPassword()))
-                //.scopes(jwt.getScopes())
+                .secret(passwordEncoder.encode(jwt.getKeyPairPassword()))
+                .scopes(jwt.getScopes())
                 .authorizedGrantTypes(jwt.getAuthorizedGrantTypes())
-                .accessTokenValiditySeconds(jwt.getTokenExpire());
-                //.refreshTokenValiditySeconds(jwt.getRefreshTokenExpire());
+                .accessTokenValiditySeconds(jwt.getTokenExpire())
+                .refreshTokenValiditySeconds(jwt.getRefreshTokenExpire());
     }
 
     @Override
@@ -91,9 +99,11 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         List<TokenEnhancer> delegates = new ArrayList<>();
         delegates.add(jwtTokenEnhancer);
         delegates.add(accessTokenConverter());
-        enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器
+        //配置JWT的内容增强器
+        enhancerChain.setTokenEnhancers(delegates);
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService) //配置加载用户信息的服务
+                //配置加载用户信息的服务
+                .userDetailsService(userDetailsService)
                 .accessTokenConverter(accessTokenConverter())
                 .tokenEnhancer(enhancerChain);
     }

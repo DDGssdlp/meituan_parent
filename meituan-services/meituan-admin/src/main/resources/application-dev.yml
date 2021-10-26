@@ -1,5 +1,4 @@
-ipAddr: 49.232.68.245
-
+ipAddr: 101.200.140.80
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource

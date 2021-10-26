@@ -29,14 +29,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().
-                authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
-                // 将获取公钥接口进行暴露
-                .authorizeRequests().antMatchers("/rsa/publicKey", "/auth/**").permitAll()
-                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                .antMatchers("/rsa/publicKey").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable();
+
     }
-    // 可以在这里创建内存用户
+
+    /**
+     *  这里可以创建内存用户
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);

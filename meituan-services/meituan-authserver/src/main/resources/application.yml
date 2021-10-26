@@ -1,11 +1,6 @@
 ipAddr: 101.200.140.80
 spring:
-  application:
-    name: meituan-authserver
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
+
 #    sentinel:
 #      transport:
 #        dashboard: localhost:8333

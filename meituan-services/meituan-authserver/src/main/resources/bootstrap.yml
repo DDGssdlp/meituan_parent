@@ -1,0 +1,12 @@
+ipAddr: 101.200.140.80
+
+spring:
+  application:
+    name: meituan-authserver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${ipAddr}:8848
+
+      config:
+        server-addr: ${ipAddr}:8848

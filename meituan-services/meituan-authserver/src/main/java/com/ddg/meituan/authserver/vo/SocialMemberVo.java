@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author DELL
+ */
 @Data
 public class SocialMemberVo implements Serializable {
 

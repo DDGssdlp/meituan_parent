@@ -1,14 +1,6 @@
 ipAddr: 101.200.140.80
 
 spring:
-  application:
-    name: meituan-third-party
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-#      config:
-#        server-addr: 127.0.0.1:8848
   redis:
     host: ${ipAddr}
     lettuce:
@@ -46,11 +38,11 @@ spring:
 
 
 
+
 server:
   port: 11000
 
 # minio
-
 minio:
   client:
     endpoint: http://${ipAddr}:9000

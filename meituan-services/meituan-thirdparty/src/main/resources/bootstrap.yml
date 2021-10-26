@@ -1,0 +1,13 @@
+ipAddr: 101.200.140.80
+
+spring:
+  application:
+    name: meituan-third-party
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${ipAddr}:8848
+
+      config:
+        server-addr: ${ipAddr}:8848
