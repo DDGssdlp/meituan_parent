@@ -59,9 +59,9 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
 
 
-        return Mono.just(new AuthorizationDecision(true));
+        //return Mono.just(new AuthorizationDecision(true));
 
-        /*ServerHttpRequest request = authorizationContext.getExchange().getRequest();
+        ServerHttpRequest request = authorizationContext.getExchange().getRequest();
         URI uri = request.getURI();
         PathMatcher pathMatcher = new AntPathMatcher();
         //白名单路径直接放行
@@ -106,7 +106,9 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //认证通过且角色匹配的用户可访问当前路径
         //从Redis中获取当前路径可访问角色列表  使用 redis 进行的是路径粒度 和 权限的区分
         String roles = (String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
-
+        if (StringUtils.isEmpty(roles)){
+            return Mono.just(new AuthorizationDecision(true));
+        }
         List<String> authorities = Convert.toList(String.class, roles);
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
@@ -116,7 +118,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .map(GrantedAuthority::getAuthority)
                 .any(authorities::contains)
                 .map(AuthorizationDecision::new)
-                .defaultIfEmpty(new AuthorizationDecision(false));*/
+                .defaultIfEmpty(new AuthorizationDecision(false));
     }
 
 }

@@ -71,6 +71,7 @@ spring:
           jwk-set-uri: 'http://localhost:12000/rsa/publicKey'
   redis:
     host: ${ipAddr}
+    password: redis123
 
 
 secure:
