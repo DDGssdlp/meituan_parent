@@ -4,16 +4,14 @@ import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import com.ddg.meituan.authserver.feign.ThirdPartyFeignService;
 import com.ddg.meituan.authserver.service.LoginService;
 import com.ddg.meituan.authserver.vo.MemberRegisterVo;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.R;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -44,31 +42,31 @@ public class LoginController {
     }
 
     @GetMapping("/send/code/{phoneNum}")
-    public R sendCode(@PathVariable("phoneNum")String phoneNum){
+    public CommonResult sendCode(@PathVariable("phoneNum")String phoneNum){
 
         return thirdPartyFeignService.getSendPhoneNum(phoneNum);
 
     }
 
     @PostMapping("/register")
-    public R register(@RequestBody  @Validated MemberRegisterVo memberRegisterVo) throws MeituanSysException {
-        return  loginService.register(memberRegisterVo);
+    public CommonResult register(@RequestBody  @Validated MemberRegisterVo memberRegisterVo) throws MeituanSysException {
+        return loginService.register(memberRegisterVo);
     }
 
     @PostMapping("/login")
-    public R login(@RequestBody  MemberRegisterVo memberRegisterVo) throws MeituanSysException{
+    public CommonResult login(@RequestBody  MemberRegisterVo memberRegisterVo) throws MeituanSysException{
         return loginService.login(memberRegisterVo);
     }
 
     @GetMapping("/exit")
-    public R exit(@RequestParam("loginUserPhone") String phone){
+    public CommonResult exit(@RequestParam("loginUserPhone") String phone){
         String loginUserStr = (String) redisTemplate.opsForHash().get(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY,
                 phone);
 
         if (!StringUtils.isEmpty(loginUserStr)){
             redisTemplate.opsForHash().delete(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY, phone);
         }
-        return R.ok();
+        return CommonResult.success();
     }
 
 

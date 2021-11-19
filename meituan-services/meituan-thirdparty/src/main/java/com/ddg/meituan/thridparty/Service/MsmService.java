@@ -1,9 +1,6 @@
 package com.ddg.meituan.thridparty.Service;
 
 import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.R;
-
-import java.util.Map;
 
 /**
  * Description:

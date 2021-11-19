@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.Oauth2TokenDto;
+import com.ddg.meituan.common.exception.MeituanLoginException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +56,10 @@ public class OathController {
 
 
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
+        if (oAuth2AccessToken == null){
+            throw  new MeituanLoginException("获取token失败");
+        }
+
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
                 .token(oAuth2AccessToken.getValue())
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())

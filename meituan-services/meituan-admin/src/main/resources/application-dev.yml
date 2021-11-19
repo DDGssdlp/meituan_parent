@@ -34,10 +34,6 @@ spring:
                     config:
                         multi-statement-allow: true
 
-    cloud:
-        nacos:
-            discovery:
-                server-addr: 127.0.0.1:8848
 ##多数据源的配置
 #dynamic:
 #  datasource:

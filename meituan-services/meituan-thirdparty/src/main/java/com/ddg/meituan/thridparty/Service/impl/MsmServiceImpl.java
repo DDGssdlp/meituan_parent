@@ -10,17 +10,14 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 
 import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.R;
 import com.ddg.meituan.common.utils.RandomUtil;
 import com.ddg.meituan.thridparty.Service.MsmService;
-import com.ddg.meituan.thridparty.ThirdPartyApplication;
 import com.ddg.meituan.thridparty.component.OSSConfigurationProperties;
 import com.ddg.meituan.thridparty.constant.ThirdPartyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.Map;

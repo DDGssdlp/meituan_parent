@@ -1,8 +1,6 @@
 package com.ddg.meituan.member.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
 import com.ddg.meituan.member.constant.MemberConstant;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;

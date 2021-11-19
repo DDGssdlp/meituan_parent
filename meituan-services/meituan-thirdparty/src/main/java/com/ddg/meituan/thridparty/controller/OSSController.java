@@ -1,13 +1,10 @@
 package com.ddg.meituan.thridparty.controller;
 
-
-
-import com.ddg.meituan.common.utils.R;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.thridparty.Service.OSSService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,17 +27,21 @@ import org.springframework.web.multipart.MultipartFile;
 @Api("阿里云oss 文件上传")
 public class OSSController {
 
+    private final OSSService ossService;
+
     @Autowired
-    private OSSService ossService;
+    public OSSController(OSSService ossService) {
+        this.ossService = ossService;
+    }
 
 
     @PostMapping("/upload")
     @ApiOperation("文件上传")
-    public R uploadFile(MultipartFile file){
+    public CommonResult<String> uploadFile(MultipartFile file){
         // 进行调用 service中的方法  返回的是文件的url地址
 
         String url =  ossService.uploadFileAvatar(file);
-        return R.ok().put("data", url);
+        return CommonResult.success(url);
     }
 
 

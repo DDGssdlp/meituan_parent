@@ -1,7 +1,6 @@
 package com.ddg.meituan.authserver.feign;
 
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
-import com.ddg.meituan.common.utils.R;
+import com.ddg.meituan.common.api.CommonResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ThirdPartyFeignService {
 
     @GetMapping("/thirdparty/msm/send/{phoneNum}")
-    R getSendPhoneNum(@PathVariable("phoneNum") String phoneNum);
+    CommonResult getSendPhoneNum(@PathVariable("phoneNum") String phoneNum);
 
 
 }

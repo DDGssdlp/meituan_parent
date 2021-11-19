@@ -5,7 +5,6 @@ import com.ddg.meituan.common.api.Code;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.exception.RRException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.validation.BindingResult;
@@ -39,15 +38,15 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(Code.UN_NONE_EXCEPTION);
     }
 
-    @ExceptionHandler(RRException.class)
-    public CommonResult<Object> rrExceptionHandler(Exception e){
-        if (e instanceof RRException){
-            return CommonResult.failed(Code.RR_EXCEPTION);
-        }
-        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.VALID_EXCEPTION.getHintMessage(),
-                e.getMessage());
-    }
+//    @ExceptionHandler(RRException.class)
+//    public CommonResult<Object> rrExceptionHandler(Exception e){
+//        if (e instanceof RRException){
+//            return CommonResult.failed(Code.RR_EXCEPTION);
+//        }
+//        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
+//        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.VALID_EXCEPTION.getHintMessage(),
+//                e.getMessage());
+//    }
 
 
 

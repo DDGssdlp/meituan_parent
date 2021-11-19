@@ -1,10 +1,7 @@
 package com.ddg.meituan.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
 import com.ddg.meituan.product.constant.BrandConstant;
-import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.service.CategoryBrandRelationService;
 import com.ddg.meituan.product.vo.BrandVo;

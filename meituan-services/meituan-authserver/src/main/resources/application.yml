@@ -35,6 +35,10 @@ ribbon:
   ConnectTimeout: 30000
 
 
+# feign 开启服务的降级和熔断
+feign:
+  sentinel:
+    enabled: true
 
 security:
   jwt:

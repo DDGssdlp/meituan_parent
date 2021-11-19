@@ -3,8 +3,6 @@ package com.ddg.meituan.product.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.vo.BrandVo;
 

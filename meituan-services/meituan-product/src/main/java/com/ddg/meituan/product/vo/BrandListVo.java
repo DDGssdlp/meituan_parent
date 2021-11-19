@@ -1,15 +1,8 @@
 package com.ddg.meituan.product.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.ddg.meituan.common.annotation.ListValue;
-import com.ddg.meituan.common.validgroup.AddGroup;
-import com.ddg.meituan.common.validgroup.UpdateGroup;
 import lombok.Data;
-import org.hibernate.validator.constraints.URL;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Description:

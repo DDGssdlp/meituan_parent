@@ -1,10 +1,6 @@
 package com.ddg.meituan.product.controller;
 
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
-import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.entity.ProductInfoEntity;
-import com.ddg.meituan.product.service.BrandService;
 import com.ddg.meituan.product.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

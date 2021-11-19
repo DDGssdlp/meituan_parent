@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.ddg.meituan.common.annotation.ListValue;
-import com.ddg.meituan.common.validgroup.AddGroup;
-import com.ddg.meituan.common.validgroup.UpdateGroup;
+import com.ddg.meituan.common.annotation.vaildator.ListValue;
+import com.ddg.meituan.common.annotation.validgroup.services.AddGroup;
+import com.ddg.meituan.common.annotation.validgroup.services.UpdateGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 

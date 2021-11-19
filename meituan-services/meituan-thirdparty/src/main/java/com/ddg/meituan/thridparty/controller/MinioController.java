@@ -8,12 +8,12 @@ import com.ddg.miniostarter.MinioHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.ws.rs.GET;
+
 
 /**
  * Description:
@@ -33,8 +33,12 @@ import javax.ws.rs.GET;
 @Slf4j
 public class MinioController {
 
-    @Resource
-    private MinioHelper minioHelper;
+    private final MinioHelper minioHelper;
+
+    @Autowired
+    public MinioController(MinioHelper minioHelper) {
+        this.minioHelper = minioHelper;
+    }
 
     @PostMapping("/upload")
     @ApiOperation("文件上传")

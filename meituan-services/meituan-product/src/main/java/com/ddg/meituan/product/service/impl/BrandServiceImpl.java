@@ -16,8 +16,6 @@ import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.Query;
 
 import com.ddg.meituan.product.dao.BrandDao;
 import com.ddg.meituan.product.entity.BrandEntity;

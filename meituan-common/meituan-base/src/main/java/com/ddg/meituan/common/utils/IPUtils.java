@@ -1,16 +1,10 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package com.ddg.meituan.common.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Slf4j
 public class IPUtils {
-	private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
 
 	/**
 	 * 获取IP地址
@@ -48,8 +42,15 @@ public class IPUtils {
                 ip = request.getRemoteAddr();
             }
         } catch (Exception e) {
-        	logger.error("IPUtils ERROR ", e);
+        	log.error("IPUtils ERROR ", e);
         }
+        
+        //使用代理，则获取第一个IP地址
+        if(StringUtils.isEmpty(ip) && ip.length() > 15) {
+			if(ip.indexOf(",") > 0) {
+				ip = ip.substring(0, ip.indexOf(","));
+			}
+		}
         
         return ip;
     }

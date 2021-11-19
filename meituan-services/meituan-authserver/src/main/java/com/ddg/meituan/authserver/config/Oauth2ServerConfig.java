@@ -106,7 +106,12 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .accessTokenConverter(accessTokenConverter())
                 .tokenEnhancer(enhancerChain);
+
+
     }
+
+
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {

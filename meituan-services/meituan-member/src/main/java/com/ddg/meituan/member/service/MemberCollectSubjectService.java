@@ -1,7 +1,6 @@
 package com.ddg.meituan.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.member.entity.MemberCollectSubjectEntity;
 
 import java.util.Map;

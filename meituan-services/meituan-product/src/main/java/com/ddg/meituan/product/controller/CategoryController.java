@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.service.CategoryService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
 
 
 /**

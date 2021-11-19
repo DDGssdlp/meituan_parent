@@ -1,10 +1,8 @@
 package com.ddg.meituan.authserver.service;
 
 import com.ddg.meituan.authserver.vo.MemberRegisterVo;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.R;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * Description:
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 public interface LoginService {
 
-     R register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
+     CommonResult register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
 
-     R login(MemberRegisterVo memberRegisterVo);
+     CommonResult login(MemberRegisterVo memberRegisterVo);
 }

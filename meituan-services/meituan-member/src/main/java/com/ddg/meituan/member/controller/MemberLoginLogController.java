@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.member.entity.MemberLoginLogEntity;
 import com.ddg.meituan.member.service.MemberLoginLogService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
-
 
 
 /**

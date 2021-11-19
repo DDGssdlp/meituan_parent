@@ -1,16 +1,14 @@
 package com.ddg.meituan.authserver.feign;
 
 import com.ddg.meituan.authserver.vo.MemberRegisterVo;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * Description:
@@ -28,10 +26,10 @@ import javax.servlet.http.HttpSession;
 public interface MemberFeignService {
 
     @PostMapping("/member/member/register")
-    R register(@RequestBody MemberRegisterVo memberRegisterVo) throws MeituanSysException;
+    CommonResult register(@RequestBody MemberRegisterVo memberRegisterVo);
 
     @PostMapping("/member/member/login")
-    R login(@RequestBody MemberRegisterVo memberRegisterVo) throws MeituanSysException;
+    CommonResult login(@RequestBody MemberRegisterVo memberRegisterVo);
 
     @GetMapping("/member/member/loadByUsername")
     UserDto loadUserByUsername(@RequestParam String username);

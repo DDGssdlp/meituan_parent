@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.service.BrandService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
-
 
 
 /**

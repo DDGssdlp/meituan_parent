@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.member.entity.MemberReceiveAddressEntity;
 import com.ddg.meituan.member.service.MemberReceiveAddressService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.R;
-
 
 
 /**
