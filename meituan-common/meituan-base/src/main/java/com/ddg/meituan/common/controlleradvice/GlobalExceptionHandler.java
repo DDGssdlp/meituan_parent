@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
             MeituanSysException exception = (MeituanSysException) e;
             return CommonResult.failed(Code.SERVER_ERROR);
         }
-        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
+        log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
         return CommonResult.failed(Code.UN_NONE_EXCEPTION);
     }
 

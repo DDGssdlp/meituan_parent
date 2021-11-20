@@ -2,6 +2,7 @@ package com.ddg.meituan.member.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.*;
@@ -64,9 +65,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     @Override
-    public R register(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
+    public CommonResult<Long> register(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
         MemberEntity entity = registerMember(memberRegisterVo);
-        return R.ok().put("register", entity.getId());
+        return CommonResult.success(entity.getId());
     }
 
     @Override
@@ -87,7 +88,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
 
     @Override
-    public R login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException {
+    public CommonResult<MemberRegisterVo> login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException {
         String phone = memberRegisterVo.getUserName();
         String phoneCode = memberRegisterVo.getPhoneCode();
 
@@ -106,7 +107,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     /**
      * 使用手机号和密码进行登录
      */
-    private R loginByPassword(MemberRegisterVo memberRegisterVo, HttpSession session, MemberEntity entity) {
+    private CommonResult<MemberRegisterVo> loginByPassword(MemberRegisterVo memberRegisterVo, HttpSession session, MemberEntity entity) {
         String pwd = entity.getPassword();
         if (!passwordEncoder.matches(memberRegisterVo.getPassword(), pwd)) {
             throw new MeituanLoginException("账号或者是密码不正确");
@@ -121,7 +122,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         saveLoginLog(entity.getId());
 
         session.setAttribute(MemberConstant.LOGIN_USER, memberRegisterVo);
-        return R.ok().put("login", memberRegisterVo);
+        return CommonResult.success(memberRegisterVo);
     }
 
     /**
@@ -136,7 +137,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     /**
      * 要是传入的有验证码，使用手机号和验证码进行登录的
      */
-    private R loginByVerificationCode(MemberRegisterVo memberRegisterVo, HttpSession session, String phone, String phoneCode) {
+    private CommonResult<MemberRegisterVo> loginByVerificationCode(MemberRegisterVo memberRegisterVo, HttpSession session,
+                                                    String phone,
+                                      String phoneCode) {
         String phoneCodeFromRedis = getPhoneCodeFromRedis(phone, phoneCode);
         if (!phoneCode.equals(phoneCodeFromRedis)) {
             throw new MeituanLoginException("验证码失效！");
@@ -164,11 +167,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         // 将验证码删除
         redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + phone);
         session.setAttribute(MemberConstant.LOGIN_USER, memberRegisterVo);
-        return R.ok().put("login", memberRegisterVo);
+        return CommonResult.success(memberRegisterVo);
     }
 
     /**
-     * 保存登录日志
+     * 保存登录日志 这里使用异步的形式
      */
     private void saveLoginLog(Long memberId) {
         HttpServletRequest request = ServletContextUtils.getHttpServletRequest();

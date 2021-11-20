@@ -1,7 +1,9 @@
 package com.ddg.meituan.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 
@@ -24,12 +26,12 @@ public interface MemberService extends IService<MemberEntity> {
      */
     MemberEntity getOneByPhone(String phone);
 
-    R register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
+    CommonResult<Long> register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
 
     boolean checkPhoneNum(String phoneNum);
 
     boolean checkUsername(String username);
 
-    R login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException;
+    CommonResult login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException;
 }
 
