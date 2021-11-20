@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddg.meituan.common.xss.SQLFilter;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Map;
 
 /**
  * 查询参数
@@ -23,32 +22,32 @@ import java.util.Map;
  */
 public class Query<T> {
 
-    public IPage<T> getPage(Map<String, Object> params) {
-        return this.getPage(params, null, false);
+    public IPage<T> getPage(PageParam param) {
+        return this.getPage(param, null, false);
     }
 
-    public IPage<T> getPage(Map<String, Object> params, String defaultOrderField, boolean isAsc) {
+    public IPage<T> getPage(PageParam param, String defaultOrderField, boolean isAsc) {
         //分页参数
         long curPage = 1;
         long limit = 10;
 
-        if(params.get(Constant.PAGE) != null){
-            curPage = Long.parseLong((String)params.get(Constant.PAGE));
+        if(param.getPage() != null){
+            curPage = Long.parseLong(param.getPage());
         }
-        if(params.get(Constant.LIMIT) != null){
-            limit = Long.parseLong((String)params.get(Constant.LIMIT));
+        if(param.getLimit() != null){
+            limit = Long.parseLong(param.getLimit());
         }
 
         //分页对象
         Page<T> page = new Page<>(curPage, limit);
 
         //分页参数
-        params.put(Constant.PAGE, page);
+        param.put(page);
 
         //排序字段
         //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
-        String orderField = SQLFilter.sqlInject((String)params.get(Constant.ORDER_FIELD));
-        String order = (String)params.get(Constant.ORDER);
+        String orderField = SQLFilter.sqlInject(param.getSidx());
+        String order = param.getOrder();
 
 
         //前端字段排序
@@ -74,4 +73,6 @@ public class Query<T> {
 
         return page;
     }
+
+
 }

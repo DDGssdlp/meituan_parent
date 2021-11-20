@@ -1,0 +1,9 @@
+ipAddr: 101.200.140.80
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${ipAddr}:8848
+
+      config:
+        enabled: false

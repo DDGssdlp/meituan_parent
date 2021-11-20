@@ -1,9 +1,11 @@
 package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +31,10 @@ public class BrandController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("product:brand:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = brandService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = brandService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
     /**
@@ -40,10 +42,10 @@ public class BrandController {
      */
     @GetMapping("/list/page")
     //@RequiresPermissions("product:brand:list")
-    public R getBrandListPage(@RequestParam Map<String, Object> params){
-        PageUtils page = brandService.queryBrandListPage(params);
+    public CommonResult<PageUtils> getBrandListPage(PageParam param){
+        PageUtils page = brandService.queryBrandListPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -52,10 +54,10 @@ public class BrandController {
      */
     @GetMapping("/info/{brandId}")
     //@RequiresPermissions("product:brand:info")
-    public R info(@PathVariable("brandId") Long brandId){
+    public CommonResult<BrandEntity> info(@PathVariable("brandId") Long brandId){
 		BrandEntity brand = brandService.getById(brandId);
 
-        return R.ok().put("brand", brand);
+        return CommonResult.success(brand);
     }
 
     /**
@@ -63,10 +65,10 @@ public class BrandController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public CommonResult<Object> save(@RequestBody BrandEntity brand){
 		brandService.save(brand);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +76,10 @@ public class BrandController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public CommonResult<Object> update(@RequestBody BrandEntity brand){
 		brandService.updateById(brand);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -85,16 +87,16 @@ public class BrandController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("product:brand:delete")
-    public R delete(@RequestBody Long[] brandIds){
+    public CommonResult<Object> delete(@RequestBody Long[] brandIds){
 		brandService.removeByIds(Arrays.asList(brandIds));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     @PostMapping("/update/status")
-    public R updateStatus(@RequestBody BrandEntity brandEntity){
+    public CommonResult<Object> updateStatus(@RequestBody BrandEntity brandEntity){
         brandService.updateStatus(brandEntity);
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

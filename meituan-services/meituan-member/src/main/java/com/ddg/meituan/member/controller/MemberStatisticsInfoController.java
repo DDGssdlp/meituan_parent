@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class MemberStatisticsInfoController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:memberstatisticsinfo:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberStatisticsInfoService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberStatisticsInfoService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +44,10 @@ public class MemberStatisticsInfoController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:memberstatisticsinfo:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberStatisticsInfoEntity> info(@PathVariable("id") Long id){
 		MemberStatisticsInfoEntity memberStatisticsInfo = memberStatisticsInfoService.getById(id);
 
-        return R.ok().put("memberStatisticsInfo", memberStatisticsInfo);
+        return CommonResult.success(memberStatisticsInfo);
     }
 
     /**
@@ -52,10 +55,10 @@ public class MemberStatisticsInfoController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:memberstatisticsinfo:save")
-    public R save(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
+    public CommonResult<Object> save(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
 		memberStatisticsInfoService.save(memberStatisticsInfo);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +66,10 @@ public class MemberStatisticsInfoController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:memberstatisticsinfo:update")
-    public R update(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
+    public CommonResult<Object> update(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
 		memberStatisticsInfoService.updateById(memberStatisticsInfo);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +77,10 @@ public class MemberStatisticsInfoController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:memberstatisticsinfo:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberStatisticsInfoService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

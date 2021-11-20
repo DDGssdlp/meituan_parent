@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.member.entity.MemberCollectSpuEntity;
@@ -29,10 +33,10 @@ public class MemberCollectSpuController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:membercollectspu:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberCollectSpuService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberCollectSpuService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +45,10 @@ public class MemberCollectSpuController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:membercollectspu:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberCollectSpuEntity> info(@PathVariable("id") Long id){
 		MemberCollectSpuEntity memberCollectSpu = memberCollectSpuService.getById(id);
 
-        return R.ok().put("memberCollectSpu", memberCollectSpu);
+        return CommonResult.success(memberCollectSpu);
     }
 
     /**
@@ -52,10 +56,10 @@ public class MemberCollectSpuController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:membercollectspu:save")
-    public R save(@RequestBody MemberCollectSpuEntity memberCollectSpu){
+    public CommonResult<Object> save(@RequestBody MemberCollectSpuEntity memberCollectSpu){
 		memberCollectSpuService.save(memberCollectSpu);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +67,10 @@ public class MemberCollectSpuController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:membercollectspu:update")
-    public R update(@RequestBody MemberCollectSpuEntity memberCollectSpu){
+    public CommonResult<Object> update(@RequestBody MemberCollectSpuEntity memberCollectSpu){
 		memberCollectSpuService.updateById(memberCollectSpu);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +78,10 @@ public class MemberCollectSpuController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:membercollectspu:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberCollectSpuService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

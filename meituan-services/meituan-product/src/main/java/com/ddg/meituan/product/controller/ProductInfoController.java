@@ -1,5 +1,8 @@
 package com.ddg.meituan.product.controller;
 
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.product.entity.ProductInfoEntity;
 import com.ddg.meituan.product.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,10 @@ public class ProductInfoController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("product:brand:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = ProductInfoService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = ProductInfoService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -48,10 +51,10 @@ public class ProductInfoController {
      */
     @GetMapping("/info/{productId}")
     //@RequiresPermissions("product:brand:info")
-    public R info(@PathVariable("productId") Long brandId){
+    public CommonResult<ProductInfoEntity> info(@PathVariable("productId") Long brandId){
         ProductInfoEntity productInfoEntity = ProductInfoService.getById(brandId);
 
-        return R.ok().put("brand", productInfoEntity);
+        return CommonResult.success(productInfoEntity);
     }
 
     /**
@@ -59,10 +62,10 @@ public class ProductInfoController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody ProductInfoEntity productInfoEntity){
+    public CommonResult<Object> save(@RequestBody ProductInfoEntity productInfoEntity){
         ProductInfoService.saveProduct(productInfoEntity);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -70,10 +73,10 @@ public class ProductInfoController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody ProductInfoEntity productInfoEntity){
+    public CommonResult<Object> update(@RequestBody ProductInfoEntity productInfoEntity){
         ProductInfoService.updateById(productInfoEntity);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -81,19 +84,19 @@ public class ProductInfoController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("product:brand:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
         ProductInfoService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
     /**
      *  商品上架
      * */
     @PostMapping("/up")
     //@RequiresPermissions("product:brand:delete")
-    public R delete(@RequestBody Long id){
+    public CommonResult<Object> delete(@RequestBody Long id){
         ProductInfoService.upStateById(id);
 
-        return R.ok();
+        return CommonResult.success();
     }
 }

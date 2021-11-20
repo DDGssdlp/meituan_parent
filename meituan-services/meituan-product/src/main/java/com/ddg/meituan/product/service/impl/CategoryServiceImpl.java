@@ -3,6 +3,9 @@ package com.ddg.meituan.product.service.impl;
 
 import com.ddg.meituan.common.annotation.RedisCache;
 import com.ddg.meituan.common.annotation.RemoveCache;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.Query;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.CategoryDao;
 import com.ddg.meituan.product.entity.CategoryEntity;
@@ -30,9 +33,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     private CategoryDao categoryDao;
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<CategoryEntity> page = this.page(
-                new Query<CategoryEntity>().getPage(params),
+                new Query<CategoryEntity>().getPage(param),
                 new QueryWrapper<CategoryEntity>()
         );
 
@@ -65,16 +68,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-
-    public PageUtils queryPageById(Map<String, Object> params) {
-        String cartIdStr = (String) params.get(ProductConstant.CART_ID);
+    public PageUtils queryPageById(PageParam param) {
+        String cartIdStr = param.getPage();
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(cartIdStr)) {
             Long cartId = Long.parseLong(cartIdStr);
             wrapper.eq(ProductConstant.PARENT_CART_ID, cartId);
         }
         IPage<CategoryEntity> page = this.page(
-                new Query<CategoryEntity>().getPage(params),
+                new Query<CategoryEntity>().getPage(param),
                 wrapper
         );
         return new PageUtils(page);

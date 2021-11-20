@@ -1,6 +1,9 @@
 package com.ddg.meituan.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.product.constant.BrandConstant;
 import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.service.CategoryBrandRelationService;
@@ -36,71 +39,71 @@ public class CategoryBrandRelationController {
 
 
     @GetMapping("/brands/list")
-    public R relationBrandsList(@RequestParam("catId") Long catId){
+    public CommonResult<List<BrandVo>> relationBrandsList(@RequestParam("catId") Long catId){
         List<BrandVo> BrandVos = categoryBrandRelationService.getBrandsByCatId(catId);
 
-        return R.ok().put("data", BrandVos);
+        return CommonResult.success(BrandVos);
     }
 
     /**
      * 获取当前品牌的所有分类列表
      */
     @GetMapping("/catelog/list")
-    public R list(@RequestParam("brandId") Long brandId){
+    public CommonResult<List<CategoryBrandRelationEntity>> list(@RequestParam("brandId") Long brandId){
         List<CategoryBrandRelationEntity> data = categoryBrandRelationService.list(
                 new QueryWrapper<CategoryBrandRelationEntity>().eq(BrandConstant.BRAND_ID, brandId)
         );
 
-        return R.ok().put("data", data);
+        return CommonResult.success(data);
     }
 
     /**
      * 列表
      */
     @GetMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryBrandRelationService.queryPage(params);
+    public CommonResult<PageUtils> list(@RequestParam PageParam param){
+        PageUtils page = categoryBrandRelationService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
     /**
      * 信息
      */
     @GetMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<CategoryBrandRelationEntity> info(@PathVariable("id") Long id){
         CategoryBrandRelationEntity categoryBrandRelation = categoryBrandRelationService.getById(id);
 
-        return R.ok().put("categoryBrandRelation", categoryBrandRelation);
+        return CommonResult.success(categoryBrandRelation);
     }
 
     /**
      * 保存
      */
     @PostMapping("/save")
-    public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
+    public CommonResult<Object> save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
         categoryBrandRelationService.saveDetail(categoryBrandRelation);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
      * 修改
      */
     @PostMapping("/update")
-    public R update(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
+    public CommonResult<Object> update(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
         categoryBrandRelationService.updateById(categoryBrandRelation);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
      * 删除
      */
     @PostMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
         categoryBrandRelationService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 }

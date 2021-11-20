@@ -1,7 +1,7 @@
 package com.ddg.meituan.thridparty.controller;
 
 import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.thridparty.Service.OSSService;
+import com.ddg.meituan.thridparty.Service.OssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Api("阿里云oss 文件上传")
 public class OSSController {
 
-    private final OSSService ossService;
+    private final OssService ossService;
 
     @Autowired
-    public OSSController(OSSService ossService) {
+    public OSSController(OssService ossService) {
         this.ossService = ossService;
     }
 

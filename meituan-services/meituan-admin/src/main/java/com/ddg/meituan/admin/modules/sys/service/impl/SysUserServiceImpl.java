@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysUserDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
+import com.ddg.meituan.common.utils.PageParam;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 
 	@Override
-	public Page queryPage(Map<String, Object> params) {
+	public Page queryPage(PageParam param) {
 		return null;
 	}
 

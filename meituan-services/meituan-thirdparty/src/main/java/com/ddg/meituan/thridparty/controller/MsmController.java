@@ -41,7 +41,13 @@ public class MsmController {
 
     @GetMapping("/send/{phoneNum}")
     @ApiOperation("通过手机号发送短信验证码")
-    public CommonResult getSendPhoneNum(@PathVariable("phoneNum") String phoneNum){
+    public CommonResult<String> getSendPhoneNum(@PathVariable("phoneNum") String phoneNum){
      return msmService.sendCode(phoneNum);
+    }
+
+    @GetMapping("/hello")
+    @ApiOperation("通过手机号发送短信验证码")
+    public String getHello(){
+        return "hello world";
     }
 }

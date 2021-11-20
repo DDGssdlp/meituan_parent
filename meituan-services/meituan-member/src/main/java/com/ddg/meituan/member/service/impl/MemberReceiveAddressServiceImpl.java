@@ -1,5 +1,8 @@
 package com.ddg.meituan.member.service.impl;
 
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.Query;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,9 +18,9 @@ import com.ddg.meituan.member.service.MemberReceiveAddressService;
 public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAddressDao, MemberReceiveAddressEntity> implements MemberReceiveAddressService {
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<MemberReceiveAddressEntity> page = this.page(
-                new Query<MemberReceiveAddressEntity>().getPage(params),
+                new Query<MemberReceiveAddressEntity>().getPage(param),
                 new QueryWrapper<MemberReceiveAddressEntity>()
         );
 

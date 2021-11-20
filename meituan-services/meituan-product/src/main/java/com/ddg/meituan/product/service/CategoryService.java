@@ -1,10 +1,13 @@
 package com.ddg.meituan.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+
 import com.ddg.meituan.product.entity.CategoryEntity;
 
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * 商品三级分类
@@ -15,13 +18,13 @@ import java.util.Map;
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(PageParam param);
 
     List<CategoryEntity> getListWithTree();
 
     void changeStatus(CategoryEntity categoryEntity);
 
-    PageUtils queryPageById(Map<String, Object> params);
+    PageUtils queryPageById(PageParam param);
 
     List<CategoryEntity> getParentList();
 }

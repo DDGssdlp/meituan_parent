@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.Query;
 import com.ddg.meituan.product.constant.BrandConstant;
 import com.ddg.meituan.product.dao.BrandDao;
 import com.ddg.meituan.product.dao.CategoryBrandRelationDao;
@@ -43,9 +46,9 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	private BrandService brandService;
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<CategoryBrandRelationEntity> page = this.page(
-                new Query<CategoryBrandRelationEntity>().getPage(params),
+                new Query<CategoryBrandRelationEntity>().getPage(param),
                 new QueryWrapper<CategoryBrandRelationEntity>()
         );
 

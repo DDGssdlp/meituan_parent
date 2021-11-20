@@ -1,6 +1,9 @@
 package com.ddg.meituan.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.Query;
 import com.ddg.meituan.common.utils.RandomUtil;
 import com.ddg.meituan.product.constant.BrandConstant;
 import com.ddg.meituan.product.constant.ProductConstant;
@@ -36,9 +39,9 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<BrandEntity> page = this.page(
-                new Query<BrandEntity>().getPage(params),
+                new Query<BrandEntity>().getPage(param),
                 new QueryWrapper<BrandEntity>()
         );
 
@@ -56,8 +59,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     @Override
-    public PageUtils queryBrandListPage(Map<String, Object> params) {
-        String catId = (String) params.get(ProductConstant.CART_ID);
+    public PageUtils queryBrandListPage(PageParam param) {
+        String catId = param.getLimit();
         // 使用catID 将下面的所有品牌进行查询
         QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(BrandConstant.CATELOG_ID, catId);
@@ -70,7 +73,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         List<Long> brandIds = list.stream()
                 .map(CategoryBrandRelationEntity::getBrandId).collect(Collectors.toList());
         IPage<BrandEntity> page = this.page(
-                new Query<BrandEntity>().getPage(params),
+                new Query<BrandEntity>().getPage(param),
                 new QueryWrapper<BrandEntity>().in(BrandConstant.BRAND_ID, brandIds)
         );
         List<BrandListVo> brandListVos = page.getRecords().stream().map(brandEntity -> {

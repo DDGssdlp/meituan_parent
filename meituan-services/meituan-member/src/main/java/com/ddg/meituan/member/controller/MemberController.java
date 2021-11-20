@@ -1,6 +1,9 @@
 package com.ddg.meituan.member.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.member.constant.MemberConstant;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;
@@ -37,10 +40,10 @@ public class MemberController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:member:list")
-    public R list(@RequestParam Map<String, Object> params) {
-        PageUtils page = memberService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param) {
+        PageUtils page = memberService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -49,10 +52,10 @@ public class MemberController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:member:info")
-    public R info(@PathVariable("id") Long id) {
+    public CommonResult<MemberEntity> info(@PathVariable("id") Long id) {
         MemberEntity member = memberService.getById(id);
 
-        return R.ok().put("member", member);
+        return CommonResult.success(member);
     }
 
     /**
@@ -60,10 +63,10 @@ public class MemberController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:member:save")
-    public R save(@RequestBody MemberEntity member) {
+    public CommonResult<Object> save(@RequestBody MemberEntity member) {
         memberService.save(member);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -71,10 +74,10 @@ public class MemberController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:member:update")
-    public R update(@RequestBody MemberEntity member) {
+    public CommonResult<Object> update(@RequestBody MemberEntity member) {
         memberService.updateById(member);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -82,20 +85,20 @@ public class MemberController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:member:delete")
-    public R delete(@RequestBody Long[] ids) {
+    public CommonResult<Object> delete(@RequestBody Long[] ids) {
         memberService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     @PostMapping("/register")
-    public R register(@RequestBody MemberRegisterVo memberRegisterVo) {
+    public CommonResult<Long> register(@RequestBody MemberRegisterVo memberRegisterVo) {
         return memberService.register(memberRegisterVo);
 
     }
 
     @PostMapping("/login")
-    public R login(@RequestBody MemberRegisterVo memberRegisterVo, HttpSession session) {
+    public CommonResult<MemberRegisterVo> login(@RequestBody MemberRegisterVo memberRegisterVo, HttpSession session) {
         return memberService.login(memberRegisterVo, session);
     }
 
@@ -104,11 +107,11 @@ public class MemberController {
      * @param phoneNum MD5加密后的手机号
      */
     @GetMapping("/getLoginUser/{phoneNum}")
-    public R getLoginUser(@PathVariable String phoneNum) {
+    public CommonResult<MemberRegisterVo> getLoginUser(@PathVariable String phoneNum) {
         String memberRegisterVoStr = (String) redisTemplate.opsForHash()
                 .get(MemberConstant.REDIS_CACHE_LOGIN_USER_KEY, phoneNum);
         MemberRegisterVo memberRegisterVo = JSON.parseObject(memberRegisterVoStr, MemberRegisterVo.class);
-        return R.ok().put("loginUser", memberRegisterVo);
+        return CommonResult.success(memberRegisterVo);
     }
 
 }

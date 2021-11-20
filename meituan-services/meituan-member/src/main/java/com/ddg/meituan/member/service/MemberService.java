@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 
@@ -19,7 +20,7 @@ import java.util.Map;
  */
 public interface MemberService extends IService<MemberEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(PageParam param);
 
     /**
      * 根据手机号获取member
@@ -32,6 +33,6 @@ public interface MemberService extends IService<MemberEntity> {
 
     boolean checkUsername(String username);
 
-    CommonResult login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException;
+    CommonResult<MemberRegisterVo> login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException;
 }
 

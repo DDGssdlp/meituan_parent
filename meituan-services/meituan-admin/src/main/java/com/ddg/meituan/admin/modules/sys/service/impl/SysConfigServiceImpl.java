@@ -8,20 +8,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysConfigDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysConfigService;
-import com.google.gson.Gson;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Map;
+import com.ddg.meituan.common.utils.PageParam;
+import org.springframework.stereotype.Service;
+
 
 @Service("sysConfigService")
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEntity> implements SysConfigService {
 
 	@Override
-	public Page queryPage(Map<String, Object> params) {
+	public Page queryPage(PageParam param) {
 		return null;
 	}
 

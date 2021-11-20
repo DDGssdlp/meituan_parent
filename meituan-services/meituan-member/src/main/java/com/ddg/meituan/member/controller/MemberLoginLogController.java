@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class MemberLoginLogController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:memberloginlog:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberLoginLogService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberLoginLogService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
 
 
     }
@@ -43,10 +46,10 @@ public class MemberLoginLogController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:memberloginlog:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberLoginLogEntity> info(@PathVariable("id") Long id){
 		MemberLoginLogEntity memberLoginLog = memberLoginLogService.getById(id);
 
-        return R.ok().put("memberLoginLog", memberLoginLog);
+        return CommonResult.success(memberLoginLog);
     }
 
     /**
@@ -54,10 +57,10 @@ public class MemberLoginLogController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:memberloginlog:save")
-    public R save(@RequestBody MemberLoginLogEntity memberLoginLog){
+    public CommonResult<Object> save(@RequestBody MemberLoginLogEntity memberLoginLog){
 		memberLoginLogService.save(memberLoginLog);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -65,10 +68,10 @@ public class MemberLoginLogController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:memberloginlog:update")
-    public R update(@RequestBody MemberLoginLogEntity memberLoginLog){
+    public CommonResult<Object> update(@RequestBody MemberLoginLogEntity memberLoginLog){
 		memberLoginLogService.updateById(memberLoginLog);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -76,10 +79,10 @@ public class MemberLoginLogController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:memberloginlog:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberLoginLogService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

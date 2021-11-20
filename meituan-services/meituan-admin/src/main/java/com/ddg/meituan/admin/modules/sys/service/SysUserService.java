@@ -5,6 +5,7 @@ package com.ddg.meituan.admin.modules.sys.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
+import com.ddg.meituan.common.utils.PageParam;
 
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Map;
  */
 public interface SysUserService extends IService<SysUserEntity> {
 
-	Page queryPage(Map<String, Object> params);
+	Page queryPage(PageParam param);
 
 	/**
 	 * 查询用户的所有权限

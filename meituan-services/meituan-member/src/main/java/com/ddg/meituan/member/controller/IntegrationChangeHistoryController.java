@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class IntegrationChangeHistoryController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:integrationchangehistory:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = integrationChangeHistoryService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = integrationChangeHistoryService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +44,10 @@ public class IntegrationChangeHistoryController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:integrationchangehistory:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<IntegrationChangeHistoryEntity> info(@PathVariable("id") Long id){
 		IntegrationChangeHistoryEntity integrationChangeHistory = integrationChangeHistoryService.getById(id);
 
-        return R.ok().put("integrationChangeHistory", integrationChangeHistory);
+        return CommonResult.success(integrationChangeHistory);
     }
 
     /**
@@ -52,10 +55,10 @@ public class IntegrationChangeHistoryController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:integrationchangehistory:save")
-    public R save(@RequestBody IntegrationChangeHistoryEntity integrationChangeHistory){
+    public CommonResult<?> save(@RequestBody IntegrationChangeHistoryEntity integrationChangeHistory){
 		integrationChangeHistoryService.save(integrationChangeHistory);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +66,10 @@ public class IntegrationChangeHistoryController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:integrationchangehistory:update")
-    public R update(@RequestBody IntegrationChangeHistoryEntity integrationChangeHistory){
+    public CommonResult<Object> update(@RequestBody IntegrationChangeHistoryEntity integrationChangeHistory){
 		integrationChangeHistoryService.updateById(integrationChangeHistory);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +77,10 @@ public class IntegrationChangeHistoryController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:integrationchangehistory:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		integrationChangeHistoryService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

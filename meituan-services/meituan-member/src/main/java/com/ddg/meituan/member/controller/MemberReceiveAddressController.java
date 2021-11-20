@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class MemberReceiveAddressController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:memberreceiveaddress:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberReceiveAddressService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberReceiveAddressService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +44,10 @@ public class MemberReceiveAddressController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:memberreceiveaddress:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberReceiveAddressEntity> info(@PathVariable("id") Long id){
 		MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(id);
 
-        return R.ok().put("memberReceiveAddress", memberReceiveAddress);
+        return CommonResult.success(memberReceiveAddress);
     }
 
     /**
@@ -52,10 +55,10 @@ public class MemberReceiveAddressController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:memberreceiveaddress:save")
-    public R save(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
+    public CommonResult<Object> save(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
 		memberReceiveAddressService.save(memberReceiveAddress);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +66,10 @@ public class MemberReceiveAddressController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:memberreceiveaddress:update")
-    public R update(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
+    public CommonResult<Object> update(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
 		memberReceiveAddressService.updateById(memberReceiveAddress);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +77,10 @@ public class MemberReceiveAddressController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:memberreceiveaddress:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberReceiveAddressService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

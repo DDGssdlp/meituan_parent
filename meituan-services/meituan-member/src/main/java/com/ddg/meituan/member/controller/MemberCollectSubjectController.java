@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class MemberCollectSubjectController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:membercollectsubject:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberCollectSubjectService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberCollectSubjectService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +44,10 @@ public class MemberCollectSubjectController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:membercollectsubject:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberCollectSubjectEntity> info(@PathVariable("id") Long id){
 		MemberCollectSubjectEntity memberCollectSubject = memberCollectSubjectService.getById(id);
 
-        return R.ok().put("memberCollectSubject", memberCollectSubject);
+        return CommonResult.success(memberCollectSubject);
     }
 
     /**
@@ -52,10 +55,10 @@ public class MemberCollectSubjectController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:membercollectsubject:save")
-    public R save(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
+    public CommonResult<Object> save(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
 		memberCollectSubjectService.save(memberCollectSubject);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +66,10 @@ public class MemberCollectSubjectController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:membercollectsubject:update")
-    public R update(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
+    public CommonResult<Object> update(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
 		memberCollectSubjectService.updateById(memberCollectSubject);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +77,10 @@ public class MemberCollectSubjectController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:membercollectsubject:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberCollectSubjectService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

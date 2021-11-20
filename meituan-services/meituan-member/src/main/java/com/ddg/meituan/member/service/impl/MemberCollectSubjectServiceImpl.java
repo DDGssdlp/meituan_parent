@@ -1,5 +1,8 @@
 package com.ddg.meituan.member.service.impl;
 
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.Query;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,9 +18,9 @@ import com.ddg.meituan.member.service.MemberCollectSubjectService;
 public class MemberCollectSubjectServiceImpl extends ServiceImpl<MemberCollectSubjectDao, MemberCollectSubjectEntity> implements MemberCollectSubjectService {
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<MemberCollectSubjectEntity> page = this.page(
-                new Query<MemberCollectSubjectEntity>().getPage(params),
+                new Query<MemberCollectSubjectEntity>().getPage(param),
                 new QueryWrapper<MemberCollectSubjectEntity>()
         );
 

@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.Query;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.ProductInfoDao;
 import com.ddg.meituan.product.entity.ProductInfoEntity;
@@ -38,10 +41,12 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
     }
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<ProductInfoEntity> page = this.page(
-                new Query<ProductInfoEntity>().getPage(params),
+                new Query<ProductInfoEntity>().getPage(param),
                 new QueryWrapper<ProductInfoEntity>()
+
+
         );
 
         return new PageUtils(page);

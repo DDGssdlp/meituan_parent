@@ -50,9 +50,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     private MemberLoginLogService memberLoginLogService;
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageParam param) {
         IPage<MemberEntity> page = this.page(
-                new Query<MemberEntity>().getPage(params),
+                new Query<MemberEntity>().getPage(param),
                 new QueryWrapper<MemberEntity>()
         );
 

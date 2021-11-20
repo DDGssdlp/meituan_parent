@@ -4,10 +4,9 @@ package com.ddg.meituan.thridparty.Service;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.thridparty.entity.ConfigEntity;
 
-import java.util.Map;
 
 /**
  * 系统配置信息
@@ -16,7 +15,7 @@ import java.util.Map;
  */
 public interface SysConfigService  {
 
-	Page<ConfigEntity> queryPage(Map<String, Object> params);
+	Page<ConfigEntity> queryPage(PageParam param);
 	
 	/**
 	 * 保存配置信息

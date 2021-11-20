@@ -24,6 +24,7 @@ import java.util.List;
  * @date 2021/4/27 12:27
  * @email: wangzhijie0908@gmail.com
  */
+@SuppressWarnings("unchecked")
 public class DynamicEnumUtils {
 
     private static ReflectionFactory reflectionFactory = ReflectionFactory.getReflectionFactory();

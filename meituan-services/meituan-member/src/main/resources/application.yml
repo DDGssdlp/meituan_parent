@@ -1,4 +1,4 @@
-ipAddr: 49.232.68.245
+ipAddr: 101.200.140.80
 # 配置应用名称 nacos 使用
 spring:
   application:
@@ -8,10 +8,7 @@ spring:
     password: root
     url: jdbc:mysql://${ipAddr}:3306/meituan-member?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
+
 #    sentinel:
 #      transport:
 #        dashboard: localhost:8333
@@ -36,6 +33,7 @@ spring:
         max-active: 8
 
     timeout: 5000
+    password: redis123
   #   设置缓存类型
   cache:
     type: redis

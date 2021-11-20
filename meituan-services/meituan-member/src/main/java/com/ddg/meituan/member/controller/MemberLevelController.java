@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ public class MemberLevelController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("member:memberlevel:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = memberLevelService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = memberLevelService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
 
@@ -41,10 +44,10 @@ public class MemberLevelController {
      */
     @GetMapping("/info/{id}")
     //@RequiresPermissions("member:memberlevel:info")
-    public R info(@PathVariable("id") Long id){
+    public CommonResult<MemberLevelEntity> info(@PathVariable("id") Long id){
 		MemberLevelEntity memberLevel = memberLevelService.getById(id);
 
-        return R.ok().put("memberLevel", memberLevel);
+        return CommonResult.success(memberLevel);
     }
 
     /**
@@ -52,10 +55,10 @@ public class MemberLevelController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("member:memberlevel:save")
-    public R save(@RequestBody MemberLevelEntity memberLevel){
+    public CommonResult<Object> save(@RequestBody MemberLevelEntity memberLevel){
 		memberLevelService.save(memberLevel);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -63,10 +66,10 @@ public class MemberLevelController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("member:memberlevel:update")
-    public R update(@RequestBody MemberLevelEntity memberLevel){
+    public CommonResult<Object> update(@RequestBody MemberLevelEntity memberLevel){
 		memberLevelService.updateById(memberLevel);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -74,10 +77,10 @@ public class MemberLevelController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("member:memberlevel:delete")
-    public R delete(@RequestBody Long[] ids){
+    public CommonResult<Object> delete(@RequestBody Long[] ids){
 		memberLevelService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
 }

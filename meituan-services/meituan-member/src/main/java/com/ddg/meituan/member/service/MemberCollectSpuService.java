@@ -1,6 +1,8 @@
 package com.ddg.meituan.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.member.entity.MemberCollectSpuEntity;
 
 import java.util.Map;
@@ -14,6 +16,6 @@ import java.util.Map;
  */
 public interface MemberCollectSpuService extends IService<MemberCollectSpuEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(PageParam param);
 }
 

@@ -6,6 +6,10 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.alibaba.fastjson.JSON;
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
+
 import com.ddg.meituan.product.entity.CategoryEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +38,10 @@ public class CategoryController {
      */
     @GetMapping("/list")
     //@RequiresPermissions("product:category:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
+    public CommonResult<PageUtils> list(PageParam param){
+        PageUtils page = categoryService.queryPage(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
     /**
@@ -45,10 +49,10 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/listWithTree")
-    public R getListWithTree(){
+    public CommonResult<List<CategoryEntity>> getListWithTree(){
         List<CategoryEntity> list =  categoryService.getListWithTree();
 
-        return R.ok().put("data", list);
+        return CommonResult.success(list);
     }
 
 
@@ -57,10 +61,10 @@ public class CategoryController {
      */
     @GetMapping("/info/{catId}")
     //@RequiresPermissions("product:category:info")
-    public R info(@PathVariable("catId") Long catId){
+    public CommonResult<CategoryEntity> info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return CommonResult.success(category);
     }
 
     /**
@@ -68,10 +72,10 @@ public class CategoryController {
      */
     @PostMapping("/save")
     //@RequiresPermissions("product:category:save")
-    public R save(@RequestBody CategoryEntity category){
+    public CommonResult<Object> save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -79,9 +83,9 @@ public class CategoryController {
      */
     @PostMapping("/update")
     //@RequiresPermissions("product:category:update")
-    public R update(@RequestBody CategoryEntity category){
+    public CommonResult<Object> update(@RequestBody CategoryEntity category){
 		categoryService.updateById(category);
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -89,10 +93,10 @@ public class CategoryController {
      */
     @PostMapping("/delete")
     //@RequiresPermissions("product:category:delete")
-    public R delete(@RequestBody Long[] catIds){
+    public CommonResult<Object> delete(@RequestBody Long[] catIds){
 		categoryService.removeByIds(Arrays.asList(catIds));
 
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
@@ -101,22 +105,22 @@ public class CategoryController {
      * @return
      */
     @PostMapping("/changeStatus")
-    public R changeStatus(@RequestBody CategoryEntity categoryEntity){
+    public CommonResult<Object> changeStatus(@RequestBody CategoryEntity categoryEntity){
         System.out.println(JSON.toJSONString(categoryEntity));
         categoryService.changeStatus(categoryEntity);
-        return R.ok();
+        return CommonResult.success();
     }
 
     /**
      * 获取当前节点下的所有子节点 分页展示
-     * @param params
+     * @param param
      * @return
      */
     @GetMapping("/getChildren")
-    public R getChildren(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPageById(params);
+    public CommonResult<PageUtils> getChildren(PageParam param){
+        PageUtils page = categoryService.queryPageById(param);
 
-        return R.ok().put("page", page);
+        return CommonResult.success(page);
     }
 
     /**
@@ -124,9 +128,9 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/getParent")
-    public R getParentList(){
+    public CommonResult<List<CategoryEntity>> getParentList(){
         List<CategoryEntity> data = categoryService.getParentList();
-        return R.ok().put("data", data);
+        return CommonResult.success(data);
     }
 
 

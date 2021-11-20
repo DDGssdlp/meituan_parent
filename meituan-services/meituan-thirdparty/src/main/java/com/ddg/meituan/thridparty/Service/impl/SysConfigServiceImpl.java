@@ -4,6 +4,7 @@ package com.ddg.meituan.thridparty.Service.impl;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.thridparty.Service.SysConfigService;
 import com.ddg.meituan.thridparty.entity.ConfigEntity;
 import com.google.gson.Gson;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class SysConfigServiceImpl  implements SysConfigService {
 
 	@Override
-	public Page<ConfigEntity> queryPage(Map<String, Object> params) {
+	public Page<ConfigEntity> queryPage(PageParam param) {
 		return null;
 	}
 
