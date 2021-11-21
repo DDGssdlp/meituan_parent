@@ -6,6 +6,7 @@ package com.ddg.meituan.common.exception;
  * @Description:
  */
 public class MeituanSysException extends RuntimeException {
+
     private String message;
 
     public MeituanSysException() {

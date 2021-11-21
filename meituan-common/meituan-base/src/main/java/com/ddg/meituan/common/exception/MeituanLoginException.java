@@ -5,6 +5,7 @@ package com.ddg.meituan.common.exception;
  * @since: 2021/02/21
  */
 public class MeituanLoginException extends MeituanSysException {
+
     public MeituanLoginException(String message) {
         super(message);
     }

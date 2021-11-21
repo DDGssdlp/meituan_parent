@@ -5,6 +5,7 @@ package com.ddg.meituan.common.enums;
  */
 
 public enum ProductStatusEnum {
+
     NEW_SPU(0, "新建状态"),
     UP_SPU(1, "上架状态"),
     DOWN_SPU(2, "商品下架");
