@@ -38,18 +38,6 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(Code.UN_NONE_EXCEPTION);
     }
 
-//    @ExceptionHandler(RRException.class)
-//    public CommonResult<Object> rrExceptionHandler(Exception e){
-//        if (e instanceof RRException){
-//            return CommonResult.failed(Code.RR_EXCEPTION);
-//        }
-//        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-//        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.VALID_EXCEPTION.getHintMessage(),
-//                e.getMessage());
-//    }
-
-
-
 
     @ExceptionHandler(Exception.class)
     public CommonResult<Object> validExceptionHandle(Exception e){

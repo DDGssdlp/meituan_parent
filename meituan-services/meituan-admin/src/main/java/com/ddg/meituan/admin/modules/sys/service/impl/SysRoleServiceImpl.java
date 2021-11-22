@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +33,15 @@ import java.util.List;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> implements SysRoleService {
 
 	private final SysRoleMenuService sysRoleMenuService;
-	private final SysUserService sysUserService;
+
     private final SysUserRoleService sysUserRoleService;
 
+    @Resource
+	private SysUserService sysUserService;
+
     @Autowired
-	public SysRoleServiceImpl(SysRoleMenuService sysRoleMenuService, SysUserService sysUserService, SysUserRoleService sysUserRoleService) {
+	public SysRoleServiceImpl(SysRoleMenuService sysRoleMenuService, SysUserRoleService sysUserRoleService) {
 		this.sysRoleMenuService = sysRoleMenuService;
-		this.sysUserService = sysUserService;
 		this.sysUserRoleService = sysUserRoleService;
 	}
 
