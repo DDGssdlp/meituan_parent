@@ -10,6 +10,7 @@ import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysConfigService;
 
 import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEntity> implements SysConfigService {
 
 	@Override
-	public Page queryPage(PageParam param) {
+	public PageUtils queryPage(PageParam param) {
 		return null;
 	}
 
