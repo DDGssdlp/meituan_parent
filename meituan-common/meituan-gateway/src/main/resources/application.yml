@@ -38,7 +38,7 @@ spring:
           predicates:
             - Path=/api/**
           filters:
-            - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
 
 
   #filters进行路径重写 需要注意的就是 精确的路由放在前面 模糊的路由放在后面 需要注意的一点就是 nginx

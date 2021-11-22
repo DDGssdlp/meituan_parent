@@ -3,6 +3,7 @@ package com.ddg.meituan.gateway.filter;
 
 import com.ddg.meituan.gateway.constant.AuthConstant;
 import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.Payload;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             //从token中解析用户信息并设置到Header中去
             String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
             JWSObject jwsObject = JWSObject.parse(realToken);
+
             String userStr = jwsObject.getPayload().toString();
             log.info("token 解析用户信息设置header中 AuthGlobalFilter.filter() user:{}",userStr);
             ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.USER_TOKEN_HEADER, userStr).build();

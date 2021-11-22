@@ -86,10 +86,14 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-            if (AuthConstant.ADMIN_CLIENT_ID.equals(userDto.getClientId()) && !pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+            final boolean match = pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
+                    pathMatcher.match(AuthConstant.APP_URL_PATTERN, uri.getPath()) ||
+                    pathMatcher.match(AuthConstant.SYS_URL_PATTERN, uri.getPath());
+            if (AuthConstant.ADMIN_CLIENT_ID.equals(userDto.getClientId()) &&
+                    !match) {
                 return Mono.just(new AuthorizationDecision(false));
             }
-            if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+            if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && match) {
                 return Mono.just(new AuthorizationDecision(false));
             }
         } catch (ParseException e) {

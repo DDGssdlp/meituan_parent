@@ -1,4 +1,4 @@
-package com.ddg.meituan.admin.modules.entity.param;
+package com.ddg.meituan.admin.modules.sys.entity.param;
 
 import lombok.Data;
 

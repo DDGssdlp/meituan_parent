@@ -32,6 +32,7 @@ public class ResourceServiceImpl {
         resourceRolesMap.put("/api/product/category/list", "ADMIN");
         resourceRolesMap.put("/api/user/currentUser", "ADMIN,TEST");
         resourceRolesMap.put("/api/thirdparty/minio/upload", "ADMIN");
+        resourceRolesMap.put("/api/sys/user/info", "ADMIN");
         redisTemplate.opsForHash().putAll(AuthServerConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }
 }
