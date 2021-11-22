@@ -7,11 +7,15 @@ import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.constant.AuthConstant;
+import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,10 +88,14 @@ public class SysRoleController {
 	 */
 	@SysLog("保存角色")
 	@PostMapping("/save")
-	public CommonResult<Object> save(@RequestBody SysRoleEntity role){
+	public CommonResult<Object> save(@RequestBody SysRoleEntity role,
+									 @RequestHeader(AuthConstant.USER_TOKEN_HEADER)UserDto userDto,
+									 HttpServletRequest request){
+
+		System.out.println(request);
 		ValidatorUtils.validateEntity(role);
 		
-		role.setCreateUserId(1L);
+		role.setCreateUserId(userDto.getId());
 		sysRoleService.saveRole(role);
 		
 		return CommonResult.success();

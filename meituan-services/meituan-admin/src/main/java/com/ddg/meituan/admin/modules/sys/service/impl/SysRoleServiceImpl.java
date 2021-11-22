@@ -3,6 +3,7 @@ package com.ddg.meituan.admin.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysRoleDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
@@ -10,7 +11,6 @@ import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.Constant;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.Query;
@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 角色

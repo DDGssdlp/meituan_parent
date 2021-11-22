@@ -39,7 +39,7 @@ import java.util.Map;
 public class WebLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution(public * com.ddg.meituan.controller.*.*(..))|")
+    @Pointcut("execution(public * com.ddg.meituan.*.controller.*.*(..))|")
     public void webLog() {
     }
 

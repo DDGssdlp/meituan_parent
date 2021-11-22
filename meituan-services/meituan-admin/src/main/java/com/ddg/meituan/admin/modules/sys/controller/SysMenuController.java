@@ -2,14 +2,12 @@ package com.ddg.meituan.admin.modules.sys.controller;
 
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
+import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.entity.SysMenuEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.Constant;
-import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * 系统菜单

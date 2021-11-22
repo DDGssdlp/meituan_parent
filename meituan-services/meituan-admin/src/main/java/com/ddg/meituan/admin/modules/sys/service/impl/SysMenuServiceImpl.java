@@ -4,16 +4,15 @@ package com.ddg.meituan.admin.modules.sys.service.impl;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysMenuDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysMenuEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
 
-import com.ddg.meituan.common.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
