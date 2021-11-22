@@ -83,7 +83,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void saveUser(SysUserEntity user) {
-		user.setCreateTime(new Date());
+
 		//sha256加密
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -98,7 +98,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void update(SysUserEntity user) {
+		if(StringUtils.isBlank(user.getPassword())){
+			user.setPassword(null);
+		}else{
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
+
+		this.updateById(user);
+
+		//检查角色是否越权
+		checkRole(user);
+
+		//保存用户与角色关系
+		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
 
 	}
 
@@ -109,12 +123,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 	@Override
 	public boolean updatePassword(Long userId, String password, String newPassword) {
-		SysUserEntity userEntity = new SysUserEntity();
-		String passwordEncode = passwordEncoder.encode(password);
+		SysUserEntity userEntity = this.getById(userId);
+		if(!passwordEncoder.matches(password, userEntity.getPassword())){
+			throw new MeituanSysException("密码不正确不能修改密码");
+		}
 		String newPasswordEncode = passwordEncoder.encode(newPassword);
 		userEntity.setPassword(newPasswordEncode);
 		return this.update(userEntity,
-				new QueryWrapper<SysUserEntity>().eq("user_id", userId).eq("password", passwordEncode));
+				new QueryWrapper<SysUserEntity>().eq("user_id", userId));
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 package com.ddg.meituan.admin.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,6 +14,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -80,6 +82,7 @@ public class SysUserEntity implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createTime;
+	@TableField(fill = FieldFill.INSERT)
+	private LocalDateTime createTime;
 
 }
