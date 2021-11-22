@@ -39,8 +39,7 @@ import java.util.Map;
 public class WebLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution(public * com.ddg.meituan.controller.*.*(..))||execution(public * com.ddg.meituan..*.controller" +
-            ".*.*(..))")
+    @Pointcut("execution(public * com.ddg.meituan.controller.*.*(..))|")
     public void webLog() {
     }
 
@@ -86,7 +85,7 @@ public class WebLogAspect {
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("description",webLog.getDescription());
         //LOGGER.info(Markers.appendEntries(logMap), JSONUtil.parse(webLog).toString());
-        return joinPoint.proceed();
+        return result;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.ddg.meituan.gateway.component.RestfulAccessDeniedHandler;
 import com.ddg.meituan.gateway.constant.AuthConstant;
 import com.ddg.meituan.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,7 @@ import reactor.core.publisher.Mono;
  * @email: wangzhijie0908@gmail.com
  */
 
+
 @Configuration
 @EnableWebFluxSecurity
 public class ResourceServerConfig {
@@ -61,19 +63,14 @@ public class ResourceServerConfig {
         this.ignoreUrlsRemoveJwtFilter = ignoreUrlsRemoveJwtFilter;
     }
 
-
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-
-        http.cors().and().csrf().disable();
-
         http.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
         //自定义处理JWT请求头过期或签名错误的结果
         http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
         //对白名单路径，直接移除JWT请求头
-        http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
-
+        http.addFilterBefore(ignoreUrlsRemoveJwtFilter,SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
                 //白名单配置
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()
@@ -87,6 +84,8 @@ public class ResourceServerConfig {
                 .and().csrf().disable();
         return http.build();
     }
+
+
 
     @Bean
     public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
