@@ -7,6 +7,7 @@ import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,11 +35,12 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(e.getMessage());
 
     }
-//    @ExceptionHandler(AuthenticationException.class)
-//    public CommonResult<Object> validAuthenticationExceptionHandel(AuthenticationException e){
-//        log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
-//        return CommonResult.failed(e.getMessage());
-//    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public CommonResult<Object> validAuthenticationExceptionHandel(AuthenticationException e){
+        log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
+        return CommonResult.failed(e.getMessage());
+    }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -53,8 +55,8 @@ public class GlobalExceptionHandler {
                 e.getMessage());
 
     }
-    @ExceptionHandler(Exception.class)
-    public CommonResult<Object> validExceptionHandle(Exception e){
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public CommonResult<Object> validExceptionHandle(InternalAuthenticationServiceException e){
 
         return CommonResult.failed(Code.UN_NONE_EXCEPTION, e.getMessage());
     }

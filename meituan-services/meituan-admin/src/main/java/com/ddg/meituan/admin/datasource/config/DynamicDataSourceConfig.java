@@ -1,16 +1,8 @@
-/**
- * Copyright (c) 2018 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
-
 package com.ddg.meituan.admin.datasource.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.ddg.meituan.admin.datasource.properties.DataSourceProperties;
 import com.ddg.meituan.admin.datasource.properties.DynamicDataSourceProperties;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,7 +24,7 @@ public class DynamicDataSourceConfig {
     private DynamicDataSourceProperties properties;
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
@@ -43,7 +35,7 @@ public class DynamicDataSourceConfig {
         dynamicDataSource.setTargetDataSources(getDynamicDataSource());
 
         //默认数据源
-        DruidDataSource defaultDataSource = DynamicDataSourceFactory.buildDruidDataSource(dataSourceProperties);
+        HikariDataSource defaultDataSource = DynamicDataSourceFactory.buildDruidDataSource(dataSourceProperties);
         dynamicDataSource.setDefaultTargetDataSource(defaultDataSource);
 
         return dynamicDataSource;
@@ -53,7 +45,7 @@ public class DynamicDataSourceConfig {
         Map<String, DataSourceProperties> dataSourcePropertiesMap = properties.getDatasource();
         Map<Object, Object> targetDataSources = new HashMap<>(dataSourcePropertiesMap.size());
         dataSourcePropertiesMap.forEach((k, v) -> {
-            DruidDataSource druidDataSource = DynamicDataSourceFactory.buildDruidDataSource(v);
+            HikariDataSource druidDataSource = DynamicDataSourceFactory.buildDruidDataSource(v);
             targetDataSources.put(k, druidDataSource);
         });
 

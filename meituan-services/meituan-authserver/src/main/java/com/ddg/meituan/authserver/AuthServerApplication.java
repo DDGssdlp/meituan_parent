@@ -1,6 +1,5 @@
 package com.ddg.meituan.authserver;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,8 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2021/1/28 17:06
  * @email:
  */
-@SpringBootApplication(scanBasePackages = "com.ddg.meituan", exclude = {DruidDataSourceAutoConfigure.class,
-        DataSourceAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = "com.ddg.meituan", exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
 @EnableFeignClients
 public class AuthServerApplication {
