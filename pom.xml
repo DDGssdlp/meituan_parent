@@ -48,7 +48,7 @@
         <lombok.version>1.18.4</lombok.version>
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
         <cloud-alibaba.version>2.2.0.RELEASE</cloud-alibaba.version>
-        <mybatis-plus.version>3.3.1</mybatis-plus.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <swagger.version>1.7.0.RELEASE</swagger.version>
         <jodatime.version>2.10.1</jodatime.version>
         <hutool.version>5.4.0</hutool.version>
@@ -279,11 +279,7 @@
                 <version>${spring.configuration.version}</version>
                 <optional>true</optional>
             </dependency>
-            <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<optional>true</optional>-->
-            <!--</dependency>-->
+
             <!--mybatis-plus 持久层-->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -351,11 +347,13 @@
                 <version>${page-helper.version}</version>
             </dependency>
 
+            <!--druid 数据源-->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
+                <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
