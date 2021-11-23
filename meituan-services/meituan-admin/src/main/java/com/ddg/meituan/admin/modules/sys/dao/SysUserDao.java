@@ -4,6 +4,7 @@ package com.ddg.meituan.admin.modules.sys.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,4 +32,5 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
 	 */
 	SysUserEntity queryByUserName(String username);
 
+    List<String> queryRole(@Param("userId") Long userId);
 }

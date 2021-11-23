@@ -29,12 +29,12 @@ import java.util.List;
  * @date 2021/10/26 14:15
  * @email: wangzhijie0908@gmail.com
  */
-@Configuration
+//@Configuration
 public class GlobalGatewayExceptionConfig {
 
-    @Primary
-    @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    //@Primary
+    //@Bean
+    //@Order(Ordered.HIGHEST_PRECEDENCE)
     public ErrorWebExceptionHandler errorWebExceptionHandler(ObjectProvider<List<ViewResolver>> viewResolversProvider,
                                                              ServerCodecConfigurer serverCodecConfigurer){
         GlobalGatewayExceptionHandler globalGatewayExceptionHandler =new GlobalGatewayExceptionHandler();

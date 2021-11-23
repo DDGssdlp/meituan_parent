@@ -19,14 +19,12 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 /**
@@ -45,23 +43,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserServiceImpl implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;
 
-    private List<UserDto> userList;
+    @Resource
+    private  AdminFeignService adminFeignService;
 
-    private final AdminFeignService adminFeignService;
+    @Resource
+    private HttpServletRequest request;
 
     private final MemberFeignService memberFeignService;
 
     @Autowired
-    private final HttpServletRequest request;
-
-    @Autowired
-    public UserServiceImpl(PasswordEncoder passwordEncoder, AdminFeignService adminFeignService, MemberFeignService memberFeignService, HttpServletRequest request) {
-        this.passwordEncoder = passwordEncoder;
-        this.adminFeignService = adminFeignService;
+    public UserServiceImpl(MemberFeignService memberFeignService) {
         this.memberFeignService = memberFeignService;
-        this.request = request;
     }
 
 
@@ -74,7 +67,7 @@ public class UserServiceImpl implements UserDetailsService {
         if(AuthConstant.ADMIN_CLIENT_ID.equals(clientId)){
 
             String uuid = request.getParameter("uuid");
-            userDto = adminFeignService.loadUserByUsername(username);
+            userDto = adminFeignService.loadUserByUsername(username, code, uuid);
         }else{
             userDto = memberFeignService.loadUserByUsername(username);
         }

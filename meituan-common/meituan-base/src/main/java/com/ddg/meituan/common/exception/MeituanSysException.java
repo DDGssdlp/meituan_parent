@@ -7,21 +7,18 @@ package com.ddg.meituan.common.exception;
  */
 public class MeituanSysException extends RuntimeException {
 
-    private String message;
 
     public MeituanSysException() {
     }
 
     public MeituanSysException(String message) {
-        this.message = message;
+        super(message);
     }
 
     @Override
     public String getMessage() {
-        return message;
+        return super.getMessage();
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+
 }

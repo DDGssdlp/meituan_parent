@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 
@@ -47,7 +49,7 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
         captchaEntity.setUuid(uuid);
         captchaEntity.setCode(code);
         //5分钟后过期
-        captchaEntity.setExpireTime(LocalDateTime.now().plusMinutes(5));
+        captchaEntity.setExpireTime(Date.from(LocalDateTime.now().plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant()));
         this.save(captchaEntity);
 
         return producer.createImage(code);
@@ -61,10 +63,9 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
         }
 
         //删除验证码
-        this.removeById(uuid);
+        this.removeById(captchaEntity.getId());
 
-        if(captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().toInstant(ZoneOffset.of(
-                "+8")).toEpochMilli() >= System.currentTimeMillis()){
+        if(captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().getTime() >= System.currentTimeMillis()){
             return true;
         }
 

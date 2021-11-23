@@ -1,9 +1,12 @@
 package com.ddg.meituan.authserver.feign;
 
+import com.ddg.meituan.authserver.feign.fallback.AdminFeignFallBack;
 import com.ddg.meituan.common.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
 
 /**
  * Description:
@@ -20,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "meituan-admin")
 public interface AdminFeignService {
 
+    /**
+     * @param username
+     * @param code
+     * @param uuid
+     * @return
+     */
     @GetMapping("/sys/login/loadByUsername")
-    UserDto loadUserByUsername(@RequestParam String username);
+    UserDto loadUserByUsername(@RequestParam String username, @RequestParam  String code, @RequestParam String uuid);
 }

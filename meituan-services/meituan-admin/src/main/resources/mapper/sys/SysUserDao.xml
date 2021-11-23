@@ -20,5 +20,17 @@
 	<select id="queryByUserName" resultType="com.ddg.meituan.admin.modules.sys.entity.SysUserEntity">
 		select * from sys_user where username = #{username}
 	</select>
+    <select id="queryRole" resultType="java.lang.String">
+		SELECT
+			sr.`role_name`
+		FROM
+			sys_user_role  sur
+		LEFT OUTER JOIN
+			sys_role sr
+		ON
+			sr.`role_id` = sur.`role_id`
+		WHERE
+		user_id = #{userId}
+	</select>
 
 </mapper>

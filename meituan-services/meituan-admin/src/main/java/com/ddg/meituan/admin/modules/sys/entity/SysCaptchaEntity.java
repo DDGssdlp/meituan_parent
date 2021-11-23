@@ -31,6 +31,6 @@ public class SysCaptchaEntity {
     /**
      * 过期时间
      */
-    private LocalDateTime expireTime;
+    private Date expireTime;
 
 }

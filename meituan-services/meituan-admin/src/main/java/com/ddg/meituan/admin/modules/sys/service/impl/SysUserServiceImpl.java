@@ -133,6 +133,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 				new QueryWrapper<SysUserEntity>().eq("user_id", userId));
 	}
 
+	@Override
+	public List<String> queryRole(Long userId) {
+		return baseMapper.queryRole(userId);
+	}
+
 	/**
 	 * 检查角色是否越权
 	 */

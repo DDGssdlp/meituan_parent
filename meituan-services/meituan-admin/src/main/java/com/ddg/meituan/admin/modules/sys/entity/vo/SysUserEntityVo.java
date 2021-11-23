@@ -23,8 +23,11 @@ import java.util.List;
 @ApiModel
 public class SysUserEntityVo extends SysUserEntity {
 
-    @ApiModelProperty("管理员角色列表")
+    @ApiModelProperty("管理员角色ID列表")
     List<Long> roleIdList;
+
+    @ApiModelProperty("管理员角色列表")
+    List<String> roleList;
 
     public SysUserEntityVo(SysUserEntity sysUserEntity) {
         super.setUserId(sysUserEntity.getUserId());

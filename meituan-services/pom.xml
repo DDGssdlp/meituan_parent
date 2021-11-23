@@ -43,10 +43,10 @@
         </dependency>
 
         <!--sentinel 服务降级 和 熔断-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <!--引入 公共 service-base -->

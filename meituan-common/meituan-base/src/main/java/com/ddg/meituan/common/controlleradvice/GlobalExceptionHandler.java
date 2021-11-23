@@ -7,11 +7,13 @@ import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,33 +28,37 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MeituanSysException.class)
-    public CommonResult<Object> validMeituanSysExceptionHandel(Exception e){
-        if (e instanceof MeituanLoginException) {
-            return CommonResult.failed(Code.UNAUTHORIZED);
-        }
-        if (e instanceof MeituanSysException){
-            MeituanSysException exception = (MeituanSysException) e;
-            return CommonResult.failed(Code.SERVER_ERROR);
-        }
+    public CommonResult<Object> validMeituanSysExceptionHandel(MeituanSysException e){
         log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
-        return CommonResult.failed(Code.UN_NONE_EXCEPTION);
+
+        return CommonResult.failed(e.getMessage());
+
     }
+//    @ExceptionHandler(AuthenticationException.class)
+//    public CommonResult<Object> validAuthenticationExceptionHandel(AuthenticationException e){
+//        log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
+//        return CommonResult.failed(e.getMessage());
+//    }
 
 
-    @ExceptionHandler(Exception.class)
-    public CommonResult<Object> validExceptionHandle(Exception e){
-        if (e instanceof MethodArgumentNotValidException){
-            MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
-            BindingResult bindingResult = exception.getBindingResult();
-            Map<String, String> exceptionMap = bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,
-                    FieldError::getDefaultMessage, (oldVal, currVal) -> oldVal));
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public CommonResult<Object> validMethodArgumentNotValidExceptionHandel(MethodArgumentNotValidException e){
 
-            return CommonResult.failed(Code.VALID_EXCEPTION, exceptionMap);
-        }
+
+        BindingResult bindingResult = e.getBindingResult();
+        Map<String, String> exceptionMap = bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,
+                FieldError::getDefaultMessage, (oldVal, currVal) -> oldVal));
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
         return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.UN_NONE_EXCEPTION.getHintMessage(),
                 e.getMessage());
 
     }
+    @ExceptionHandler(Exception.class)
+    public CommonResult<Object> validExceptionHandle(Exception e){
+
+        return CommonResult.failed(Code.UN_NONE_EXCEPTION, e.getMessage());
+    }
+
+
 
 }
