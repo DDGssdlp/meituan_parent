@@ -52,6 +52,14 @@ public class SysMenuController{
 		List<SysMenuEntity> menuList = sysMenuService.list();
 		HashMap<Long, SysMenuEntity> menuMap = new HashMap<>(12);
 		for (SysMenuEntity s : menuList) {
+			String perms = s.getPerms();
+			if(StringUtils.isNotBlank(perms)){
+				s.setDesc(s.getName() + ": " + (s.getPerms() ));
+			}else{
+				s.setDesc(s.getName());
+			}
+
+
 			menuMap.put(s.getMenuId(), s);
 		}
 		for (SysMenuEntity s : menuList) {

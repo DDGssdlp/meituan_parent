@@ -6,6 +6,7 @@ import com.ddg.meituan.admin.common.annotation.validator.Assert;
 import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.entity.param.SysUserPageParam;
 import com.ddg.meituan.admin.modules.sys.entity.vo.SysUserEntityVo;
 import com.ddg.meituan.admin.modules.sys.form.PasswordForm;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
@@ -48,11 +49,12 @@ public class SysUserController {
 	 * 所有用户列表
 	 */
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(PageParam params,
+	public CommonResult<PageUtils> list(SysUserPageParam params,
 										@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto){
 		//只有超级管理员，才能查看所有管理员列表
+		//只有超级管理员，才能查看所有管理员列表
 		if(userDto.getId() != Constant.SUPER_ADMIN){
-
+			params.setCreateUserId(userDto.getId());
 		}
 		PageUtils page = sysUserService.queryPage(params);
 

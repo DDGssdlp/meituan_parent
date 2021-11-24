@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysUserDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.entity.param.SysUserPageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
@@ -50,10 +51,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 
 	@Override
-	public PageUtils queryPage(PageParam param) {
+	public PageUtils queryPage(SysUserPageParam param) {
 
-		String username = null;
-		Long createUserId = null;
+
+		Long createUserId = param.getCreateUserId();
+		String username = param.getUsername();
 
 		IPage<SysUserEntity> page = this.page(
 				new Query<SysUserEntity>().getPage(param),
@@ -147,7 +149,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		}
 		//如果不是超级管理员，则需要判断用户的角色是否自己创建
 		if(user.getCreateUserId() == Constant.SUPER_ADMIN){
-			return ;
+			return;
 		}
 
 		//查询用户创建的角色列表
