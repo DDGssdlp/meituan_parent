@@ -55,8 +55,8 @@ public class GlobalExceptionHandler {
                 e.getMessage());
 
     }
-    @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public CommonResult<Object> validExceptionHandle(InternalAuthenticationServiceException e){
+    @ExceptionHandler(Exception.class)
+    public CommonResult<Object> validExceptionHandle(Exception e){
 
         return CommonResult.failed(Code.UN_NONE_EXCEPTION, e.getMessage());
     }

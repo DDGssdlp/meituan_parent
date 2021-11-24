@@ -1,6 +1,7 @@
 package com.ddg.meituan.admin.modules.sys.service.impl;
 
 
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,8 +12,10 @@ import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
 
+import com.ddg.meituan.common.exception.MeituanSysException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -59,6 +62,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		
 		//用户菜单列表
 		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
+		if(CollectionUtils.isEmpty(menuIdList)){
+			return ListUtil.toList();
+		}
 		return getMenuList(menuIdList);
 	}
 

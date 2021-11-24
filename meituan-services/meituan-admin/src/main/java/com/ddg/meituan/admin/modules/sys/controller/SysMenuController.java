@@ -7,6 +7,7 @@ import com.ddg.meituan.admin.modules.sys.entity.SysMenuEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
+import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class SysMenuController{
 	 * 导航菜单
 	 */
 	@GetMapping("/nav")
-	public CommonResult<List<SysMenuEntity>> nav(@RequestHeader(AuthConstant.USER_TOKEN_HEADER)String user){
-		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(1L);
+	public CommonResult<List<SysMenuEntity>> nav(@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto user){
+		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(user.getId());
 
 		return CommonResult.success(menuList);
 	}
