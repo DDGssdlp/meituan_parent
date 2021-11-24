@@ -26,7 +26,7 @@ public class ResourceServiceImpl {
         this.redisTemplate = redisTemplate;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
         resourceRolesMap.put("/api/product/category/list", "ADMIN");
