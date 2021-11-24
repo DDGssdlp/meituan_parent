@@ -2,6 +2,7 @@ package com.ddg.meituan.admin.modules.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 public interface SysRoleService extends IService<SysRoleEntity> {
 
-	PageUtils queryPage(PageParam params);
+	PageUtils queryPage(SysRolePageParam params);
 
 	void saveRole(SysRoleEntity role);
 

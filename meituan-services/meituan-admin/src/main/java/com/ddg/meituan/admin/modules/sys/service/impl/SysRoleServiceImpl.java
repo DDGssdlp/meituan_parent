@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysRoleDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
@@ -46,7 +47,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	}
 
 	@Override
-	public PageUtils queryPage(PageParam params) {
+	public PageUtils queryPage(SysRolePageParam params) {
 		String roleName = null;
 		Long createUserId = null;
 

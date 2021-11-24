@@ -51,7 +51,7 @@ public class SysUserController {
 	@GetMapping("/list")
 	public CommonResult<PageUtils> list(SysUserPageParam params,
 										@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto){
-		//只有超级管理员，才能查看所有管理员列表
+
 		//只有超级管理员，才能查看所有管理员列表
 		if(userDto.getId() != Constant.SUPER_ADMIN){
 			params.setCreateUserId(userDto.getId());

@@ -1,9 +1,12 @@
 package com.ddg.meituan.admin.modules.sys.controller;
 
 
+import cn.hutool.core.map.MapUtil;
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
+import com.ddg.meituan.admin.common.utils.Constant;
 import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.common.api.CommonResult;
@@ -42,11 +45,7 @@ public class SysRoleController {
 	 * 角色列表
 	 */
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(PageParam params){
-//		//如果不是超级管理员，则只查询自己创建的角色列表
-//		if(1 != Constant.SUPER_ADMIN){
-//			params.put("createUserId", 1);
-//		}
+	public CommonResult<PageUtils> list(SysRolePageParam params){
 
 		PageUtils page = sysRoleService.queryPage(params);
 
@@ -57,13 +56,13 @@ public class SysRoleController {
 	 * 角色列表
 	 */
 	@GetMapping("/select")
-	public CommonResult<List<SysRoleEntity>> select(){
-		Map<String, Object> map = new HashMap<>();
-		
+	public CommonResult<List<SysRoleEntity>> select( @RequestHeader(AuthConstant.USER_TOKEN_HEADER)UserDto userDto){
+		HashMap<String, Object> map = MapUtil.newHashMap(2);
+
 		//如果不是超级管理员，则只查询自己所拥有的角色列表
-//		if(getUserId() != Constant.SUPER_ADMIN){
-//			map.put("create_user_id", getUserId());
-//		}
+		if(userDto.getId() != Constant.SUPER_ADMIN){
+			map.put("create_user_id", userDto.getId());
+		}
 		List<SysRoleEntity> list = sysRoleService.listByMap(map);
 		
 		return CommonResult.success(list);
