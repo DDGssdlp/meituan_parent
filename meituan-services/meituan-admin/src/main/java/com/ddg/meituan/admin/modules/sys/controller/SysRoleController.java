@@ -45,7 +45,11 @@ public class SysRoleController {
 	 * 角色列表
 	 */
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(SysRolePageParam params){
+	public CommonResult<PageUtils> list(SysRolePageParam params, @RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto){
+
+		if(userDto.getId() != Constant.SUPER_ADMIN){
+			params.setCreateUserId(userDto.getId());
+		}
 
 		PageUtils page = sysRoleService.queryPage(params);
 

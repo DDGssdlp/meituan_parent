@@ -86,7 +86,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	@Transactional(rollbackFor = Exception.class)
 	public void saveUser(SysUserEntity user) {
 
-		//sha256加密
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setSalt(salt);
