@@ -48,7 +48,7 @@ public class SysMenuController{
 	 * 所有菜单列表
 	 */
 	@GetMapping("/list")
-	public List<SysMenuEntity> list(){
+	public CommonResult<List<SysMenuEntity>> list(){
 		List<SysMenuEntity> menuList = sysMenuService.list();
 		HashMap<Long, SysMenuEntity> menuMap = new HashMap<>(32);
 		for (SysMenuEntity s : menuList) {
@@ -69,7 +69,7 @@ public class SysMenuController{
 		}
 
 
-		return menuList;
+		return CommonResult.success(menuList);
 	}
 	
 	/**
@@ -190,7 +190,6 @@ public class SysMenuController{
 			if(parentType != Constant.MenuType.MENU.getValue()){
 				throw new MeituanSysException("上级菜单只能为菜单类型");
 			}
-			return ;
 		}
 	}
 }
