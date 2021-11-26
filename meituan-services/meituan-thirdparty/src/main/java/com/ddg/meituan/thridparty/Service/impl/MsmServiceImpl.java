@@ -56,7 +56,7 @@ public class MsmServiceImpl implements MsmService {
         if(StringUtils.isEmpty(code)){
             // 要是获取不到 使用阿里云进行发送
             code = RandomUtil.getSixBitRandom();
-            Map<String, String> param = new HashMap<>();
+            Map<String, String> param = new HashMap<>(2);
             param.put("code", code);
             // 调用service进行发送：
             isSend = sendCodeByAly(param, phoneNum);
@@ -69,7 +69,7 @@ public class MsmServiceImpl implements MsmService {
         }else{
             String[] s = code.split("_");
             long l = System.currentTimeMillis();
-            if (l - Long.parseLong(s[1]) > ThirdPartyConstant.ONE_MIN){
+            if (l - Long.parseLong(s[1]) < ThirdPartyConstant.ONE_MIN){
                 return  CommonResult.failed("60秒内不可以重复的发送验证码");
             }
 

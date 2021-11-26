@@ -1,7 +1,6 @@
 package com.ddg.meituan.authserver.service.impl;
 
 
-import cn.hutool.core.collection.CollUtil;
 import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.authserver.feign.MemberFeignService;

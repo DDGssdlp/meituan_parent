@@ -71,3 +71,4 @@ secure:
     # --- 前台首页 ---
       - "/api/product/category/listWithTree"
       - "/api/auth/registerUser"
+      - "/api/thirdparty/msm/send/**"

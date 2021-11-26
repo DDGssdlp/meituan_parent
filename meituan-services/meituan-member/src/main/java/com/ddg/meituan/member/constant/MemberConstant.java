@@ -24,7 +24,7 @@ public interface MemberConstant {
 
     String REDIS_CACHE_LOGIN_USER_KEY = "redis_cache_user";
 
-    String REDIS_PHONE_CODE_PREFIX = "redis_phone_code_";
+    String REDIS_PHONE_CODE_PREFIX = "redis:phone:code_";
 
     int MEMBER_CODE_LENGTH = 8;
 

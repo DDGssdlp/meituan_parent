@@ -110,21 +110,33 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     @Override
     public UserDto loadUserByUsername(String username, String code) throws MeituanSysException {
+        if(!StringUtils.isEmpty(code)){
+            String phoneCodeFromRedis = getPhoneCodeFromRedis(username, code);
+            if (!code.equals(phoneCodeFromRedis)) {
+                throw new MeituanLoginException("验证码失效！");
+            }
+        }
+
         QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(username != null, "mobile", username);
         MemberEntity memberEntity = memberDao.selectOne(wrapper);
 
-        return buildUserDto(memberEntity);
+
+        return buildUserDto(memberEntity, code);
     }
 
-    private UserDto buildUserDto(MemberEntity memberEntity) {
+    private UserDto buildUserDto(MemberEntity memberEntity, String code) {
         if(memberEntity == null){
             throw new UsernameNotFoundException("该手机号没有被注册");
         }
         UserDto userDto = new UserDto();
         userDto.setUsername(memberEntity.getMobile());
         userDto.setStatus(memberEntity.getStatus());
-        userDto.setPassword(memberEntity.getPassword());
+        if(!StringUtils.isEmpty(code)){
+            userDto.setPassword(passwordEncoder.encode(code));
+        }else{
+            userDto.setPassword(memberEntity.getPassword());
+        }
         userDto.setClientId(AuthConstant.PORTAL_CLIENT_ID);
         userDto.setId(memberEntity.getId());
         return userDto;
