@@ -1,17 +1,11 @@
 ipAddr: 101.200.140.80
 # 配置应用名称 nacos 使用
 spring:
-  application:
-    name: meituan-product
   datasource:
     username: root
     password: root
     url: jdbc:mysql://${ipAddr}:3306/meituan-product?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
 #    sentinel:
 #      transport:
 #        dashboard: localhost:8333
@@ -35,6 +29,7 @@ spring:
         # 连接池最大连接数（使用负值表示没有限制）
         max-active: 8
     timeout: 5000
+    password: redis123
   #   设置缓存类型
   cache:
     type: redis
@@ -56,9 +51,9 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-      # 配置全局逻辑删除 1代表未删除 0代表已删除 第二步配置逻辑删除组件 第三步配置逻辑删除的字段 实体类上
-      logic-delete-value: 0
-      logic-not-delete-value: 1
+      # 配置全局逻辑删除 0代表未删除 1代表已删除 第二步配置逻辑删除组件 第三步配置逻辑删除的字段 实体类上
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 
 
 server:

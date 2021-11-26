@@ -34,4 +34,6 @@ public class CrossOriginConfig {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsWebFilter(source);
     }
+
+
 }

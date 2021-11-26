@@ -48,7 +48,7 @@ public class LoginController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registerUser")
     public CommonResult register(@RequestBody  @Validated MemberRegisterVo memberRegisterVo) throws MeituanSysException {
         return loginService.register(memberRegisterVo);
     }

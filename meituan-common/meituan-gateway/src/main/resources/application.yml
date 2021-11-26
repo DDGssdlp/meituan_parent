@@ -68,4 +68,6 @@ secure:
       - "/**/*.png"
       - "/**/*.jpg"
       - "/**/*.ico"
-
+    # --- 前台首页 ---
+      - "/api/product/category/listWithTree"
+      - "/api/auth/registerUser"

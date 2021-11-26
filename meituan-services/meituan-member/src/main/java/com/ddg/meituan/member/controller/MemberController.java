@@ -2,12 +2,15 @@ package com.ddg.meituan.member.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.constant.AuthConstant;
+import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.member.constant.MemberConstant;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +54,6 @@ public class MemberController {
      * 信息
      */
     @GetMapping("/info/{id}")
-    //@RequiresPermissions("member:member:info")
     public CommonResult<MemberEntity> info(@PathVariable("id") Long id) {
         MemberEntity member = memberService.getById(id);
 
@@ -62,7 +64,6 @@ public class MemberController {
      * 保存
      */
     @PostMapping("/save")
-    //@RequiresPermissions("member:member:save")
     public CommonResult<Object> save(@RequestBody MemberEntity member) {
         memberService.save(member);
 
@@ -73,7 +74,6 @@ public class MemberController {
      * 修改
      */
     @PostMapping("/update")
-    //@RequiresPermissions("member:member:update")
     public CommonResult<Object> update(@RequestBody MemberEntity member) {
         memberService.updateById(member);
 
@@ -84,7 +84,6 @@ public class MemberController {
      * 删除
      */
     @PostMapping("/delete")
-    //@RequiresPermissions("member:member:delete")
     public CommonResult<Object> delete(@RequestBody Long[] ids) {
         memberService.removeByIds(Arrays.asList(ids));
 
@@ -98,20 +97,30 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public CommonResult<MemberRegisterVo> login(@RequestBody MemberRegisterVo memberRegisterVo, HttpSession session) {
-        return memberService.login(memberRegisterVo, session);
+    public CommonResult<MemberRegisterVo> login(@RequestBody MemberRegisterVo memberRegisterVo) {
+        MemberRegisterVo login = memberService.login(memberRegisterVo);
+        return CommonResult.success(login);
+
     }
 
     /**
      *
-     * @param phoneNum MD5加密后的手机号
+     * @param
      */
-    @GetMapping("/getLoginUser/{phoneNum}")
-    public CommonResult<MemberRegisterVo> getLoginUser(@PathVariable String phoneNum) {
-        String memberRegisterVoStr = (String) redisTemplate.opsForHash()
-                .get(MemberConstant.REDIS_CACHE_LOGIN_USER_KEY, phoneNum);
-        MemberRegisterVo memberRegisterVo = JSON.parseObject(memberRegisterVoStr, MemberRegisterVo.class);
-        return CommonResult.success(memberRegisterVo);
+    @GetMapping("/getLoginUser")
+    public CommonResult<UserDto> getLoginUser(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required =  false) UserDto userDto) {
+
+        return CommonResult.success(userDto);
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    @GetMapping("/loadByUsername")
+    public UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code){
+        return memberService.loadUserByUsername(username, code);
     }
 
 }

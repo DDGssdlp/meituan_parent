@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserDetailsService {
             String uuid = request.getParameter("uuid");
             userDto = adminFeignService.loadUserByUsername(username, code, uuid);
         }else{
-            userDto = memberFeignService.loadUserByUsername(username);
+            userDto = memberFeignService.loadUserByUsername(username, code);
         }
 
 

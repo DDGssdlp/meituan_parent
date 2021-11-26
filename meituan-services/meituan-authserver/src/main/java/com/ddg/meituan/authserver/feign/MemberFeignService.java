@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface MemberFeignService {
 
     @PostMapping("/member/member/register")
-    CommonResult register(@RequestBody MemberRegisterVo memberRegisterVo);
+    CommonResult<Long> register(@RequestBody MemberRegisterVo memberRegisterVo);
 
     @PostMapping("/member/member/login")
     CommonResult login(@RequestBody MemberRegisterVo memberRegisterVo);
 
     @GetMapping("/member/member/loadByUsername")
-    UserDto loadUserByUsername(@RequestParam String username);
+    UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code);
 
 }
 

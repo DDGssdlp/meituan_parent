@@ -43,14 +43,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    @RedisCache(redisKey = "redis_list_tree", resClass = CategoryEntity.class, isList = true, lockName =
-            "category_lock")
+    @RedisCache(redisKey = "redis:list:tree", resClass = CategoryEntity.class, isList = true, lockName =
+            "category:lock")
     public List<CategoryEntity> getListWithTree() {
         //首先是获取所有的CategoryEntity
         List<CategoryEntity> list = categoryDao.selectList(null);
-        // 获取所有的二级分类：
-        List<CategoryEntity> categoryEntityList = list.stream()
-                .filter(categoryEntity -> ProductConstant.CAT_LEVEL_TWO.equals(categoryEntity.getCatLevel())).collect(Collectors.toList());
+
         // 进行父子结构的组装：每一个分类下最多返回15个子节点
         List<CategoryEntity> fatherList = list.stream()
                 .map(categoryEntity -> setChildren(categoryEntity, list, ProductConstant.MAX_LEVEL3_COUNT))
@@ -61,7 +59,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
 
-    @RemoveCache(value = {"redis_list_tree", "redis_list_parent", "redis_key_page"})
+    @RemoveCache(value = {"redis:list:tree", "redis:list:parent", "redis:key:page"})
     public void changeStatus(CategoryEntity categoryEntity) {
         // 返回的直接是修改之后的显示状态 直接进行数据库的更新即可
         categoryDao.updateById(categoryEntity);
@@ -97,7 +95,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return collect;
     }
 
-    // 进行父子结构的组装：
+    /**
+     *  进行父子结构的组装：
+     */
     private CategoryEntity setChildren(CategoryEntity categoryEntity, List<CategoryEntity> list, Integer limit) {
         List<CategoryEntity> collect = list.stream()
                 .filter(categoryEntity1 -> ProductConstant.SHOW_STATUS.equals(categoryEntity1.getShowStatus())

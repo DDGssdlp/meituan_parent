@@ -60,7 +60,6 @@ public class CategoryController {
      * 信息
      */
     @GetMapping("/info/{catId}")
-    //@RequiresPermissions("product:category:info")
     public CommonResult<CategoryEntity> info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
@@ -71,7 +70,6 @@ public class CategoryController {
      * 保存
      */
     @PostMapping("/save")
-    //@RequiresPermissions("product:category:save")
     public CommonResult<Object> save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
 
@@ -82,7 +80,6 @@ public class CategoryController {
      * 修改
      */
     @PostMapping("/update")
-    //@RequiresPermissions("product:category:update")
     public CommonResult<Object> update(@RequestBody CategoryEntity category){
 		categoryService.updateById(category);
         return CommonResult.success();
@@ -92,7 +89,6 @@ public class CategoryController {
      * 删除
      */
     @PostMapping("/delete")
-    //@RequiresPermissions("product:category:delete")
     public CommonResult<Object> delete(@RequestBody Long[] catIds){
 		categoryService.removeByIds(Arrays.asList(catIds));
 

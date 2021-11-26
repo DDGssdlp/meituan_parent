@@ -89,7 +89,7 @@ public class MemberEntity implements Serializable {
 	/**
 	 * 启用状态
 	 */
-	private Integer showStatus;
+	private Integer status;
 	/**
 	 * 注册时间
 	 */

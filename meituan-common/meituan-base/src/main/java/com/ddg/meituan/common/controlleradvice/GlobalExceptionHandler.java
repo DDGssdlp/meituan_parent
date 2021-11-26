@@ -51,8 +51,7 @@ public class GlobalExceptionHandler {
         Map<String, String> exceptionMap = bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,
                 FieldError::getDefaultMessage, (oldVal, currVal) -> oldVal));
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-        return CommonResult.failed(Code.UN_NONE_EXCEPTION.getValue(), Code.UN_NONE_EXCEPTION.getHintMessage(),
-                e.getMessage());
+        return CommonResult.failed(Code.VALID_EXCEPTION.getValue(), Code.ILLEGAL_VALUE.getValue(), exceptionMap);
 
     }
     @ExceptionHandler(Exception.class)

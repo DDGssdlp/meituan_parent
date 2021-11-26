@@ -38,5 +38,9 @@ public class MemberRegisterVo implements Serializable {
     @NotEmpty(message = "密码不能为空")
     @Length(min =6, max = 18, message = "密码长度必须是在6~18位")
     private String password;
+    /**
+     * 用户id
+     */
+    private Long id;
 
 }

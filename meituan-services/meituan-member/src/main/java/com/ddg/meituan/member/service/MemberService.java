@@ -2,6 +2,7 @@ package com.ddg.meituan.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
@@ -33,6 +34,8 @@ public interface MemberService extends IService<MemberEntity> {
 
     boolean checkUsername(String username);
 
-    CommonResult<MemberRegisterVo> login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException;
+    MemberRegisterVo login(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
+
+    UserDto loadUserByUsername(String username, String code) throws MeituanSysException;
 }
 

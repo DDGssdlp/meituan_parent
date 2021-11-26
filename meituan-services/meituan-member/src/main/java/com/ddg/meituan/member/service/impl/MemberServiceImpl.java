@@ -3,6 +3,8 @@ package com.ddg.meituan.member.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.constant.AuthConstant;
+import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanLoginException;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.*;
@@ -12,6 +14,7 @@ import com.ddg.meituan.member.service.MemberLoginLogService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.naming.AuthenticationNotSupportedException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -88,12 +92,12 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
 
     @Override
-    public CommonResult<MemberRegisterVo> login(MemberRegisterVo memberRegisterVo, HttpSession session) throws MeituanSysException {
+    public MemberRegisterVo login(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
         String phone = memberRegisterVo.getUserName();
         String phoneCode = memberRegisterVo.getPhoneCode();
 
         if (!StringUtils.isEmpty(phoneCode)) {
-            return loginByVerificationCode(memberRegisterVo, session, phone, phoneCode);
+            return loginByVerificationCode(memberRegisterVo, phone, phoneCode);
         }
 
         MemberEntity entity = getOneByPhone(phone);
@@ -101,13 +105,36 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             throw new MeituanLoginException("手机号没有被进行注册");
         }
 
-        return loginByPassword(memberRegisterVo, session, entity);
+        return loginByPassword(memberRegisterVo, entity);
     }
+
+    @Override
+    public UserDto loadUserByUsername(String username, String code) throws MeituanSysException {
+        QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq(username != null, "mobile", username);
+        MemberEntity memberEntity = memberDao.selectOne(wrapper);
+
+        return buildUserDto(memberEntity);
+    }
+
+    private UserDto buildUserDto(MemberEntity memberEntity) {
+        if(memberEntity == null){
+            throw new UsernameNotFoundException("该手机号没有被注册");
+        }
+        UserDto userDto = new UserDto();
+        userDto.setUsername(memberEntity.getMobile());
+        userDto.setStatus(memberEntity.getStatus());
+        userDto.setPassword(memberEntity.getPassword());
+        userDto.setClientId(AuthConstant.PORTAL_CLIENT_ID);
+        userDto.setId(memberEntity.getId());
+        return userDto;
+    }
+
 
     /**
      * 使用手机号和密码进行登录
      */
-    private CommonResult<MemberRegisterVo> loginByPassword(MemberRegisterVo memberRegisterVo, HttpSession session, MemberEntity entity) {
+    private MemberRegisterVo loginByPassword(MemberRegisterVo memberRegisterVo, MemberEntity entity) {
         String pwd = entity.getPassword();
         if (!passwordEncoder.matches(memberRegisterVo.getPassword(), pwd)) {
             throw new MeituanLoginException("账号或者是密码不正确");
@@ -121,8 +148,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         cacheToken(memberRegisterVo, mobile);
         saveLoginLog(entity.getId());
 
-        session.setAttribute(MemberConstant.LOGIN_USER, memberRegisterVo);
-        return CommonResult.success(memberRegisterVo);
+        return memberRegisterVo;
     }
 
     /**
@@ -137,8 +163,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     /**
      * 要是传入的有验证码，使用手机号和验证码进行登录的
      */
-    private CommonResult<MemberRegisterVo> loginByVerificationCode(MemberRegisterVo memberRegisterVo, HttpSession session,
-                                                    String phone,
+    private MemberRegisterVo loginByVerificationCode(MemberRegisterVo memberRegisterVo,  String phone,
                                       String phoneCode) {
         String phoneCodeFromRedis = getPhoneCodeFromRedis(phone, phoneCode);
         if (!phoneCode.equals(phoneCodeFromRedis)) {
@@ -166,8 +191,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
         // 将验证码删除
         redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + phone);
-        session.setAttribute(MemberConstant.LOGIN_USER, memberRegisterVo);
-        return CommonResult.success(memberRegisterVo);
+        return memberRegisterVo;
     }
 
     /**

@@ -15,6 +15,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Map;
 
@@ -68,4 +69,6 @@ public class OathController {
 
         return CommonResult.success(oauth2TokenDto);
     }
+
+
 }
