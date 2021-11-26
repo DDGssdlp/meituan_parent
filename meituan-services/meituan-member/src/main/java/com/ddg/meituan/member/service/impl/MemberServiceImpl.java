@@ -110,11 +110,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     @Override
     public UserDto loadUserByUsername(String username, String code) throws MeituanSysException {
+        String phoneCodeFromRedis = null;
         if(!StringUtils.isEmpty(code)){
-            String phoneCodeFromRedis = getPhoneCodeFromRedis(username, code);
-            if (!code.equals(phoneCodeFromRedis)) {
-                throw new MeituanLoginException("验证码失效！");
-            }
+            phoneCodeFromRedis = getPhoneCodeFromRedis(username, code);
+
         }
 
         QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
@@ -122,18 +121,18 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         MemberEntity memberEntity = memberDao.selectOne(wrapper);
 
 
-        return buildUserDto(memberEntity, code);
+        return buildUserDto(memberEntity, code, phoneCodeFromRedis);
     }
 
-    private UserDto buildUserDto(MemberEntity memberEntity, String code) {
+    private UserDto buildUserDto(MemberEntity memberEntity, String code, String phoneCodeFromRedis) {
         if(memberEntity == null){
-            throw new UsernameNotFoundException("该手机号没有被注册");
+            return null;
         }
         UserDto userDto = new UserDto();
         userDto.setUsername(memberEntity.getMobile());
         userDto.setStatus(memberEntity.getStatus());
         if(!StringUtils.isEmpty(code)){
-            userDto.setPassword(passwordEncoder.encode(code));
+            userDto.setPassword(passwordEncoder.encode(phoneCodeFromRedis));
         }else{
             userDto.setPassword(memberEntity.getPassword());
         }
@@ -149,7 +148,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     private MemberRegisterVo loginByPassword(MemberRegisterVo memberRegisterVo, MemberEntity entity) {
         String pwd = entity.getPassword();
         if (!passwordEncoder.matches(memberRegisterVo.getPassword(), pwd)) {
-            throw new MeituanLoginException("账号或者是密码不正确");
+            throw new UsernameNotFoundException("账号或者是密码不正确");
         }
 
         memberRegisterVo.setUserName(entity.getUsername());

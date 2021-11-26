@@ -36,13 +36,6 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    public CommonResult<Object> validAuthenticationExceptionHandel(AuthenticationException e){
-        log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
-        return CommonResult.failed(e.getMessage());
-    }
-
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public CommonResult<Object> validMethodArgumentNotValidExceptionHandel(MethodArgumentNotValidException e){
 

@@ -1,12 +1,18 @@
 package com.ddg.meituan.authserver.config;
 
 
+import cn.hutool.http.HttpStatus;
+import cn.hutool.json.JSONUtil;
 import com.ddg.meituan.authserver.component.JwtTokenEnhancer;
+import com.ddg.meituan.authserver.filter.MyClientCredentialsTokenEndpointFilter;
 import com.ddg.meituan.authserver.service.impl.UserServiceImpl;
+import com.ddg.meituan.common.api.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -18,6 +24,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.security.KeyPair;
 import java.util.ArrayList;
@@ -110,13 +117,37 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     }
 
-
-
-
+    /**
+     *  异常自定义处理：
+     * @param security
+     */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security.allowFormAuthenticationForClients();
+        MyClientCredentialsTokenEndpointFilter endpointFilter = new MyClientCredentialsTokenEndpointFilter(security);
+        endpointFilter.afterPropertiesSet();
+        endpointFilter.setAuthenticationEntryPoint(authenticationEntryPoint());
+        security.addTokenEndpointAuthenticationFilter(endpointFilter);
+
+        security.authenticationEntryPoint(authenticationEntryPoint())
+                .tokenKeyAccess("isAuthenticated()")
+                .checkTokenAccess("permitAll()");
     }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, e) -> {
+            response.setStatus(HttpStatus.HTTP_OK);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Cache-Control", "no-cache");
+            CommonResult<Object> result = CommonResult.failed(e.getMessage());
+            response.getWriter().print(JSONUtil.toJsonStr(result));
+            response.getWriter().flush();
+        };
+    }
+
+
 
     /**
      *  accessToken 转换器 jks公钥
