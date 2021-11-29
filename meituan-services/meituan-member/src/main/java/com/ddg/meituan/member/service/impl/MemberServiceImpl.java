@@ -57,7 +57,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     public PageUtils queryPage(PageParam param) {
         IPage<MemberEntity> page = this.page(
                 new Query<MemberEntity>().getPage(param),
-                new QueryWrapper<MemberEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -125,7 +125,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     private UserDto buildUserDto(MemberEntity memberEntity, String code, String phoneCodeFromRedis) {
-        if(memberEntity == null){
+        if(memberEntity == null || StringUtils.isEmpty(phoneCodeFromRedis)){
             return null;
         }
         UserDto userDto = new UserDto();

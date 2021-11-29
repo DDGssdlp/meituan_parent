@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserDetailsService {
 
         String clientId = request.getParameter("client_id");
         String code = request.getParameter("code");
-        UserDto userDto = null;
+        UserDto userDto;
         if(AuthConstant.ADMIN_CLIENT_ID.equals(clientId)){
 
             String uuid = request.getParameter("uuid");
@@ -71,8 +72,11 @@ public class UserServiceImpl implements UserDetailsService {
             userDto = memberFeignService.loadUserByUsername(username, code);
         }
 
-
         if (userDto == null) {
+            if(AuthConstant.PORTAL_CLIENT_ID.equals(clientId) && !StringUtils.isEmpty(code)){
+                throw new UsernameNotFoundException(MessageConstant.USERNAME_CODE_ERROR);
+            }
+
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
         SecurityUser securityUser = new SecurityUser(userDto);
