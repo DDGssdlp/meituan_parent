@@ -11,6 +11,7 @@ import com.ddg.meituan.common.domain.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -24,7 +25,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 
 
 /**
@@ -43,37 +43,37 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class UserServiceImpl implements UserDetailsService {
 
-
     @Resource
-    private  AdminFeignService adminFeignService;
+    private AdminFeignService adminFeignService;
 
     @Resource
     private HttpServletRequest request;
 
-    private final MemberFeignService memberFeignService;
-
-    @Autowired
-    public UserServiceImpl(MemberFeignService memberFeignService) {
-        this.memberFeignService = memberFeignService;
-    }
-
+    @Resource
+    private MemberFeignService memberFeignService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         String clientId = request.getParameter("client_id");
         String code = request.getParameter("code");
-        UserDto userDto;
-        if(AuthConstant.ADMIN_CLIENT_ID.equals(clientId)){
+        UserDto userDto = null;
+        try {
+            if (AuthConstant.ADMIN_CLIENT_ID.equals(clientId)) {
 
-            String uuid = request.getParameter("uuid");
-            userDto = adminFeignService.loadUserByUsername(username, code, uuid);
-        }else{
-            userDto = memberFeignService.loadUserByUsername(username, code);
+                String uuid = request.getParameter("uuid");
+                userDto = adminFeignService.loadUserByUsername(username, code, uuid);
+            } else {
+                userDto = memberFeignService.loadUserByUsername(username, code);
+            }
+
+        } catch (Exception e) {
+            log.error("UserDto 获取错误");
         }
 
+
         if (userDto == null) {
-            if(AuthConstant.PORTAL_CLIENT_ID.equals(clientId) && !StringUtils.isEmpty(code)){
+            if (AuthConstant.PORTAL_CLIENT_ID.equals(clientId) && !StringUtils.isEmpty(code)) {
                 throw new UsernameNotFoundException(MessageConstant.USERNAME_CODE_ERROR);
             }
 

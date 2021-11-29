@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -125,7 +126,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     private UserDto buildUserDto(MemberEntity memberEntity, String code, String phoneCodeFromRedis) {
-        if(memberEntity == null || StringUtils.isEmpty(phoneCodeFromRedis)){
+        if(memberEntity == null){
             return null;
         }
         UserDto userDto = new UserDto();
@@ -138,6 +139,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }
         userDto.setClientId(AuthConstant.PORTAL_CLIENT_ID);
         userDto.setId(memberEntity.getId());
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return userDto;
     }
 

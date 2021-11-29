@@ -85,6 +85,7 @@
         <druid.version>1.1.13</druid.version>
         <page-helper.version>1.2.10</page-helper.version>
         <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
+        <admin-starter-server.version>2.2.3</admin-starter-server.version>
     </properties>
 
 
@@ -361,6 +362,13 @@
                 <groupId>com.ddg</groupId>
                 <artifactId>minio-starter</artifactId>
                 <version>${minio-starter.version}</version>
+            </dependency>
+
+            <!--集成SpringBoot Admin监控-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${admin-starter-server.version}</version>
             </dependency>
 
         </dependencies>

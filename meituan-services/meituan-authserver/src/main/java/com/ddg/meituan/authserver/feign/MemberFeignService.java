@@ -1,5 +1,6 @@
 package com.ddg.meituan.authserver.feign;
 
+import com.ddg.meituan.authserver.feign.fallback.MemberFeginFallBack;
 import com.ddg.meituan.authserver.vo.MemberRegisterVo;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.domain.UserDto;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2021/2/1 10:12
  * @email: wangzhijie0908@gmail.com
  */
-@FeignClient("meituan-member")
+@FeignClient(value = "meituan-member", fallback = MemberFeginFallBack.class, qualifier = "memberFeignService")
 public interface MemberFeignService {
 
     @PostMapping("/member/member/register")

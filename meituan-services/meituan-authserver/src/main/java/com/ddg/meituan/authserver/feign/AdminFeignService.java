@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @date 2021/11/19 17:21
  * @email: wangzhijie0908@gmail.com
  */
-@FeignClient(value = "meituan-admin")
+@FeignClient(value = "meituan-admin", fallback = AdminFeignFallBack.class, qualifier = "adminFeignService")
 public interface AdminFeignService {
 
     /**
