@@ -37,6 +37,7 @@ public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
                 //1.配置所有静态资源和登录页可以公开访问
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 //2.配置登录和登出路径
                 .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
