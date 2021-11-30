@@ -1,0 +1,7 @@
+ipAddr: 101.200.140.80
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://${ipAddr}:8848

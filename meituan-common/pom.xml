@@ -15,9 +15,7 @@
     <modules>
         <module>meituan-base</module>
         <module>meituan-gateway</module>
+        <module>meituan-monitor</module>
     </modules>
-
-
-
 
 </project>
