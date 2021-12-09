@@ -95,3 +95,4 @@ swagger:
   application-description: springfox swagger 3.0整合Demo
   try-host: http://localhost:${server.port}
 
+

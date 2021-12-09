@@ -1,6 +1,6 @@
 {
   "enable": true,
-  "basePackage": "com.ddg.meituan",
+  "basePackage": "com.ddg.meituan.*.controller",
   "url": "http://101.200.140.80:7700/api",
   "token": "4f93bf41eea1465e8e0de69981db5a4b",
   "author": "Jim",

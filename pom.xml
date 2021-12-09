@@ -85,8 +85,7 @@
         <page-helper.version>1.2.10</page-helper.version>
         <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
         <admin-starter-server.version>2.2.3</admin-starter-server.version>
-        <torna.version>1.2.6</torna.version>
-        <smart-doc.version>2.3.4</smart-doc.version>
+        <torna.version>1.2.10</torna.version>
     </properties>
 
 
@@ -365,13 +364,6 @@
                 <artifactId>swagger-plugin</artifactId>
                 <version>${torna.version}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <!-- smart-doc -->
-            <dependency>
-                <groupId>com.github.shalousun</groupId>
-                <artifactId>smart-doc</artifactId>
-                <version>${smart-doc.version}</version>
             </dependency>
 
         </dependencies>

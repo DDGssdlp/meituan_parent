@@ -160,7 +160,7 @@
         <dependency>
             <groupId>cn.torna</groupId>
             <artifactId>swagger-plugin</artifactId>
-            <scope>compile</scope>
+            <version>${torna.version}</version>
         </dependency>
 
     </dependencies>
@@ -171,7 +171,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 
