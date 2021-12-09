@@ -94,10 +94,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!--swagger-->
+        <!-- swagger 3.0 -->
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${swagger-starter.version}</version>
         </dependency>
 
         <!--lombok用来简化实体类：需要安装lombok插件-->
@@ -155,6 +156,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Torna Swagger 插件 -->
+        <dependency>
+            <groupId>cn.torna</groupId>
+            <artifactId>swagger-plugin</artifactId>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
@@ -164,6 +171,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 

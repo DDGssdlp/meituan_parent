@@ -1,8 +1,8 @@
-
-
 package com.ddg.meituan.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,27 +12,33 @@ import java.util.List;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@ApiModel("分页工具类")
 public class PageUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 总记录数
 	 */
+	@ApiModelProperty("总记录数")
 	private int totalCount;
 	/**
 	 * 每页记录数
 	 */
+	@ApiModelProperty("每页记录数")
 	private int pageSize;
 	/**
 	 * 总页数
 	 */
+	@ApiModelProperty("总页数")
 	private int totalPage;
 	/**
 	 * 当前页数
 	 */
+	@ApiModelProperty("当前页数")
 	private int currPage;
 	/**
 	 * 列表数据
 	 */
+	@ApiModelProperty("列表数据")
 	private List<?> list;
 	
 	/**

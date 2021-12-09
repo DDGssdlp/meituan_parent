@@ -1,14 +1,27 @@
 package com.ddg.meituan.common.api;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
- * 通用返回对象
+ * Description: 通用返回对象
+ * ========================================================================
+ * ------------------------------------------------------------------------
  *
- * @author macro
- * @date 2019/4/19
+ * @author Edison
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/1/28 17:11
+ * @email:
  */
+@ApiModel("通用返回对象")
 public class CommonResult<T> {
+    @ApiModelProperty("通用状态码")
     private String code;
+    @ApiModelProperty("通用返回消息")
     private String message;
+    @ApiModelProperty("返回的数据")
     private T data;
 
     protected CommonResult() {

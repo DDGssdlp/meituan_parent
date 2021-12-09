@@ -1,26 +1,22 @@
 package com.ddg.meituan.member.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.member.constant.MemberConstant;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
-import org.apache.catalina.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
-
 
 /**
  * 会员
@@ -30,19 +26,17 @@ import java.util.Map;
  * @date 2021-01-31 16:44:02
  */
 @RestController
+@Api("会员")
 @RequestMapping("member/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
-
     /**
      * 列表
      */
     @GetMapping("/list")
-    //@RequiresPermissions("member:member:list")
+   @ApiOperation("会员列表")
     public CommonResult<PageUtils> list(PageParam param) {
         PageUtils page = memberService.queryPage(param);
 

@@ -76,9 +76,11 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- swagger 3.0 -->
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${swagger-starter.version}</version>
         </dependency>
 
         <!--分布式锁引用：-->

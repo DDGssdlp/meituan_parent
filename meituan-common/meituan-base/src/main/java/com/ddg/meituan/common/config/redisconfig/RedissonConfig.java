@@ -1,4 +1,4 @@
-package com.ddg.meituan.common.config;
+package com.ddg.meituan.common.config.redisconfig;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

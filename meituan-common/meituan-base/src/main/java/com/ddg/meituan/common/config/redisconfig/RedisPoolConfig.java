@@ -1,4 +1,4 @@
-package com.ddg.meituan.common.config;
+package com.ddg.meituan.common.config.redisconfig;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Value;
