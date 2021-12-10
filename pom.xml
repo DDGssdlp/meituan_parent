@@ -85,7 +85,7 @@
         <page-helper.version>1.2.10</page-helper.version>
         <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
         <admin-starter-server.version>2.2.3</admin-starter-server.version>
-        <torna.version>1.2.10</torna.version>
+        <torna.version>1.2.9</torna.version>
     </properties>
 
 
@@ -357,13 +357,11 @@
                 <version>${admin-starter-server.version}</version>
             </dependency>
 
-
             <!-- Torna Swagger 插件 -->
             <dependency>
                 <groupId>cn.torna</groupId>
                 <artifactId>swagger-plugin</artifactId>
                 <version>${torna.version}</version>
-                <scope>test</scope>
             </dependency>
 
         </dependencies>

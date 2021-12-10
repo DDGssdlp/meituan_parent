@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public interface MemberService extends IService<MemberEntity> {
 
-    PageUtils queryPage(PageParam param);
+    PageUtils<MemberEntity> queryPage(PageParam param);
 
     /**
      * 根据手机号获取member

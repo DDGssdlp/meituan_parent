@@ -55,13 +55,13 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     private MemberLoginLogService memberLoginLogService;
 
     @Override
-    public PageUtils queryPage(PageParam param) {
+    public PageUtils<MemberEntity>  queryPage(PageParam param) {
         IPage<MemberEntity> page = this.page(
                 new Query<MemberEntity>().getPage(param),
                 new QueryWrapper<>()
         );
 
-        return new PageUtils(page);
+        return PageUtils.of(page);
     }
 
     @Override

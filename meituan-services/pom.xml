@@ -160,7 +160,6 @@
         <dependency>
             <groupId>cn.torna</groupId>
             <artifactId>swagger-plugin</artifactId>
-            <version>${torna.version}</version>
         </dependency>
 
     </dependencies>

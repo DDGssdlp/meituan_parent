@@ -1,5 +1,6 @@
 package com.ddg.meituan.member.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.UserDto;
@@ -10,10 +11,7 @@ import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -36,11 +34,11 @@ public class MemberController {
      * 列表
      */
     @GetMapping("/list")
-   @ApiOperation("会员列表")
-    public CommonResult<PageUtils> list(PageParam param) {
-        PageUtils page = memberService.queryPage(param);
+    @ApiOperation("会员列表")
+    public PageUtils<MemberEntity> list(PageParam pageParam) {
+        PageUtils<MemberEntity> page = memberService.queryPage(pageParam);
 
-        return CommonResult.success(page);
+        return page;
     }
 
 
@@ -48,6 +46,7 @@ public class MemberController {
      * 信息
      */
     @GetMapping("/info/{id}")
+    @ApiOperation("会员信息")
     public CommonResult<MemberEntity> info(@PathVariable("id") Long id) {
         MemberEntity member = memberService.getById(id);
 
@@ -58,6 +57,7 @@ public class MemberController {
      * 保存
      */
     @PostMapping("/save")
+    @ApiOperation("保存会员")
     public CommonResult<Object> save(@RequestBody MemberEntity member) {
         memberService.save(member);
 
@@ -68,6 +68,7 @@ public class MemberController {
      * 修改
      */
     @PostMapping("/update")
+    @ApiOperation("修改会员")
     public CommonResult<Object> update(@RequestBody MemberEntity member) {
         memberService.updateById(member);
 
@@ -78,6 +79,7 @@ public class MemberController {
      * 删除
      */
     @PostMapping("/delete")
+    @ApiOperation("删除会员")
     public CommonResult<Object> delete(@RequestBody Long[] ids) {
         memberService.removeByIds(Arrays.asList(ids));
 
@@ -85,12 +87,14 @@ public class MemberController {
     }
 
     @PostMapping("/register")
+    @ApiOperation("注册会员")
     public CommonResult<Long> register(@RequestBody MemberRegisterVo memberRegisterVo) {
         return memberService.register(memberRegisterVo);
 
     }
 
     @PostMapping("/login")
+    @ApiOperation("会员登录")
     public CommonResult<MemberRegisterVo> login(@RequestBody MemberRegisterVo memberRegisterVo) {
         MemberRegisterVo login = memberService.login(memberRegisterVo);
         return CommonResult.success(login);
@@ -98,22 +102,20 @@ public class MemberController {
     }
 
     /**
-     *
      * @param
      */
     @GetMapping("/getLoginUser")
-    public CommonResult<UserDto> getLoginUser(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required =  false) UserDto userDto) {
+    public CommonResult<UserDto> getLoginUser(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required = false) UserDto userDto) {
 
         return CommonResult.success(userDto);
     }
 
     /**
-     *
      * @param username
      * @return
      */
     @GetMapping("/loadByUsername")
-    public UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code){
+    public UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code) {
         return memberService.loadUserByUsername(username, code);
     }
 

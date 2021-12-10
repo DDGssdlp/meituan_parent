@@ -1,5 +1,6 @@
 package com.ddg.meituan.common.utils;
 
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,11 +12,11 @@ import java.util.List;
 /**
  * 分页工具类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author DELL
  */
 @ApiModel("分页工具类")
 @Data
-public class PageUtils implements Serializable {
+public class PageUtils<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 总记录数
@@ -41,7 +42,7 @@ public class PageUtils implements Serializable {
 	 * 列表数据
 	 */
 	@ApiModelProperty("列表数据")
-	private List<?> list;
+	private List<T> list;
 	
 	/**
 	 * 分页
@@ -50,7 +51,7 @@ public class PageUtils implements Serializable {
 	 * @param pageSize    每页记录数
 	 * @param currPage    当前页数
 	 */
-	public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
+	public PageUtils(List<T> list, int totalCount, int pageSize, int currPage) {
 		this.list = list;
 		this.totalCount = totalCount;
 		this.pageSize = pageSize;
@@ -61,12 +62,25 @@ public class PageUtils implements Serializable {
 	/**
 	 * 分页
 	 */
-	public PageUtils(IPage<?> page) {
+	public PageUtils(IPage<T> page) {
 		this.list = page.getRecords();
 		this.totalCount = (int)page.getTotal();
 		this.pageSize = (int)page.getSize();
 		this.currPage = (int)page.getCurrent();
 		this.totalPage = (int)page.getPages();
+	}
+
+	private PageUtils() {
+	}
+
+	public static <T> PageUtils<T> of(IPage<T> page){
+		PageUtils<T> pageUtils = new PageUtils<>();
+		pageUtils.list = page.getRecords();
+		pageUtils.totalCount = (int)page.getTotal();
+		pageUtils.pageSize = (int)page.getSize();
+		pageUtils.currPage = (int)page.getCurrent();
+		pageUtils.totalPage = (int)page.getPages();
+		return pageUtils;
 	}
 
 }
