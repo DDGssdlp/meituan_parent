@@ -30,5 +30,8 @@ public class UserDto {
     private String clientId;
     private List<String> roles;
 
-
+    public UserDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

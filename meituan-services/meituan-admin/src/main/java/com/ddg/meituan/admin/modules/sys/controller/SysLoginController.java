@@ -72,11 +72,11 @@ public class SysLoginController {
 	 * 登录
 	 */
 	@GetMapping("/loadByUsername")
-	public UserDto loadByUsername(@RequestParam String username, @RequestParam  String code, @RequestParam String uuid){
+	public CommonResult<UserDto> loadByUsername(@RequestParam String username, @RequestParam  String code, @RequestParam String uuid){
 
 		boolean captcha = sysCaptchaService.validate(uuid, code);
 		if(!captcha){
-			throw new UsernameNotFoundException("验证码错误");
+			return CommonResult.failed("验证码错误");
 		}
 
 		//用户信息
@@ -93,7 +93,7 @@ public class SysLoginController {
 		userDto.setUsername(user.getUsername());
 		userDto.setRoles(roleList);
 
-		return userDto;
+		return CommonResult.success(userDto);
 
 
 	}

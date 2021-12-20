@@ -1,6 +1,7 @@
 package com.ddg.meituan.authserver.feign.fallback;
 
 import com.ddg.meituan.authserver.feign.AdminFeignService;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.domain.UserDto;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdminFeignFallBack implements AdminFeignService {
     @Override
-    public UserDto loadUserByUsername(String username, String code, String uuid) {
-        return null;
+    public CommonResult<UserDto> loadUserByUsername(String username, String code, String uuid) {
+        return CommonResult.success(new UserDto("zhangsan", "1"));
     }
 }

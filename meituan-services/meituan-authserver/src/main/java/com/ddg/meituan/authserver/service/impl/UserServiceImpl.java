@@ -5,6 +5,8 @@ import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
 
+import com.ddg.meituan.common.api.Code;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.SecurityUser;
 import com.ddg.meituan.common.domain.UserDto;
@@ -16,15 +18,18 @@ import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 
 /**
@@ -57,29 +62,34 @@ public class UserServiceImpl implements UserDetailsService {
 
         String clientId = request.getParameter("client_id");
         String code = request.getParameter("code");
-        UserDto userDto = null;
+        CommonResult<UserDto> userDtoCommonResult = null;
         try {
             if (AuthConstant.ADMIN_CLIENT_ID.equals(clientId)) {
 
                 String uuid = request.getParameter("uuid");
-                userDto = adminFeignService.loadUserByUsername(username, code, uuid);
+                userDtoCommonResult = adminFeignService.loadUserByUsername(username, code, uuid);
             } else {
-                userDto = memberFeignService.loadUserByUsername(username, code);
+                userDtoCommonResult = memberFeignService.loadUserByUsername(username, code);
             }
 
         } catch (Exception e) {
             log.error("UserDto 获取错误");
+
+        }
+        if (Objects.isNull(userDtoCommonResult)){
+            throw new InvalidGrantException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
 
-
-        if (userDto == null) {
-            if (AuthConstant.PORTAL_CLIENT_ID.equals(clientId) && !StringUtils.isEmpty(code)) {
-                throw new UsernameNotFoundException(MessageConstant.USERNAME_CODE_ERROR);
-            }
-
-            throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
+        if (Code.OPERATION_FAIL.getValue().equals(userDtoCommonResult.getCode())){
+            throw new InvalidGrantException(userDtoCommonResult.getMessage());
         }
-        SecurityUser securityUser = new SecurityUser(userDto);
+        UserDto user = userDtoCommonResult.getData();
+
+        if (Objects.isNull(user)) {
+            throw new InvalidGrantException(MessageConstant.USERNAME_PASSWORD_ERROR);
+        }
+        user.setClientId(clientId);
+        SecurityUser securityUser = new SecurityUser(user);
         if (!securityUser.isEnabled()) {
             throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
         } else if (!securityUser.isAccountNonLocked()) {

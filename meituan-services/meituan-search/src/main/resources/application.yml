@@ -1,0 +1,26 @@
+ipAddr: 101.200.140.80
+# 配置应用名称 nacos 使用
+spring:
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8333
+  # 指定返回时间的格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  # ES 配置
+
+
+server:
+  port: 20000
+logging:
+  level:
+    com.ddg.meituan: info
+    org:
+      springframework:
+        cloud: error
+    com:
+      alibaba:
+        nacos: error
+
+
+

@@ -1,6 +1,7 @@
 package com.ddg.meituan.authserver.feign;
 
 import com.ddg.meituan.authserver.feign.fallback.AdminFeignFallBack;
+import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +31,6 @@ public interface AdminFeignService {
      * @return
      */
     @GetMapping("/sys/login/loadByUsername")
-    UserDto loadUserByUsername(@RequestParam String username, @RequestParam  String code, @RequestParam String uuid);
+    CommonResult<UserDto> loadUserByUsername(@RequestParam String username, @RequestParam  String code,
+                                            @RequestParam String uuid);
 }

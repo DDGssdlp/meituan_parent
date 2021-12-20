@@ -138,15 +138,14 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
             response.setStatus(HttpStatus.HTTP_OK);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Cache-Control", "no-cache");
-            CommonResult<Object> result = CommonResult.failed(e.getMessage());
+            CommonResult<?> result = CommonResult.failed(e.getMessage());
             response.getWriter().print(JSONUtil.toJsonStr(result));
             response.getWriter().flush();
         };
     }
-
 
 
     /**

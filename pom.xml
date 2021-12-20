@@ -80,7 +80,7 @@
         <redisson.version>3.12.0</redisson.version>
         <spring.configuration.version>2.2.4.RELEASE</spring.configuration.version>
         <mongo.version>3.11.0</mongo.version>
-        <velocity.version>1.7</velocity.version>
+
         <druid.version>1.1.13</druid.version>
         <page-helper.version>1.2.10</page-helper.version>
         <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
@@ -317,12 +317,6 @@
                 <groupId>com.qcloud</groupId>
                 <artifactId>cos_api</artifactId>
                 <version>${qcloud.cos.version}</version>
-            </dependency>
-
-            <dependency>
-                <artifactId>velocity</artifactId>
-                <groupId>org.apache.velocity</groupId>
-                <version>${velocity.version}</version>
             </dependency>
 
             <dependency>

@@ -33,7 +33,7 @@ public interface MemberFeignService {
     CommonResult login(@RequestBody MemberRegisterVo memberRegisterVo);
 
     @GetMapping("/member/member/loadByUsername")
-    UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code);
+    CommonResult<UserDto> loadUserByUsername(@RequestParam String username, @RequestParam String code);
 
 }
 

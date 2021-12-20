@@ -82,7 +82,7 @@ public class RedisCacheAspect {
                 String redisKey = redisCache.redisKey();
                 String lockName = redisCache.lockName();
                 Integer timeOut = Integer.parseInt(redisCache.timeOut());
-                Class<Object> resultObjClass = redisCache.resClass();
+                Class<?> resultObjClass = redisCache.resClass();
                 boolean isList = redisCache.isList();
                 //获取redis数据
                 String realValue = stringRedisTemplate.opsForValue().get(redisKey);

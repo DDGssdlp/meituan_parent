@@ -31,7 +31,7 @@ public class MemberFeginFallBack implements MemberFeignService {
     }
 
     @Override
-    public UserDto loadUserByUsername(String username, String code) {
+    public CommonResult<UserDto> loadUserByUsername(String username, String code) {
         return null;
     }
 }
