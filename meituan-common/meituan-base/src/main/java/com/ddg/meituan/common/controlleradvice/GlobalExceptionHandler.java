@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(Exception.class)
     public CommonResult<Object> validExceptionHandle(Exception e){
-
+        log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
         return CommonResult.failed(Code.UN_NONE_EXCEPTION, e.getMessage());
     }
 

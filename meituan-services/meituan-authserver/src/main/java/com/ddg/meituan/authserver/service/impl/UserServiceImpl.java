@@ -73,11 +73,11 @@ public class UserServiceImpl implements UserDetailsService {
             }
 
         } catch (Exception e) {
-            log.error("UserDto 获取错误");
+            log.error("UserDto 获取错误 error = {}", e.getMessage());
 
         }
         if (Objects.isNull(userDtoCommonResult)){
-            throw new InvalidGrantException(MessageConstant.USERNAME_PASSWORD_ERROR);
+            throw new InvalidGrantException(MessageConstant.SERVER_ERROR);
         }
 
         if (Code.OPERATION_FAIL.getValue().equals(userDtoCommonResult.getCode())){

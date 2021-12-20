@@ -1,6 +1,7 @@
 package com.ddg.meituan.authserver.feign;
 
-import com.ddg.meituan.authserver.feign.fallback.AdminFeignFallBack;
+
+import com.ddg.meituan.authserver.feign.fallback.AdminFeignFallBackFactory;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,7 +22,7 @@ import javax.annotation.Resource;
  * @date 2021/11/19 17:21
  * @email: wangzhijie0908@gmail.com
  */
-@FeignClient(value = "meituan-admin", fallback = AdminFeignFallBack.class, qualifier = "adminFeignService")
+@FeignClient(value = "meituan-admin", fallbackFactory = AdminFeignFallBackFactory.class,qualifier = "adminFeignService")
 public interface AdminFeignService {
 
     /**

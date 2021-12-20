@@ -12,6 +12,7 @@ import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
+import jodd.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录相关
@@ -76,25 +79,20 @@ public class SysLoginController {
 
 		boolean captcha = sysCaptchaService.validate(uuid, code);
 		if(!captcha){
-			return CommonResult.failed("验证码错误");
+			return CommonResult.failed("验证码失效!");
 		}
 
 		//用户信息
 		SysUserEntity user = sysUserService.queryByUserName(username);
-		List<String> roleList = sysUserService.queryRole(user.getUserId());
+		List<String> roleList = null;
+		if(Objects.nonNull(user)){
+			roleList = sysUserService.queryRole(user.getUserId());
+		}
 
-
-
-		UserDto userDto = new UserDto();
-		userDto.setId(user.getUserId());
-		userDto.setClientId(AuthConstant.ADMIN_CLIENT_ID);
-		userDto.setPassword(user.getPassword());
-		userDto.setStatus(user.getStatus());
-		userDto.setUsername(user.getUsername());
-		userDto.setRoles(roleList);
+		UserDto userDto = UserDto.builder().id(user.getUserId()).clientId(AuthConstant.ADMIN_CLIENT_ID)
+				.password(user.getPassword()).status(user.getStatus()).username(user.getUsername()).roles(roleList).build();
 
 		return CommonResult.success(userDto);
-
 
 	}
 

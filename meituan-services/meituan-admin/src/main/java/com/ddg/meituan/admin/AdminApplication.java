@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
+/**
+ * @author DELL
+ */
 @SpringBootApplication(scanBasePackages = "com.ddg.meituan")
 @EnableDiscoveryClient
 @MapperScan("com.ddg.meituan.admin.modules.*.dao")
