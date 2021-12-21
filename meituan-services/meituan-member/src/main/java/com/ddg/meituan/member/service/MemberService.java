@@ -22,20 +22,12 @@ import java.util.Map;
 public interface MemberService extends IService<MemberEntity> {
 
     PageUtils<MemberEntity> queryPage(PageParam param);
-
-    /**
-     * 根据手机号获取member
-     */
-    MemberEntity getOneByPhone(String phone);
-
+    
     CommonResult<Long> register(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
 
     boolean checkPhoneNum(String phoneNum);
 
-    boolean checkUsername(String username);
 
-    MemberRegisterVo login(MemberRegisterVo memberRegisterVo) throws MeituanSysException;
-
-    UserDto loadUserByUsername(String username, String code) throws MeituanSysException;
+    CommonResult<UserDto> loadUserByUsername(String username, String code) throws MeituanSysException;
 }
 

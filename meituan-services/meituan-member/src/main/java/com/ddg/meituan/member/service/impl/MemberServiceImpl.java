@@ -10,6 +10,7 @@ import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.*;
 import com.ddg.meituan.member.constant.MemberConstant;
 import com.ddg.meituan.member.entity.MemberLoginLogEntity;
+import com.ddg.meituan.member.enums.MemberEnum;
 import com.ddg.meituan.member.service.MemberLoginLogService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +56,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     @Autowired
     private MemberLoginLogService memberLoginLogService;
 
+    private static final String USERNAME_PRE = "meituan_";
+    private static final int RANDOM_USERNAME_LENGTH = 10;
+
     @Override
     public PageUtils<MemberEntity>  queryPage(PageParam param) {
         IPage<MemberEntity> page = this.page(
@@ -64,10 +69,6 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         return PageUtils.of(page);
     }
 
-    @Override
-    public MemberEntity getOneByPhone(String phone) {
-        return getOne(Wrappers.<MemberEntity>lambdaQuery().eq(MemberEntity::getMobile, phone));
-    }
 
     @Override
     public CommonResult<Long> register(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
@@ -83,54 +84,35 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         return count == 0;
     }
 
-    @Override
-    public boolean checkUsername(String username) {
-        QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(MemberConstant.USERNAME_COLUMN, username);
-        Integer count = memberDao.selectCount(wrapper);
-        return count == 0;
-    }
 
 
     @Override
-    public MemberRegisterVo login(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
-        String phone = memberRegisterVo.getUserName();
-        String phoneCode = memberRegisterVo.getPhoneCode();
-
-        if (!StringUtils.isEmpty(phoneCode)) {
-            return loginByVerificationCode(memberRegisterVo, phone, phoneCode);
-        }
-
-        MemberEntity entity = getOneByPhone(phone);
-        if (entity == null || StringUtils.isEmpty(entity.getPassword())) {
-            throw new MeituanLoginException("手机号没有被进行注册");
-        }
-
-        return loginByPassword(memberRegisterVo, entity);
-    }
-
-    @Override
-    public UserDto loadUserByUsername(String username, String code) throws MeituanSysException {
+    public CommonResult<UserDto> loadUserByUsername(String username, String code) throws MeituanSysException {
         String phoneCodeFromRedis = null;
         if(!StringUtils.isEmpty(code)){
             phoneCodeFromRedis = getPhoneCodeFromRedis(username, code);
-
+            if(!code.equals(phoneCodeFromRedis)){
+                return CommonResult.failed("验证码失效！");
+            }
         }
 
         QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(username != null, "mobile", username);
+        wrapper.eq(username != null, MemberConstant.MOBILE_COLUMN, username);
         MemberEntity memberEntity = memberDao.selectOne(wrapper);
 
 
-        return buildUserDto(memberEntity, code, phoneCodeFromRedis);
+        return buildUserDto(memberEntity, username, code, phoneCodeFromRedis);
     }
 
-    private UserDto buildUserDto(MemberEntity memberEntity, String code, String phoneCodeFromRedis) {
+    private CommonResult<UserDto> buildUserDto(MemberEntity memberEntity, String username, String code, String phoneCodeFromRedis) {
         if(memberEntity == null){
-            return null;
+           if((memberEntity = register(username)) == null){
+               return CommonResult.failed("手机号已占用 请登录!");
+           }
         }
+
         UserDto userDto = new UserDto();
-        userDto.setUsername(memberEntity.getMobile());
+        userDto.setUsername(memberEntity.getUsername());
         userDto.setStatus(memberEntity.getStatus());
         if(!StringUtils.isEmpty(code)){
             userDto.setPassword(passwordEncoder.encode(phoneCodeFromRedis));
@@ -139,76 +121,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }
         userDto.setClientId(AuthConstant.PORTAL_CLIENT_ID);
         userDto.setId(memberEntity.getId());
-        try {
-            TimeUnit.SECONDS.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return userDto;
-    }
 
-
-    /**
-     * 使用手机号和密码进行登录
-     */
-    private MemberRegisterVo loginByPassword(MemberRegisterVo memberRegisterVo, MemberEntity entity) {
-        String pwd = entity.getPassword();
-        if (!passwordEncoder.matches(memberRegisterVo.getPassword(), pwd)) {
-            throw new UsernameNotFoundException("账号或者是密码不正确");
-        }
-
-        memberRegisterVo.setUserName(entity.getUsername());
-        String mobile = entity.getMobile();
-        memberRegisterVo.setPhoneNum(mobile);
-        memberRegisterVo.setPassword(pwd);
-
-        cacheToken(memberRegisterVo, mobile);
-        saveLoginLog(entity.getId());
-
-        return memberRegisterVo;
-    }
-
-    /**
-     * 缓存token，使用MD5对手机号加密
-     */
-    private void cacheToken(MemberRegisterVo memberRegisterVo, String mobile) {
-        String token = DigestUtils.md5DigestAsHex(mobile.getBytes());
-        redisTemplate.opsForHash().put(MemberConstant.REDIS_CACHE_LOGIN_USER_KEY, token,
-                JSON.toJSONString(memberRegisterVo));
-    }
-
-    /**
-     * 要是传入的有验证码，使用手机号和验证码进行登录的
-     */
-    private MemberRegisterVo loginByVerificationCode(MemberRegisterVo memberRegisterVo,  String phone,
-                                      String phoneCode) {
-        String phoneCodeFromRedis = getPhoneCodeFromRedis(phone, phoneCode);
-        if (!phoneCode.equals(phoneCodeFromRedis)) {
-            throw new MeituanLoginException("验证码失效！");
-        }
-
-        // 验证成功 能进行登录：可以将登录的用户信息存储到 redis 中 这里的username 是手机号
-        // 使用手机号进行查询
-        MemberEntity entity = getOneByPhone(phone);
-        if (entity == null) {
-            // 没有直接进行注册：
-            String codeString = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,
-                    MemberConstant.MEMBER_CODE_LENGTH);
-            memberRegisterVo.setUserName(MemberConstant.MEITUAN_USERNAME_PREFIX + codeString);
-            memberRegisterVo.setPhoneNum(phone);
-            memberRegisterVo.setPassword(MemberConstant.DEFAULT_PASSWORD);
-            entity = registerMember(memberRegisterVo);
-        } else {
-            memberRegisterVo.setUserName(entity.getUsername());
-            memberRegisterVo.setPhoneNum(entity.getMobile());
-        }
-
-        cacheToken(memberRegisterVo, phone);
-        saveLoginLog(entity.getId());
-
-        // 将验证码删除
-        redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + phone);
-        return memberRegisterVo;
+        return CommonResult.success(userDto);
     }
 
     /**
@@ -221,7 +135,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
                 .setMemberId(memberId)
                 .setCreateTime(new Date())
                 .setIp(ipAddr)
-                .setCity("unknown") // TODO 获取城市名称
+                // TODO 获取城市名称
+                .setCity("unknown")
                 .setLoginType(UserAgentUtils.isMobileTerminal(request) ? 2 : 1);
         memberLoginLogService.save(entity);
     }
@@ -253,12 +168,31 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         if (!isUnique) {
             throw new MeituanSysException("手机号或者是用户名称已占用！");
         }
-
-        memberEntity.setUsername(username);
+        String randomUsername = UsernameUtils.getStringRandom(RANDOM_USERNAME_LENGTH);
+        memberEntity.setUsername(USERNAME_PRE + randomUsername);
         memberEntity.setPassword(digestPassword);
         memberEntity.setMobile(phoneNum);
         memberDao.insert(memberEntity);
         return memberEntity;
+    }
+
+    private MemberEntity register(String username) {
+
+        MemberEntity memberEntity = null;
+        // 进行注册：逻辑
+        // 检查用户名称 手机号是否是唯一：
+        boolean isUnique = checkPhoneNum(username);
+        if (isUnique) {
+            memberEntity = new MemberEntity();
+            String randomUsername = UsernameUtils.getStringRandom(RANDOM_USERNAME_LENGTH);
+            memberEntity.setUsername(USERNAME_PRE + randomUsername);
+            memberEntity.setMobile(username);
+            memberEntity.setPassword(passwordEncoder.encode(username));
+            memberEntity.setStatus(MemberEnum.Status.UP.code);
+            memberDao.insert(memberEntity);
+        }
+        return memberEntity;
+
     }
 
 }

@@ -1,6 +1,5 @@
 package com.ddg.meituan.member.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.UserDto;
@@ -96,8 +95,8 @@ public class MemberController {
     @PostMapping("/login")
     @ApiOperation("会员登录")
     public CommonResult<MemberRegisterVo> login(@RequestBody MemberRegisterVo memberRegisterVo) {
-        MemberRegisterVo login = memberService.login(memberRegisterVo);
-        return CommonResult.success(login);
+
+        return CommonResult.success(null);
 
     }
 
@@ -115,7 +114,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/loadByUsername")
-    public UserDto loadUserByUsername(@RequestParam String username, @RequestParam String code) {
+    public CommonResult<UserDto> loadUserByUsername(@RequestParam String username, @RequestParam String code) {
         return memberService.loadUserByUsername(username, code);
     }
 
