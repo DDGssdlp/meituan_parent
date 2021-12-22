@@ -103,6 +103,8 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+
+
         <!-- Redis 连接池 Lettuce客户端需要使用-->
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -122,8 +122,6 @@ public class SysUserController {
 		return CommonResult.success();
 	}
 
-
-	
 	/**
 	 * 获取登录的用户信息
 	 */
@@ -150,8 +148,5 @@ public class SysUserController {
 
 		return CommonResult.success();
 	}
-	
-
-
 
 }

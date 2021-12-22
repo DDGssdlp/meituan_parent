@@ -8,6 +8,9 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   # ES 配置
+  elasticsearch:
+    rest:
+      uris: http://${ipAddr}:9200
 
 
 server:

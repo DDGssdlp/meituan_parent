@@ -57,6 +57,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     private MemberLoginLogService memberLoginLogService;
 
     private static final String USERNAME_PRE = "meituan_";
+
     private static final int RANDOM_USERNAME_LENGTH = 10;
 
     @Override
