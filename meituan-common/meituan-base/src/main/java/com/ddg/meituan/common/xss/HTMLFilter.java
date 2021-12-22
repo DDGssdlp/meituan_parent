@@ -69,13 +69,13 @@ public final class HTMLFilter {
     private static final Pattern P_BOTH_ARROWS = Pattern.compile("<>");
 
     // @xxx could grow large... maybe use sesat's ReferenceMap
-    private static final ConcurrentMap<String,Pattern> P_REMOVE_PAIR_BLANKS = new ConcurrentHashMap<String, Pattern>();
-    private static final ConcurrentMap<String,Pattern> P_REMOVE_SELF_BLANKS = new ConcurrentHashMap<String, Pattern>();
+    private static final ConcurrentMap<String,Pattern> P_REMOVE_PAIR_BLANKS = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String,Pattern> P_REMOVE_SELF_BLANKS = new ConcurrentHashMap<>();
 
     /** set of allowed html elements, along with allowed attributes for each element **/
     private final Map<String, List<String>> vAllowed;
     /** counts of open tags for each (allowable) html element **/
-    private final Map<String, Integer> vTagCounts = new HashMap<String, Integer>();
+    private final Map<String, Integer> vTagCounts = new HashMap<>();
 
     /** html elements which must always be self-closing (e.g. "<img />") **/
     private final String[] vSelfClosingTags;
@@ -108,19 +108,19 @@ public final class HTMLFilter {
     public HTMLFilter() {
         vAllowed = new HashMap<>();
 
-        final ArrayList<String> a_atts = new ArrayList<String>();
+        final ArrayList<String> a_atts = new ArrayList<>();
         a_atts.add("href");
         a_atts.add("target");
         vAllowed.put("a", a_atts);
 
-        final ArrayList<String> img_atts = new ArrayList<String>();
+        final ArrayList<String> img_atts = new ArrayList<>();
         img_atts.add("src");
         img_atts.add("width");
         img_atts.add("height");
         img_atts.add("alt");
         vAllowed.put("img", img_atts);
 
-        final ArrayList<String> no_atts = new ArrayList<String>();
+        final ArrayList<String> no_atts = new ArrayList<>();
         vAllowed.put("b", no_atts);
         vAllowed.put("strong", no_atts);
         vAllowed.put("i", no_atts);
@@ -163,7 +163,7 @@ public final class HTMLFilter {
         assert conf.containsKey("vRemoveBlanks") : "configuration requires vRemoveBlanks";
         assert conf.containsKey("vAllowedEntities") : "configuration requires vAllowedEntities";
 
-        vAllowed = Collections.unmodifiableMap((HashMap<String, List<String>>) conf.get("vAllowed"));
+        vAllowed = Collections.unmodifiableMap((Map<String, List<String>>) conf.get("vAllowed"));
         vSelfClosingTags = (String[]) conf.get("vSelfClosingTags");
         vNeedClosingTags = (String[]) conf.get("vNeedClosingTags");
         vDisallowed = (String[]) conf.get("vDisallowed");
@@ -293,15 +293,15 @@ public final class HTMLFilter {
         }
         m.appendTail(buf);
 
-        s = buf.toString();
-
         // these get tallied in processTag
         // (remember to reset before subsequent calls to filter method)
+        StringBuilder sBuilder = new StringBuilder(buf.toString());
         for (String key : vTagCounts.keySet()) {
             for (int ii = 0; ii < vTagCounts.get(key); ii++) {
-                s += "</" + key + ">";
+                sBuilder.append("</").append(key).append(">");
             }
         }
+        s = sBuilder.toString();
 
         return s;
     }
@@ -351,12 +351,12 @@ public final class HTMLFilter {
 
             //debug( "in a starting tag, name='" + name + "'; body='" + body + "'; ending='" + ending + "'" );
             if (allowed(name)) {
-                String params = "";
+                StringBuilder params = new StringBuilder();
 
                 final Matcher m2 = P_QUOTED_ATTRIBUTES.matcher(body);
                 final Matcher m3 = P_UNQUOTED_ATTRIBUTES.matcher(body);
-                final List<String> paramNames = new ArrayList<String>();
-                final List<String> paramValues = new ArrayList<String>();
+                final List<String> paramNames = new ArrayList<>();
+                final List<String> paramValues = new ArrayList<>();
                 while (m2.find()) {
                     paramNames.add(m2.group(1)); //([a-z0-9]+)
                     paramValues.add(m2.group(3)); //(.*?)
@@ -379,7 +379,7 @@ public final class HTMLFilter {
                         if (inArray(paramName, vProtocolAtts)) {
                             paramValue = processParamProtocol(paramValue);
                         }
-                        params += " " + paramName + "=\"" + paramValue + "\"";
+                        params.append(" ").append(paramName).append("=\"").append(paramValue).append("\"");
                     }
                 }
 
@@ -422,9 +422,9 @@ public final class HTMLFilter {
             final String protocol = m.group(1);
             if (!inArray(protocol, vAllowedProtocols)) {
                 // bad protocol, turn into local anchor link instead
-                s = "#" + s.substring(protocol.length() + 1, s.length());
+                s = "#" + s.substring(protocol.length() + 1);
                 if (s.startsWith("#//")) {
-                    s = "#" + s.substring(3, s.length());
+                    s = "#" + s.substring(3);
                 }
             }
         }
@@ -438,7 +438,7 @@ public final class HTMLFilter {
         Matcher m = P_ENTITY.matcher(s);
         while (m.find()) {
             final String match = m.group(1);
-            final int decimal = Integer.decode(match).intValue();
+            final int decimal = Integer.decode(match);
             m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
         }
         m.appendTail(buf);
@@ -448,7 +448,7 @@ public final class HTMLFilter {
         m = P_ENTITY_UNICODE.matcher(s);
         while (m.find()) {
             final String match = m.group(1);
-            final int decimal = Integer.valueOf(match, 16).intValue();
+            final int decimal = Integer.valueOf(match, 16);
             m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
         }
         m.appendTail(buf);
@@ -458,7 +458,7 @@ public final class HTMLFilter {
         m = P_ENCODE.matcher(s);
         while (m.find()) {
             final String match = m.group(1);
-            final int decimal = Integer.valueOf(match, 16).intValue();
+            final int decimal = Integer.valueOf(match, 16);
             m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
         }
         m.appendTail(buf);

@@ -84,8 +84,7 @@ public class RedisPoolConfig {
                 .poolConfig(genericObjectPoolConfig)
                 .build();
 
-        LettuceConnectionFactory factory = new LettuceConnectionFactory(redisStandaloneConfiguration,clientConfig);
-        return factory;
+        return new LettuceConnectionFactory(redisStandaloneConfiguration, clientConfig);
     }
 
     /**

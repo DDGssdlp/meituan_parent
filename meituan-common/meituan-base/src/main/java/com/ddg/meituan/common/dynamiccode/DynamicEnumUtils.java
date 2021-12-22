@@ -91,7 +91,6 @@ public class DynamicEnumUtils {
      * @param enumType the class of the enum to be modified
      * @param enumName the name of the new enum instance to be added to the class.
      */
-    @SuppressWarnings("unchecked")
     public static <T extends Enum<?>> void addEnum(Class<T> enumType, String enumName, Class<?>[] additionalTypes, Object[] additionalValues) {
 
         // 0. Sanity checks

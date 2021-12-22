@@ -38,9 +38,6 @@ spring:
       #       设置单次请求文件的总大小
       max-request-size: 50MB
 
-
-
-
 server:
   port: 11000
 
@@ -52,3 +49,9 @@ minio:
     root-password: admin123
     bucket-name: images
 
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0
+  try-host: http://localhost:${server.port}
