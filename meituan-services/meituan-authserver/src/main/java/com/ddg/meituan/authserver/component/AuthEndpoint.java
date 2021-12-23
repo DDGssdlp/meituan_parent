@@ -72,7 +72,6 @@ public class AuthEndpoint {
      *
      * @return
      */
-
     public OAuth2AccessToken getToken(HttpServletRequest request, String username,
                                                      String password, String clientId, String clientSecret) {
         // 1. 对客户端进行认证，ps: 可以不需要直接设置认证成功
@@ -108,7 +107,7 @@ public class AuthEndpoint {
     /**
      * 对客户端信息进行认证
      */
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    protected Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication, () -> this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.onlySupports", "Only UsernamePasswordAuthenticationToken is supported"));
         try {
             // 1. 根据clientId 查询数据库客户端信息

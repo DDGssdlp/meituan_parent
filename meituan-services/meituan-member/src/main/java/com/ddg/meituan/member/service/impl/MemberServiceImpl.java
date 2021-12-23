@@ -28,7 +28,6 @@ import com.ddg.meituan.member.service.MemberService;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotEmpty;
 
 
 /**
@@ -106,7 +105,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }
 
         QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(username != null, MemberConstant.MOBILE_COLUMN, username).or().eq(MemberConstant.USERNAME_COLUMN, username);
+        wrapper.eq(username != null, MemberConstant.MOBILE_COLUMN, username);
+                //.or().eq(MemberConstant.USERNAME_COLUMN, username);
         MemberEntity memberEntity = memberDao.selectOne(wrapper);
 
         return buildUserDto(memberEntity, username, code, phoneCodeFromRedis);

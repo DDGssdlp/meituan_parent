@@ -54,15 +54,14 @@ public class Oath2Controller {
 	public CommonResult<?> thirdPartyLoginCallback(@RequestParam("code") String code, @PathVariable String type,
 												   HttpServletRequest servletRequest){
 		ThirdPartyProperties.ThirdPartyEntity thirdPartyEntity = thirdPartyProperties.getThirdparty().get(type);
-		OkHttpClient okHttpClient = new OkHttpClient();
-		//请求参数
-		JSONObject json = new JSONObject();
-		json.put("client_secret", thirdPartyEntity.getClientSecret());
-		RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), String.valueOf(json));
-		Request request = new Request.Builder().post(requestBody).url(buildGiteeUrl(type, code, thirdPartyEntity)).build();
-
-		Call call = okHttpClient.newCall(request);
 		try {
+			OkHttpClient okHttpClient = new OkHttpClient();
+			//请求参数
+			JSONObject json = new JSONObject();
+			json.put("client_secret", thirdPartyEntity.getClientSecret());
+			RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), String.valueOf(json));
+			Request request = new Request.Builder().post(requestBody).url(buildGiteeUrl(type, code, thirdPartyEntity)).build();
+			Call call = okHttpClient.newCall(request);
 			Response response = call.execute();
 			if(!Objects.isNull(response.body())){
 				ThirdPartyProperties.JsonRootBean body = JSON.parseObject(response.body().string(),
@@ -77,6 +76,7 @@ public class Oath2Controller {
 				if(!Objects.isNull(response.body())){
 					ThirdPartyProperties.UserInfo userInfo = JSON.parseObject(response.body().string(),
 							ThirdPartyProperties.UserInfo.class);
+					// TODO：社交登录获取用户的手机号
 					OAuth2AccessToken token = authEndpoint.getToken(servletRequest, userInfo.getName(),
 							MemberConstant.PHONE_CODE_MOCK, "portal-app", "123456");
 					return CommonResult.success(token.getValue());
