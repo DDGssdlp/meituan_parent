@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         String clientId = request.getParameter("client_id");
-        String code = request.getParameter("code");
+        String code = request.getParameter("phoneCode");
         CommonResult<UserDto> userDtoCommonResult = null;
         try {
             if (AuthConstant.ADMIN_CLIENT_ID.equals(clientId)) {

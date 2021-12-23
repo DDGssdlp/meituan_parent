@@ -58,9 +58,6 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
 
-
-        //return Mono.just(new AuthorizationDecision(true));
-
         ServerHttpRequest request = authorizationContext.getExchange().getRequest();
         URI uri = request.getURI();
         PathMatcher pathMatcher = new AntPathMatcher();
@@ -99,16 +96,11 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             return Mono.just(new AuthorizationDecision(false));
         }
 
-        /*//管理端路径直接放行( renren 请求部分 使用自己的权限控制方式)
-        if (pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())
-                || pathMatcher.match(AuthConstant.SYS_URL_PATTERN, uri.getPath())
-                || pathMatcher.match(AuthConstant.APP_URL_PATTERN, uri.getPath())) {
-            return Mono.just(new AuthorizationDecision(true));
-        }*/
         //其余需要校验权限
         //认证通过且角色匹配的用户可访问当前路径
         //从Redis中获取当前路径可访问角色列表  使用 redis 进行的是路径粒度 和 权限的区分
         String roles = (String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
+        // 这里方便测试 先放开
         if (StringUtils.isEmpty(roles)){
             return Mono.just(new AuthorizationDecision(true));
         }

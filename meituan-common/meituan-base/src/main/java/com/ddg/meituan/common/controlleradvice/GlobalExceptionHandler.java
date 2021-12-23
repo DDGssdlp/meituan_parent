@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -39,12 +40,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public CommonResult<Object> validMethodArgumentNotValidExceptionHandel(MethodArgumentNotValidException e){
 
-
         BindingResult bindingResult = e.getBindingResult();
-        Map<String, String> exceptionMap = bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,
-                FieldError::getDefaultMessage, (oldVal, currVal) -> oldVal));
+        String message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
-        return CommonResult.failed(Code.VALID_EXCEPTION.getValue(), Code.ILLEGAL_VALUE.getValue(), exceptionMap);
+        return CommonResult.validateFailed(message);
 
     }
     @ExceptionHandler(Exception.class)

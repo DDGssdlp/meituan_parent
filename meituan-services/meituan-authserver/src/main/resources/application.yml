@@ -65,3 +65,13 @@ feign:
         #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的实际
         read-timeout: 10000
 
+#第三方登录
+meituan:
+  thirdparty:
+    #gitee
+    gitee:
+      client-id: 36548404905db8f9d2a107ff67905fd4a6eccd54aa10210389c72bbf9f8e7584
+      client-secret: 4d325acb1531460b6c0624eabe997217e269b2d3f3969226ae3fff4c99902308
+      callback-uri: http://www.meituanvue.com:3000/loading
+      token-uri: https://gitee.com/oauth/token?grant_type=authorization_code
+      user-uri: https://gitee.com/api/v5/user?access_token=

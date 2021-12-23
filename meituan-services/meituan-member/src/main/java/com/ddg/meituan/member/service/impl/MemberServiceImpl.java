@@ -2,10 +2,11 @@ package com.ddg.meituan.member.service.impl;
 
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
+import com.ddg.meituan.common.constant.MemberConstant;
 import com.ddg.meituan.common.domain.UserDto;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.*;
-import com.ddg.meituan.member.constant.MemberConstant;
+
 import com.ddg.meituan.member.entity.MemberLoginLogEntity;
 import com.ddg.meituan.member.enums.MemberEnum;
 import com.ddg.meituan.member.service.MemberLoginLogService;
@@ -27,6 +28,7 @@ import com.ddg.meituan.member.service.MemberService;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotEmpty;
 
 
 /**
@@ -75,10 +77,15 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     @Override
     public boolean checkPhoneNum(String phoneNum) {
-        QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(MemberConstant.MOBILE_COLUMN, phoneNum);
-        Integer count = memberDao.selectCount(wrapper);
-        return count == 0;
+        if(MemberConstant.PHONE_NUMBER_MOCK.equals(phoneNum)){
+            return true;
+        }else{
+            QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
+            wrapper.eq(MemberConstant.MOBILE_COLUMN, phoneNum);
+            Integer count = memberDao.selectCount(wrapper);
+            return count == 0;
+        }
+
     }
 
 
@@ -92,12 +99,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             if(!code.equals(phoneCodeFromRedis)){
                 return CommonResult.failed("验证码失效！");
             }else{
-                redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + username);
+                if(!MemberConstant.PHONE_CODE_MOCK.equals(code)){
+                    redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + username);
+                }
             }
         }
 
         QueryWrapper<MemberEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(username != null, MemberConstant.MOBILE_COLUMN, username);
+        wrapper.eq(username != null, MemberConstant.MOBILE_COLUMN, username).or().eq(MemberConstant.USERNAME_COLUMN, username);
         MemberEntity memberEntity = memberDao.selectOne(wrapper);
 
         return buildUserDto(memberEntity, username, code, phoneCodeFromRedis);
@@ -141,14 +150,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     private String getPhoneCodeFromRedis(String phone, String phoneCode) {
+
+        if (MemberConstant.PHONE_CODE_MOCK.equals(phoneCode)) {
+            return MemberConstant.PHONE_CODE_MOCK;
+        }
         String phoneCodeFromRedis = redisTemplate.opsForValue()
                 .get(MemberConstant.REDIS_PHONE_CODE_PREFIX + phone);
         if (!StringUtils.isEmpty(phoneCodeFromRedis)) {
             phoneCodeFromRedis = phoneCodeFromRedis.split("_")[0];
-        } else {
-            if (MemberConstant.PHONE_CODE_MOCK.equals(phoneCode)) {
-                phoneCodeFromRedis = phoneCode;
-            }
         }
         return phoneCodeFromRedis;
     }
@@ -158,16 +167,31 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         // 进行注册：逻辑
         String phoneNum = memberRegisterVo.getPhoneNum();
         String password = memberRegisterVo.getPassword();
+        String username = memberRegisterVo.getUserName();
+        String code = memberRegisterVo.getPhoneCode();
+        if(!StringUtils.isEmpty(code)){
+           String phoneCodeFromRedis = getPhoneCodeFromRedis(username, code);
+            if(!code.equals(phoneCodeFromRedis)){
+                throw new MeituanSysException("验证码失效！");
+            }else{
+                redisTemplate.delete(MemberConstant.REDIS_PHONE_CODE_PREFIX + username);
+            }
+        }
+        // 检查用户名称 手机号是否是唯一：
+        boolean checked = checkPhoneNum(phoneNum);
+        if (!checked) {
+            throw new MeituanSysException("手机号或者是用户名称已占用！");
+        }
         // 密码进行加密
         String digestPassword = passwordEncoder.encode(password);
 
-        // 检查用户名称 手机号是否是唯一：
-        boolean isUnique = checkPhoneNum(phoneNum);
-        if (!isUnique) {
-            throw new MeituanSysException("手机号或者是用户名称已占用！");
+        if(StringUtils.isEmpty(username)){
+            String randomUsername = UsernameUtils.getStringRandom(RANDOM_USERNAME_LENGTH);
+            memberEntity.setUsername(USERNAME_PRE + randomUsername);
+        }else{
+            memberEntity.setUsername(username);
         }
-        String randomUsername = UsernameUtils.getStringRandom(RANDOM_USERNAME_LENGTH);
-        memberEntity.setUsername(USERNAME_PRE + randomUsername);
+
         memberEntity.setPassword(digestPassword);
         memberEntity.setMobile(phoneNum);
         memberDao.insert(memberEntity);

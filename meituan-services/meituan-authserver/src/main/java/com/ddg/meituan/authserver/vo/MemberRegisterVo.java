@@ -1,5 +1,6 @@
 package com.ddg.meituan.authserver.vo;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
  * @email: wangzhijie0908@gmail.com
  */
 @Data
+@Builder
 public class MemberRegisterVo implements Serializable {
 
     private static final long serialVersionUID = 1L;

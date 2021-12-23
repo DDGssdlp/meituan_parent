@@ -11,6 +11,7 @@ import com.ddg.meituan.member.vo.MemberRegisterVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -87,7 +88,7 @@ public class MemberController {
 
     @PostMapping("/register")
     @ApiOperation("注册会员")
-    public CommonResult<Long> register(@RequestBody MemberRegisterVo memberRegisterVo) {
+    public CommonResult<Long> register(@RequestBody @Validated MemberRegisterVo memberRegisterVo) {
         return memberService.register(memberRegisterVo);
 
     }

@@ -1,6 +1,6 @@
 package com.ddg.meituan.authserver.controller;
 
-import com.baomidou.mybatisplus.extension.api.R;
+
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.constant.AuthConstant;
 import com.ddg.meituan.common.domain.Oauth2TokenDto;
@@ -15,7 +15,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Map;
 

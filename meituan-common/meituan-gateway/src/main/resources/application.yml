@@ -72,3 +72,4 @@ secure:
       - "/api/product/category/listWithTree"
       - "/api/auth/registerUser"
       - "/api/thirdparty/msm/send/**"
+      - "/api/auth/*/Callback"

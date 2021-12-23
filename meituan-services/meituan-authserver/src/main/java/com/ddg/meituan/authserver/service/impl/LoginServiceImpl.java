@@ -7,6 +7,7 @@ import com.ddg.meituan.authserver.vo.MemberRegisterVo;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.exception.MeituanSysException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -38,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public CommonResult register(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
+    public CommonResult<Long> register(MemberRegisterVo memberRegisterVo) throws MeituanSysException {
         // 首先获取验证码
         String phoneCode = memberRegisterVo.getPhoneCode();
         String phoneNum = memberRegisterVo.getPhoneNum();
@@ -49,8 +50,7 @@ public class LoginServiceImpl implements LoginService {
         if (!StringUtils.isEmpty(phoneCodeFromRedis)){
             phoneCodeFromRedis = phoneCodeFromRedis.split("_")[0];
             if (phoneCode.equals(phoneCodeFromRedis) ){
-                // TODO 验证码校验通过 使用第三方进行注册
-                CommonResult register = memberFeignService.register(memberRegisterVo);
+                CommonResult<Long> register = memberFeignService.register(memberRegisterVo);
                 // 删除验证码：
                 redisTemplate.delete(AuthServerConstant.REDIS_PHONE_CODE_PREFIX + phoneNum);
                 return register;
@@ -60,9 +60,7 @@ public class LoginServiceImpl implements LoginService {
             }
         }else{
             if (AuthServerConstant.PHONE_CODE_MOCK.equals(phoneCode)){
-                // TODO 验证码校验通过 使用第三方进行注册
-                CommonResult register = memberFeignService.register(memberRegisterVo);
-                return register;
+                return memberFeignService.register(memberRegisterVo);
             }
         }
         throw new MeituanSysException("验证码过期！");
