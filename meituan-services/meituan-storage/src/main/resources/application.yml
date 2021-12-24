@@ -1,22 +1,14 @@
 ipAddr: 101.200.140.80
-
 spring:
-  datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://${ipAddr}:3306/meituan-ware?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  #    sentinel:
-  #      transport:
-  #        dashboard: localhost:8333
-  # 指定返回时间的格式化
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
 
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8333
 
-#redis
   redis:
     host: ${ipAddr}
+    password: redis123
+    port: 6379
     lettuce:
       # 在关闭客户端连接之前等待任务处理完成的最长时间，在这之后，无论任务是否执行完成，都会被执行器关闭，默认100ms
       shutdown-timeout: 1000
@@ -30,18 +22,30 @@ spring:
         # 连接池最大连接数（使用负值表示没有限制）
         max-active: 8
     timeout: 5000
-    port: 6379
-    password: redis123
-
 
 server:
-  port: 14000
+  port: 13000
 
-
-
+# swagger 配置
 swagger:
   enable: true
   application-name: ${spring.application.name}
   application-version: 1.0
   application-description: springfox swagger 3.0
   try-host: http://localhost:${server.port}
+
+#设置feign客户端超时时间（OpenFeign默认支持ribbon）
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      #default 默认所有服务。如果需要更改，直接换成调用方的服务名
+      default:
+        #指的是建立连接后从服务器读取到可用资源所用的时间
+        connect-timeout: 1000000
+        #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的实际
+        read-timeout: 10000
+
+#第三方登录
+

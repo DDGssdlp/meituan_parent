@@ -79,12 +79,12 @@
         <redisson.version>3.12.0</redisson.version>
         <spring.configuration.version>2.2.4.RELEASE</spring.configuration.version>
         <mongo.version>3.11.0</mongo.version>
-
         <druid.version>1.1.13</druid.version>
         <page-helper.version>1.2.10</page-helper.version>
         <minio-starter.version>0.0.1-SNAPSHOT</minio-starter.version>
         <admin-starter-server.version>2.2.3</admin-starter-server.version>
         <torna.version>1.2.9</torna.version>
+        <rocket.version>2.2.1</rocket.version>
     </properties>
 
 
@@ -227,29 +227,7 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>${json.version}</version>
-            </dependency>
-           <!-- <dependency>
-                  <groupId>commons-dbutils</groupId>
-                  <artifactId>commons-dbutils</artifactId>
-                  <version>${commons-dbutils.version}</version>
-              </dependency>
-              <dependency>
-                  <groupId>com.alibaba.otter</groupId>
-                  <artifactId>canal.client</artifactId>
-                  <version>${canal.client.version}</version>
-              </dependency>-->
-
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${spring.context.version}</version>
-            </dependency>
-
+            <!--redis-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -262,6 +240,7 @@
                 <version>${redisson.version}</version>
             </dependency>
 
+            <!-- springboot 自动配置 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
@@ -282,11 +261,6 @@
                 <version>${mysql.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>${quartz.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -294,12 +268,14 @@
                 <version>${commons.lang.version}</version>
             </dependency>
 
+            <!-- 验证码 -->
             <dependency>
                 <groupId>com.github.axet</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
             </dependency>
 
+            <!-- 云存储 -->
             <dependency>
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
@@ -312,25 +288,21 @@
                 <version>${qcloud.cos.version}</version>
             </dependency>
 
+            <!-- page helper -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${page-helper.version}</version>
             </dependency>
 
-            <!--druid 数据源-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-
+            <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!--minio starter -->
             <dependency>
                 <groupId>com.ddg</groupId>
                 <artifactId>minio-starter</artifactId>
@@ -349,6 +321,12 @@
                 <groupId>cn.torna</groupId>
                 <artifactId>swagger-plugin</artifactId>
                 <version>${torna.version}</version>
+            </dependency>
+            <!-- rocket mq starter -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocket.version}</version>
             </dependency>
 
         </dependencies>

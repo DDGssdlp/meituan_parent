@@ -1,8 +1,6 @@
 package com.ddg.meituan.product.service.impl;
 
 
-
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -26,7 +24,6 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -46,13 +43,12 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	private BrandService brandService;
 
     @Override
-    public PageUtils queryPage(PageParam param) {
+    public PageUtils<CategoryBrandRelationEntity> queryPage(PageParam param) {
         IPage<CategoryBrandRelationEntity> page = this.page(
                 new Query<CategoryBrandRelationEntity>().getPage(param),
-                new QueryWrapper<CategoryBrandRelationEntity>()
+				new QueryWrapper<>()
         );
-
-        return new PageUtils(page);
+		return PageUtils.of(page);
     }
 
 	/**
@@ -62,12 +58,12 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	public void saveDetail(CategoryBrandRelationEntity categoryBrandRelation) {
     	// 获取品牌id 、三级分类id
 		Long brandId = categoryBrandRelation.getBrandId();
-		Long catelogId = categoryBrandRelation.getCatelogId();
+		Long categoryId = categoryBrandRelation.getCategoryId();
 		// 根据id查询详细名字
 		BrandEntity brandEntity = brandDao.selectById(brandId);
-		CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+		CategoryEntity categoryEntity = categoryDao.selectById(categoryId);
 		categoryBrandRelation.setBrandName(brandEntity.getName());
-		categoryBrandRelation.setCatelogName(categoryEntity.getName());
+		categoryBrandRelation.setCategoryName(categoryEntity.getName());
 		categoryBrandRelationDao.insert(categoryBrandRelation);
 	}
 
@@ -92,7 +88,7 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	public List<BrandVo> getBrandsByCatId(Long catId) {
 		List<CategoryBrandRelationEntity> cateBrandList =
 				categoryBrandRelationDao.selectList
-						(new QueryWrapper<CategoryBrandRelationEntity>().eq(BrandConstant.CATELOG_ID, catId));
+						(new QueryWrapper<CategoryBrandRelationEntity>().eq(BrandConstant.CATEGORY_ID, catId));
 		// 根据品牌id查询详细信息
 		if (CollectionUtils.isEmpty(cateBrandList)){
 			return null;

@@ -39,13 +39,13 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     @Override
-    public PageUtils queryPage(PageParam param) {
+    public PageUtils<BrandEntity> queryPage(PageParam param) {
         IPage<BrandEntity> page = this.page(
                 new Query<BrandEntity>().getPage(param),
                 new QueryWrapper<BrandEntity>()
         );
 
-        return new PageUtils(page);
+        return PageUtils.of(page);
     }
 
     @Override
@@ -59,11 +59,11 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     @Override
-    public PageUtils queryBrandListPage(PageParam param) {
+    public PageUtils<BrandListVo> queryBrandListPage(PageParam param) {
         String catId = param.getLimit();
         // 使用catID 将下面的所有品牌进行查询
         QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(BrandConstant.CATELOG_ID, catId);
+        wrapper.eq(BrandConstant.CATEGORY_ID, catId);
         List<CategoryBrandRelationEntity> list = categoryBrandRelationDao.selectList(wrapper);
         // 没有直接返回
         if (CollectionUtils.isEmpty(list)){
@@ -96,7 +96,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         brandListVoPage.setRecords(brandListVos);
         brandListVoPage.setTotal(page.getTotal());
         brandListVoPage.setPages(page.getPages());
-        return new PageUtils(brandListVoPage);
+        return PageUtils.of(brandListVoPage);
     }
 
     private boolean compareDate(Date createTime, Date date) {

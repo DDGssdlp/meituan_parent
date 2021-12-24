@@ -14,7 +14,7 @@ package com.ddg.meituan.product.constant;
  */
 public interface BrandConstant {
 
-    String CATELOG_ID = "catelog_id";
+    String CATEGORY_ID = "category_id";
 
     String BRAND_ID = "brand_id";
 

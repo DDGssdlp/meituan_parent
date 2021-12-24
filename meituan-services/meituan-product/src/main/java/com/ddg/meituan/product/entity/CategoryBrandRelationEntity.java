@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -33,7 +34,7 @@ public class CategoryBrandRelationEntity implements Serializable {
 	/**
 	 * 分类id
 	 */
-	private Long catelogId;
+	private Long categoryId;
 	/**
 	 * 
 	 */
@@ -41,12 +42,12 @@ public class CategoryBrandRelationEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String catelogName;
+	private String categoryName;
 
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 }

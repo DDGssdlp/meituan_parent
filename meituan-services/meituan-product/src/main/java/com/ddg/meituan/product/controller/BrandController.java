@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.product.vo.BrandListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,8 +43,8 @@ public class BrandController {
      */
     @GetMapping("/list/page")
     //@RequiresPermissions("product:brand:list")
-    public CommonResult<PageUtils> getBrandListPage(PageParam param){
-        PageUtils page = brandService.queryBrandListPage(param);
+    public CommonResult<PageUtils<BrandListVo>> getBrandListPage(PageParam param){
+        PageUtils<BrandListVo> page = brandService.queryBrandListPage(param);
 
         return CommonResult.success(page);
     }

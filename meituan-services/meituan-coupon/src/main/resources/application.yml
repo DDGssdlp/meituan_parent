@@ -4,7 +4,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://${ipAddr}:3306/meituan-product?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://${ipAddr}:3306/meituan-coupon?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    sentinel:
 #      transport:
@@ -90,3 +90,6 @@ swagger:
   application-version: 1.0
   application-description: springfox swagger 3.0
   try-host: http://localhost:${server.port}
+
+# rocketMq
+

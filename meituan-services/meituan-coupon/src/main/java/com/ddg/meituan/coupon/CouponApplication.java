@@ -1,4 +1,4 @@
-package com.ddg.meituan;
+package com.ddg.meituan.coupon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @email:
  */
 @SpringBootApplication
-public class CartApplication {
+public class CouponApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
+        SpringApplication.run(CouponApplication.class, args);
     }
 }

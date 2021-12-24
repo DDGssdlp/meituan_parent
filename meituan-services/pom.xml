@@ -18,8 +18,9 @@
         <module>meituan-order</module>
         <module>meituan-search</module>
         <module>meituan-product</module>
-        <module>meituan-cart</module>
+        <module>meituan-coupon</module>
         <module>meituan-admin</module>
+        <module>meituan-storage</module>
     </modules>
 
     <dependencies>
@@ -48,6 +49,19 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>-->
 
+        <!--&lt;!&ndash;分布式事务&ndash;&gt;
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>-->
+
+        <!-- 消息队列： -->
+
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.2.1</version>
+        </dependency>
 
         <!--引入 公共 service-base -->
         <dependency>
