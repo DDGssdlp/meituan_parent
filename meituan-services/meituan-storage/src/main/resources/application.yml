@@ -4,6 +4,11 @@ spring:
 #    sentinel:
 #      transport:
 #        dashboard: localhost:8333
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://${ipAddr}:3306/meituan-ware?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   redis:
     host: ${ipAddr}
@@ -24,7 +29,7 @@ spring:
     timeout: 5000
 
 server:
-  port: 13000
+  port: 16000
 
 # swagger 配置
 swagger:

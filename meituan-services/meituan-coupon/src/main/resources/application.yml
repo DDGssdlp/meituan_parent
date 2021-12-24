@@ -57,7 +57,7 @@ mybatis-plus:
 
 
 server:
-  port: 8100
+  port: 10000
 logging:
   level:
     com.ddg.meituan: info

@@ -1,7 +1,9 @@
 ipAddr: 101.200.140.80
 
-
 spring:
+  # 环境 dev|test|prod
+  application:
+    name: meituan-admin
   cloud:
     nacos:
       discovery:

@@ -48,7 +48,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: 'http://localhost:12000/rsa/publicKey'
+          jwk-set-uri: 'http://localhost:9000/rsa/publicKey'
   redis:
     host: ${ipAddr}
     password: redis123

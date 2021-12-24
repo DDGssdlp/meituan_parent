@@ -1,8 +1,6 @@
 ipAddr: 101.200.140.80
 # 配置应用名称 nacos 使用
 spring:
-  application:
-    name: meituan-member
   datasource:
     username: root
     password: root
@@ -60,7 +58,7 @@ mybatis-plus:
 
 
 server:
-  port: 8200
+  port: 12000
 logging:
   level:
     com.ddg.meituan: info

@@ -14,7 +14,7 @@ spring:
 
 
 server:
-  port: 20000
+  port: 15000
 logging:
   level:
     com.ddg.meituan: info

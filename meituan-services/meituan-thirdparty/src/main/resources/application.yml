@@ -1,18 +1,12 @@
 ipAddr: 101.200.140.80
 
 spring:
-  datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://${ipAddr}:3306/meituan-ware?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-    driver-class-name: com.mysql.cj.jdbc.Driver
   #    sentinel:
   #      transport:
   #        dashboard: localhost:8333
   # 指定返回时间的格式化
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-
 
 #redis
   redis:
@@ -35,9 +29,15 @@ spring:
 
 
 server:
-  port: 14000
+  port: 17000
 
-
+# minio
+minio:
+  client:
+    endpoint: http://${ipAddr}:9000
+    root-username: admin
+    root-password: admin123
+    bucket-name: images
 
 swagger:
   enable: true

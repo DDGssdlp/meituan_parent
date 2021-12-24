@@ -5,12 +5,10 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 8080
+  port: 8000
 
 spring:
-  # 环境 dev|test|prod
-  application:
-    name: meituan-admin
+
   profiles:
     active: dev
   # jackson时间格式化
@@ -61,8 +59,6 @@ mybatis-plus:
     cache-enabled: false
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
-
-
 
 # swagger 配置
 swagger:

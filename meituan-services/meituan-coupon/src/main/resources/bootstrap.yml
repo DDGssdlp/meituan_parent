@@ -2,7 +2,7 @@ ipAddr: 101.200.140.80
 
 spring:
   application:
-    name: meituan-product
+    name: meituan-coupon
   cloud:
     nacos:
       discovery:

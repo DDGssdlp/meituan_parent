@@ -5,8 +5,6 @@ import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.member.entity.GrowthChangeHistoryEntity;
 
-import java.util.Map;
-
 /**
  * 成长值变化历史记录
  *
@@ -16,6 +14,6 @@ import java.util.Map;
  */
 public interface GrowthChangeHistoryService extends IService<GrowthChangeHistoryEntity> {
 
-    PageUtils queryPage(PageParam param);
+    PageUtils<GrowthChangeHistoryEntity> queryPage(PageParam param);
 }
 

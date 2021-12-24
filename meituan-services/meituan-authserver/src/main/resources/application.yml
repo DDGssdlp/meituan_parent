@@ -24,12 +24,10 @@ spring:
     timeout: 5000
 
 server:
-  port: 12000
-  # session存活时间
-  servlet:
-    session:
-      timeout: 30m
+  port: 9000
 
+
+#jwt 配置
 security:
   jwt:
     key-store: classpath:jwt.jks
@@ -43,7 +41,6 @@ security:
       - password
       - refresh_token
 
-
 # swagger 配置
 swagger:
   enable: true
@@ -54,16 +51,18 @@ swagger:
 
 #设置feign客户端超时时间（OpenFeign默认支持ribbon）
 feign:
-  hystrix:
-    enabled: false
   client:
     config:
       #default 默认所有服务。如果需要更改，直接换成调用方的服务名
       default:
         #指的是建立连接后从服务器读取到可用资源所用的时间
-        connect-timeout: 1000000
+        connect-timeout: 1000
         #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的实际
-        read-timeout: 10000
+        read-timeout: 2000
+
+  # feign 开启服务的降级和熔断
+  hystrix:
+    enabled: true
 
 #第三方登录
 meituan:

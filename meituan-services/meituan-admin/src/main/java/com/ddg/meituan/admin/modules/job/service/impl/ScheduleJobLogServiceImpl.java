@@ -19,15 +19,15 @@ import org.springframework.stereotype.Service;
 public class ScheduleJobLogServiceImpl extends ServiceImpl<ScheduleJobLogDao, ScheduleJobLogEntity> implements ScheduleJobLogService {
 
 	@Override
-	public PageUtils queryPage(PageParam params) {
+	public PageUtils<ScheduleJobLogEntity> queryPage(PageParam param) {
 		String jobId = null;//(String)params.get("jobId");
 
 		IPage<ScheduleJobLogEntity> page = this.page(
-			new Query<ScheduleJobLogEntity>().getPage(params),
+			new Query<ScheduleJobLogEntity>().getPage(param),
 			new QueryWrapper<ScheduleJobLogEntity>().like(StringUtils.isNotBlank(jobId),"job_id", jobId)
 		);
 
-		return new PageUtils(page);
+		return PageUtils.of(page);
 	}
 
 }
