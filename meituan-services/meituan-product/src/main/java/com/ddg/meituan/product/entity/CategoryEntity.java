@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class CategoryEntity implements Serializable {
 	 * 逻辑删除 1为删除 0删除
 	 */
 	@TableLogic
-	@Size(min = 0, max = 1, message = "删除状态必须是0/1", groups = {AddGroup.class, UpdateGroup.class})
+	@ListValue(values = {0, 1}, message = "删除状态必须是0/1", groups = {AddGroup.class, UpdateGroup.class})
 	private Integer deletedStatus;
 	/**
 	 * 排序
@@ -75,15 +76,21 @@ public class CategoryEntity implements Serializable {
 	 * 创建时间
 	 */
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 	/**
 	 * 更新时间
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 	@TableField(exist = false)
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<CategoryEntity> children;
+
+	/**
+	 * 分类的路径
+	 */
+	@TableField(exist = false)
+	private Long[] categoryPath;
 
 }

@@ -59,13 +59,9 @@ public class LoginController {
     }
 
     @GetMapping("/exit")
-    public CommonResult exit(@RequestParam("loginUserPhone") String phone){
-        String loginUserStr = (String) redisTemplate.opsForHash().get(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY,
-                phone);
+    @Deprecated
+    public CommonResult<?> exit(@RequestParam("loginUserPhone") String phone){
 
-        if (!StringUtils.isEmpty(loginUserStr)){
-            redisTemplate.opsForHash().delete(AuthServerConstant.REDIS_CACHE_LOGIN_USER_KEY, phone);
-        }
         return CommonResult.success();
     }
 

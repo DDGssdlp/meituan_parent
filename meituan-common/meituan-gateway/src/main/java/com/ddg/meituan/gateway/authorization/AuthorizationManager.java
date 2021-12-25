@@ -69,14 +69,14 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             }
         }
         //对应跨域的预检请求直接放行
-        if(request.getMethod()== HttpMethod.OPTIONS){
+        if (request.getMethod() == HttpMethod.OPTIONS) {
             return Mono.just(new AuthorizationDecision(true));
         }
 
         //不同用户体系登录不允许互相访问
         try {
             String token = request.getHeaders().getFirst(AuthConstant.JWT_TOKEN_HEADER);
-            if(StrUtil.isEmpty(token)){
+            if (StrUtil.isEmpty(token)) {
                 return Mono.just(new AuthorizationDecision(false));
             }
             String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
@@ -86,9 +86,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             final boolean match = pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
                     pathMatcher.match(AuthConstant.APP_URL_PATTERN, uri.getPath()) ||
                     pathMatcher.match(AuthConstant.SYS_URL_PATTERN, uri.getPath());
-            if (AuthConstant.ADMIN_CLIENT_ID.equals(userDto.getClientId()) && !match) {
-                return Mono.just(new AuthorizationDecision(false));
-            }
+            // 前端的用户不能获取后端的接口
             if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && match) {
                 return Mono.just(new AuthorizationDecision(false));
             }
@@ -101,7 +99,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //从Redis中获取当前路径可访问角色列表  使用 redis 进行的是路径粒度 和 权限的区分
         String roles = (String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
         // 这里方便测试 先放开
-        if (StringUtils.isEmpty(roles)){
+        if (StringUtils.isEmpty(roles)) {
             return Mono.just(new AuthorizationDecision(true));
         }
         List<String> authorities = Convert.toList(String.class, roles);

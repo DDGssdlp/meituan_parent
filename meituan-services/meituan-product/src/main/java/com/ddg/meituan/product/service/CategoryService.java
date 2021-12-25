@@ -24,8 +24,16 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     void changeStatus(CategoryEntity categoryEntity);
 
-    PageUtils queryPageById(PageParam param);
+    PageUtils<CategoryEntity> queryPageById(PageParam param);
 
     List<CategoryEntity> getParentList();
+
+    /**
+     * 获取当前的分类ID 所在的路径
+     * @param categoryId
+     * @param isSelf
+     * @return
+     */
+    Long[] findCategoryPath(Long categoryId, boolean isSelf);
 }
 

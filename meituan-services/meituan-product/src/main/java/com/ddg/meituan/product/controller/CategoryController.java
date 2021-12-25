@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.service.CategoryService;
 
+import javax.validation.Valid;
+
 
 /**
  * 商品三级分类
@@ -30,14 +32,16 @@ import com.ddg.meituan.product.service.CategoryService;
 @RequestMapping("product/category")
 public class CategoryController {
     
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     /**
      * 列表
      */
     @GetMapping("/list")
-    //@RequiresPermissions("product:category:list")
     public CommonResult<PageUtils> list(PageParam param){
         PageUtils page = categoryService.queryPage(param);
 
@@ -62,7 +66,9 @@ public class CategoryController {
     @GetMapping("/info/{catId}")
     public CommonResult<CategoryEntity> info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
-
+		// 获取当前节点的父类路径：
+        Long[] categoryPath = categoryService.findCategoryPath(catId, false);
+        category.setCategoryPath(categoryPath);
         return CommonResult.success(category);
     }
 
@@ -70,10 +76,10 @@ public class CategoryController {
      * 保存
      */
     @PostMapping("/save")
-    public CommonResult<Object> save(@RequestBody CategoryEntity category){
-		categoryService.save(category);
+    public CommonResult<Object> save(@RequestBody @Valid CategoryEntity category){
+        boolean save = categoryService.save(category);
 
-        return CommonResult.success();
+        return CommonResult.success(save);
     }
 
     /**
@@ -113,8 +119,8 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/getChildren")
-    public CommonResult<PageUtils> getChildren(PageParam param){
-        PageUtils page = categoryService.queryPageById(param);
+    public CommonResult<PageUtils<CategoryEntity>> getChildren(PageParam param){
+        PageUtils<CategoryEntity> page = categoryService.queryPageById(param);
 
         return CommonResult.success(page);
     }

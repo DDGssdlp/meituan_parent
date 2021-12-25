@@ -11,9 +11,7 @@ import com.ddg.meituan.product.dao.CategoryDao;
 import com.ddg.meituan.product.entity.CategoryEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +22,7 @@ import com.ddg.meituan.product.service.CategoryService;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 
 
 @Service("categoryService")
@@ -66,18 +65,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public PageUtils queryPageById(PageParam param) {
-        String cartIdStr = param.getPage();
+    public PageUtils<CategoryEntity> queryPageById(PageParam param) {
+        Long cartId = param.getId();
+        String key = param.getKey();
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(cartIdStr)) {
-            Long cartId = Long.parseLong(cartIdStr);
+        if (cartId != null) {
             wrapper.eq(ProductConstant.PARENT_CART_ID, cartId);
+        }
+        if(!StringUtils.isEmpty(key)){
+            wrapper.like(ProductConstant.CATEGORY_NAME, key);
         }
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(param),
                 wrapper
         );
-        return new PageUtils(page);
+        return PageUtils.of(page);
     }
 
     @Override
@@ -93,6 +95,34 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                         .filter(categoryEntity -> ProductConstant.CAT_LEVEL_ONE.equals(categoryEntity.getCatLevel()))
                         .sorted(Comparator.comparingInt(CategoryEntity::getSort)).limit(ProductConstant.MAX_FATHER_LENGTH).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public Long[] findCategoryPath(Long categoryId, boolean isSelf) {
+
+        List<Long> paths = new ArrayList<>();
+        //递归查询是否还有父节点
+        List<Long> parentPath = findParentPath(categoryId, paths);
+        //进行一个逆序排列
+        if(isSelf){
+            parentPath.add(categoryId);
+        }
+        Collections.reverse(parentPath);
+
+        return parentPath.toArray(new Long[parentPath.size()]);
+    }
+
+    private List<Long> findParentPath(Long categoryId, List<Long> paths) {
+        //根据当前分类id查询信息
+        CategoryEntity byId = this.getById(categoryId);
+
+        Long parentCid = byId.getParentCid();
+        //如果当前分类层级 不为1
+        if (!ProductConstant.ROOT_CID.equals(parentCid)) {
+            paths.add(parentCid);
+            findParentPath(parentCid, paths);
+        }
+        return paths;
     }
 
     /**

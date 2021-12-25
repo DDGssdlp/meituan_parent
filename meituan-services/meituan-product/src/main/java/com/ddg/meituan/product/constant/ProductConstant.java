@@ -28,8 +28,10 @@ public interface ProductConstant {
     String PARENT_CART_ID = "parent_cid";
 
     String PRODUCT_ID = "id";
-
+    String CATEGORY_NAME = "name";
     String CART_LEVEL = "cat_level";
+
+    Long ROOT_CID = 0L;
 
     String DEFAULT_IMG = "https://edu-ddg.oss-cn-beijing.aliyuncs.com/2021/02/06/7a940e9b1b7c40d1a9cf2ab7c90eafda1.jpg";
 }

@@ -101,6 +101,7 @@ public class SysLoginController {
 	 * 退出
 	 */
 	@PostMapping("/sys/logout")
+	@Deprecated
 	public CommonResult<?> logout() {
 		return CommonResult.success();
 	}

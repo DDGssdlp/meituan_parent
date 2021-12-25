@@ -3,7 +3,6 @@ package com.ddg.meituan.common.utils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.Tag;
 import lombok.Data;
 
 /**
@@ -19,7 +18,7 @@ import lombok.Data;
  * @email: wangzhijie0908@gmail.com
  */
 @Data
-@ApiModel("分页参数")
+@ApiModel("分页参数模型")
 public class PageParam{
 
     /**
@@ -35,6 +34,18 @@ public class PageParam{
     private String limit = String.valueOf(10);
 
     /**
+     * 查询关键字
+     */
+    @ApiModelProperty("查询关键字")
+    private String key;
+
+    /**
+     * id
+     */
+    @ApiModelProperty("查询的ID")
+    private Long id;
+
+    /**
      * 排序字段
      */
     @ApiModelProperty("排序字段")
@@ -43,10 +54,10 @@ public class PageParam{
     /**
      * 排序方式
      */
-    @ApiModelProperty("排序方式")
+    @ApiModelProperty(value = "排序方式")
     private String order;
 
-    @ApiModelProperty("分页模型")
+    //@ApiModelProperty(value = "分页模型", hidden = true)
     private Page<?> iPage;
 
 
