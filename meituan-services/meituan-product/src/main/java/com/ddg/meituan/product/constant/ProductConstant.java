@@ -28,7 +28,7 @@ public interface ProductConstant {
     String PARENT_CART_ID = "parent_cid";
 
     String PRODUCT_ID = "id";
-    String CATEGORY_NAME = "name";
+    String NAME = "name";
     String CART_LEVEL = "cat_level";
 
     Long ROOT_CID = 0L;

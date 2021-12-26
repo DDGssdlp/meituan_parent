@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ddg.meituan.common.exception.MeituanSysException;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.Query;
@@ -56,10 +57,14 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	 */
 	@Override
 	public void saveDetail(CategoryBrandRelationEntity categoryBrandRelation) {
+		if(queryCountById(categoryBrandRelation) > 0){
+			throw new MeituanSysException("该分类已经被绑定了 不需要重复绑定！");
+		}
     	// 获取品牌id 、三级分类id
 		Long brandId = categoryBrandRelation.getBrandId();
 		Long categoryId = categoryBrandRelation.getCategoryId();
 		// 根据id查询详细名字
+
 		BrandEntity brandEntity = brandDao.selectById(brandId);
 		CategoryEntity categoryEntity = categoryDao.selectById(categoryId);
 		categoryBrandRelation.setBrandName(brandEntity.getName());
@@ -79,6 +84,16 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	@Override
 	public void updateCategory(Long catId, String name) {
 		categoryBrandRelationDao.updateCategory(catId, name);
+	}
+
+	@Override
+	public Integer queryCountById(CategoryBrandRelationEntity categoryBrandRelation) {
+
+		QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
+		wrapper.eq("brand_id" , categoryBrandRelation.getBrandId()).and(i ->i.eq("category_id",
+				categoryBrandRelation.getCategoryId()));
+		return categoryBrandRelationDao.selectCount(wrapper);
+
 	}
 
 	/**

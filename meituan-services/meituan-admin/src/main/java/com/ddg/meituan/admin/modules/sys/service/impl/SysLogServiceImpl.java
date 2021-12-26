@@ -20,14 +20,14 @@ import java.util.Map;
 public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> implements SysLogService {
 
     @Override
-    public PageUtils queryPage(PageParam param) {
-        String key = null;
+    public PageUtils<SysLogEntity> queryPage(PageParam param) {
+        String key = param.getKey();
 
         IPage<SysLogEntity> page = this.page(
             new Query<SysLogEntity>().getPage(param),
             new QueryWrapper<SysLogEntity>().like(StringUtils.isNotBlank(key),"username", key)
         );
 
-        return new PageUtils(page);
+        return PageUtils.of(page);
     }
 }

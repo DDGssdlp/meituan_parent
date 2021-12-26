@@ -34,8 +34,8 @@ public class SysConfigController  {
 	 * 所有配置列表
 	 */
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(PageParam pageParam){
-		PageUtils page = sysConfigService.queryPage(pageParam);
+	public CommonResult<PageUtils<SysConfigEntity>> list(PageParam pageParam){
+		PageUtils<SysConfigEntity> page = sysConfigService.queryPage(pageParam);
 
 		return CommonResult.success(page);
 	}

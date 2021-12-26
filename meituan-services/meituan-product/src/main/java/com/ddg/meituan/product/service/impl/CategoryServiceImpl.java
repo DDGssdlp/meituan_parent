@@ -32,13 +32,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     private CategoryDao categoryDao;
 
     @Override
-    public PageUtils queryPage(PageParam param) {
+    public PageUtils<CategoryEntity> queryPage(PageParam param) {
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(param),
                 new QueryWrapper<CategoryEntity>()
         );
 
-        return new PageUtils(page);
+        return PageUtils.of(page);
     }
 
     @Override
@@ -49,11 +49,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryEntity> list = categoryDao.selectList(null);
 
         // 进行父子结构的组装：每一个分类下最多返回15个子节点
-        List<CategoryEntity> fatherList = list.stream()
+        return list.stream()
                 .map(categoryEntity -> setChildren(categoryEntity, list, ProductConstant.MAX_LEVEL3_COUNT))
                 .filter(categoryEntity -> ProductConstant.CAT_LEVEL_ONE.equals(categoryEntity.getCatLevel()))
                 .sorted(Comparator.comparingInt(CategoryEntity::getSort)).limit(ProductConstant.MAX_FATHER_LENGTH).collect(Collectors.toList());
-        return fatherList;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             wrapper.eq(ProductConstant.PARENT_CART_ID, cartId);
         }
         if(!StringUtils.isEmpty(key)){
-            wrapper.like(ProductConstant.CATEGORY_NAME, key);
+            wrapper.like(ProductConstant.NAME, key);
         }
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(param),
@@ -88,13 +87,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
         wrapper.ne(ProductConstant.CART_LEVEL, ProductConstant.CAT_LEVEL_THREE);
         List<CategoryEntity> list = categoryDao.selectList(wrapper);
-        List<CategoryEntity> collect =
-                list.stream()
-                        .filter(categoryEntity -> ProductConstant.SHOW_STATUS.equals(categoryEntity.getShowStatus()))
-                        .map(categoryEntity -> setChildren(categoryEntity, list, ProductConstant.MAX_LEVEL2_COUNT))
-                        .filter(categoryEntity -> ProductConstant.CAT_LEVEL_ONE.equals(categoryEntity.getCatLevel()))
-                        .sorted(Comparator.comparingInt(CategoryEntity::getSort)).limit(ProductConstant.MAX_FATHER_LENGTH).collect(Collectors.toList());
-        return collect;
+        return list.stream()
+                .filter(categoryEntity -> ProductConstant.SHOW_STATUS.equals(categoryEntity.getShowStatus()))
+                .map(categoryEntity -> setChildren(categoryEntity, list, ProductConstant.MAX_LEVEL2_COUNT))
+                .filter(categoryEntity -> ProductConstant.CAT_LEVEL_ONE.equals(categoryEntity.getCatLevel()))
+                .sorted(Comparator.comparingInt(CategoryEntity::getSort)).limit(ProductConstant.MAX_FATHER_LENGTH).collect(Collectors.toList());
     }
 
     @Override

@@ -8,7 +8,7 @@
         <result property="brandId" column="brand_id"/>
         <result property="name" column="name"/>
         <result property="logo" column="logo"/>
-        <result property="descript" column="descript"/>
+        <result property="description" column="descript"/>
         <result property="showStatus" column="show_status"/>
         <result property="firstLetter" column="first_letter"/>
         <result property="sort" column="sort"/>

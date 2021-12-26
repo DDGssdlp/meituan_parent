@@ -3,6 +3,7 @@ package com.ddg.meituan.product.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.ddg.meituan.common.annotation.vaildator.ListValue;
@@ -49,7 +50,7 @@ public class BrandEntity implements Serializable {
 
 	private String images;
 
-	private String descript;
+	private String description;
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
@@ -77,12 +78,12 @@ public class BrandEntity implements Serializable {
 	 * 创建时间
 	 */
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 	/**
 	 * 更新时间
 	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 	/**
 	 *  地址：

@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
-    PageUtils queryPage(PageParam param);
+    PageUtils<CategoryEntity> queryPage(PageParam param);
 
     List<CategoryEntity> getListWithTree();
 

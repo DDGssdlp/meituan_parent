@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class CategoryBrandRelationController {
      * 保存
      */
     @PostMapping("/save")
-    public CommonResult<Object> save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
+    public CommonResult<Object> save(@RequestBody @Valid CategoryBrandRelationEntity categoryBrandRelation){
         categoryBrandRelationService.saveDetail(categoryBrandRelation);
 
         return CommonResult.success();

@@ -15,6 +15,6 @@ import com.ddg.meituan.common.utils.PageUtils;
  */
 public interface SysLogService extends IService<SysLogEntity> {
 
-    PageUtils queryPage(PageParam params);
+    PageUtils<SysLogEntity> queryPage(PageParam params);
 
 }

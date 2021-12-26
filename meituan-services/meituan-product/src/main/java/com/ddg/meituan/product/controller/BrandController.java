@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.service.BrandService;
 
+import javax.validation.Valid;
+
 
 /**
  * 品牌
@@ -24,16 +26,20 @@ import com.ddg.meituan.product.service.BrandService;
 @RestController
 @RequestMapping("product/brand")
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
+
+    private final BrandService brandService;
+
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
+    }
 
     /**
      * 列表
      */
     @GetMapping("/list")
-    //@RequiresPermissions("product:brand:list")
-    public CommonResult<PageUtils> list(PageParam param){
-        PageUtils page = brandService.queryPage(param);
+
+    public CommonResult<PageUtils<BrandEntity>> list(PageParam param){
+        PageUtils<BrandEntity> page = brandService.queryPage(param);
 
         return CommonResult.success(page);
     }
@@ -42,7 +48,6 @@ public class BrandController {
      * 列表
      */
     @GetMapping("/list/page")
-    //@RequiresPermissions("product:brand:list")
     public CommonResult<PageUtils<BrandListVo>> getBrandListPage(PageParam param){
         PageUtils<BrandListVo> page = brandService.queryBrandListPage(param);
 
@@ -54,7 +59,6 @@ public class BrandController {
      * 信息
      */
     @GetMapping("/info/{brandId}")
-    //@RequiresPermissions("product:brand:info")
     public CommonResult<BrandEntity> info(@PathVariable("brandId") Long brandId){
 		BrandEntity brand = brandService.getById(brandId);
 
@@ -65,8 +69,7 @@ public class BrandController {
      * 保存
      */
     @PostMapping("/save")
-    //@RequiresPermissions("product:brand:save")
-    public CommonResult<Object> save(@RequestBody BrandEntity brand){
+    public CommonResult<Object> save(@RequestBody @Valid BrandEntity brand){
 		brandService.save(brand);
 
         return CommonResult.success();
@@ -76,8 +79,7 @@ public class BrandController {
      * 修改
      */
     @PostMapping("/update")
-    //@RequiresPermissions("product:brand:update")
-    public CommonResult<Object> update(@RequestBody BrandEntity brand){
+    public CommonResult<Object> update(@RequestBody @Valid BrandEntity brand){
 		brandService.updateById(brand);
 
         return CommonResult.success();
@@ -87,7 +89,6 @@ public class BrandController {
      * 删除
      */
     @PostMapping("/delete")
-    //@RequiresPermissions("product:brand:delete")
     public CommonResult<Object> delete(@RequestBody Long[] brandIds){
 		brandService.removeByIds(Arrays.asList(brandIds));
 

@@ -1,14 +1,13 @@
 package com.ddg.meituan.product.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 品牌分类关联
@@ -30,10 +29,12 @@ public class CategoryBrandRelationEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
+	@NotNull(message = "品牌id 不能为空")
 	private Long brandId;
 	/**
 	 * 分类id
 	 */
+	@NotNull(message = "分类id 不能为空")
 	private Long categoryId;
 	/**
 	 * 
@@ -43,6 +44,9 @@ public class CategoryBrandRelationEntity implements Serializable {
 	 * 
 	 */
 	private String categoryName;
+
+	@TableLogic
+	private Integer deletedStatus;
 
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createTime;

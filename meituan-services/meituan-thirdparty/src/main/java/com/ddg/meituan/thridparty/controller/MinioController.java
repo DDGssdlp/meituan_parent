@@ -42,14 +42,7 @@ public class MinioController {
 
     @PostMapping("/upload")
     @ApiOperation("文件上传")
-    public CommonResult<String> uploadFile(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required = false) String userInfo,
-                                           @RequestParam("file") MultipartFile file){
-        // 进行调用 service中的方法  返回的是文件的url地址
-        if(!StringUtils.isEmpty(userInfo)){
-            UserDto userDto = JSON.parseObject(userInfo, UserDto.class);
-            System.out.println(userDto);
-        }
-
+    public CommonResult<String> uploadFile(@RequestParam("file") MultipartFile file){
         String url = null;
         try {
             url = minioHelper.uploadFile(file.getInputStream(), file.getOriginalFilename(),

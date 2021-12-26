@@ -1,6 +1,7 @@
 package com.ddg.meituan.admin.modules.sys.controller;
 
 
+import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
 import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.PageParam;
@@ -32,8 +33,8 @@ public class SysLogController {
 	 */
 
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(PageParam params){
-		PageUtils page = sysLogService.queryPage(params);
+	public CommonResult<PageUtils<SysLogEntity>> list(PageParam params){
+		PageUtils<SysLogEntity> page = sysLogService.queryPage(params);
 
 		return CommonResult.success(page);
 	}

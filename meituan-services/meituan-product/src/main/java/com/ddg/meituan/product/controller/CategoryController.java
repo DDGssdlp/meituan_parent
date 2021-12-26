@@ -86,7 +86,7 @@ public class CategoryController {
      * 修改
      */
     @PostMapping("/update")
-    public CommonResult<Object> update(@RequestBody CategoryEntity category){
+    public CommonResult<Object> update(@RequestBody @Valid CategoryEntity category){
 		categoryService.updateById(category);
         return CommonResult.success();
     }
