@@ -12,19 +12,32 @@ package com.ddg.meituan.product.enums;
  * @date 2021/2/6 12:22
  * @email: wangzhijie0908@gmail.com
  */
-public enum ProductEnum {
 
-    PUBLISH(1),
-    UP(2),
-    DELETED(0);
+public interface ProductEnum{
+    enum StatusEnum {
 
-    private Integer state;
+        NEW_SPU(0,"新建"),
+        SPU_UP(1,"商品上架"),
+        SPU_DOWN(2,"商品下架"),
+        ;
 
-    ProductEnum(Integer state){
-        this.state = state;
-    }
+        private int code;
+        private String desc;
 
-    public Integer getState() {
-        return state;
+        private static final String STATUS_DESC = "上架状态枚举描述 0 新建 1 商品上架 2 商品下架";
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getMsg() {
+            return desc;
+        }
+
+        StatusEnum(int code, String msg) {
+            this.code = code;
+            this.desc = msg;
+        }
     }
 }
+

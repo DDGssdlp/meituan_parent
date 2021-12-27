@@ -8,10 +8,36 @@
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
-        <result property="descript" column="descript"/>
+        <result property="description" column="descript"/>
         <result property="icon" column="icon"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="categoryId" column="catelog_id"/>
     </resultMap>
+    <select id="selectAttrById" resultType="com.ddg.meituan.product.entity.AttrGroupEntity">
+        SELECT
+            ag.`attr_group_id`,
+            ag.`attr_group_name`,
+            ag.`sort` ,
+            ag.`description`,
+            ag.`icon`,
+            ag.`category_id`,
+            c.`name` AS category_name
+        FROM
+            pms_attr_group ag
+        LEFT OUTER JOIN
+            pms_category c
+        ON
+            ag.`category_id` = c.cat_id
+        WHERE
+            ag.deleted_status = 0
+
+            <if test="param.id != null">
+              AND ag.`category_id` = #{param.id}
+            </if>
+            <if test="param.key != null and param.key != '' ">
+                AND ag.`attr_group_name` LIKE CONCAT('%', #{param.key} '%')
+                OR ag.`description` LIKE CONCAT('%', #{param.key} '%')
+            </if>
+    </select>
 
 
 </mapper>

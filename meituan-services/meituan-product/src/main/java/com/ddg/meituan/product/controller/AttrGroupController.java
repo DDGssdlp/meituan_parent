@@ -1,8 +1,8 @@
 package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.AttrGroupEntity;
@@ -45,7 +45,7 @@ public class AttrGroupController {
      */
     @GetMapping("/info/{attrGroupId}")
     public CommonResult<AttrGroupEntity> info(@PathVariable("attrGroupId") Long attrGroupId){
-		AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
+		AttrGroupEntity attrGroup = attrGroupService.getInfoById(attrGroupId);
 
         return CommonResult.success(attrGroup);
     }
@@ -76,6 +76,18 @@ public class AttrGroupController {
     @PostMapping("/delete")
     public CommonResult<Object> delete(@RequestBody Long[] attrGroupIds){
 		attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+
+        return CommonResult.success();
+    }
+
+    /**
+     *  获取属性分组有关联的其他属性
+     * @param attrGroupId
+     * @return
+     */
+    @GetMapping("/{attrGroupId}/attr/relation")
+    public CommonResult<?> groupRelation(@PathVariable Long attrGroupId){
+
 
         return CommonResult.success();
     }

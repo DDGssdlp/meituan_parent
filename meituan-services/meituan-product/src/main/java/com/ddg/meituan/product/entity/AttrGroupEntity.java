@@ -1,10 +1,9 @@
 package com.ddg.meituan.product.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -35,7 +34,7 @@ public class AttrGroupEntity implements Serializable {
 	/**
 	 * 描述
 	 */
-	private String descript;
+	private String description;
 	/**
 	 * 组图标
 	 */
@@ -43,6 +42,21 @@ public class AttrGroupEntity implements Serializable {
 	/**
 	 * 所属分类id
 	 */
-	private Long catelogId;
+	private Long categoryId;
+
+	@TableField(exist = false)
+	private String categoryName;
+
+	@TableField(exist = false)
+	private Long[] categoryPath;
+
+	@TableLogic
+	private Integer deletedStatus;
+
+	@TableField(fill = FieldFill.INSERT)
+	private LocalDateTime createTime;
+
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updateTime;
 
 }

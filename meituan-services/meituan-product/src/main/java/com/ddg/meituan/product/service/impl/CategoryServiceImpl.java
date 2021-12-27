@@ -104,7 +104,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         if(isSelf){
             parentPath.add(categoryId);
         }
-        Collections.reverse(parentPath);
 
         return parentPath.toArray(new Long[parentPath.size()]);
     }
@@ -116,9 +115,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Long parentCid = byId.getParentCid();
         //如果当前分类层级 不为1
         if (!ProductConstant.ROOT_CID.equals(parentCid)) {
-            paths.add(parentCid);
             findParentPath(parentCid, paths);
+            paths.add(parentCid);
         }
+
         return paths;
     }
 

@@ -74,7 +74,7 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
             throw  new MeituanSysException("没有此商品");
         }
         ProductInfoEntity productInfoEntity = new ProductInfoEntity();
-        productInfoEntity.setIsPublish(ProductEnum.UP.getState());
+        productInfoEntity.setIsPublish(ProductEnum.StatusEnum.SPU_UP.getCode());
         productInfoEntity.setId(id);
         //TODO 将商品同步到es中 商品上架 需要进一步的优化
 
