@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.product.entity.AttrGroupEntity;
+import com.ddg.meituan.product.vo.AttrGroupWithAttrsVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +21,12 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     PageUtils<AttrGroupEntity> queryPage(PageParam param);
 
     AttrGroupEntity getInfoById(Long attrGroupId);
+
+    /**
+     * 获取 分类下的所有的属性组 和 属性
+     * @param categoryId
+     * @returnC
+     */
+    List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCategoryId(Long categoryId);
 }
 

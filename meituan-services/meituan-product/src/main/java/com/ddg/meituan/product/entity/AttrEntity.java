@@ -69,5 +69,8 @@ public class AttrEntity implements Serializable {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
 
+	@TableField(exist = false)
+	private Long[] categoryPath;
+
 
 }

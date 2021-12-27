@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.product.entity.AttrEntity;
+import com.ddg.meituan.product.vo.AttrGroupRelationVo;
 import com.ddg.meituan.product.vo.AttrRespVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +21,19 @@ public interface AttrService extends IService<AttrEntity> {
 
     PageUtils<AttrEntity> queryPage(PageParam param);
 
-    PageUtils<AttrRespVo> queryBaseAttrPage(PageParam pageParam, String type);
+    PageUtils<AttrRespVo> queryAttrPageByType(PageParam pageParam, String type);
+
+    AttrEntity getInfoById(Long attrId);
+
+    PageUtils<AttrEntity> getNoRelationAttr(PageParam pageParam);
+
+    /**
+     * 根据分组id找到关联的所有属性
+     * @param id
+     * @return
+     */
+    List<AttrEntity> getRelationAttr(Long id);
+
+    void deleteRelation(List<AttrGroupRelationVo> vos);
 }
 

@@ -3,6 +3,11 @@ package com.ddg.meituan.product.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ddg.meituan.product.entity.AttrEntity;
+import com.ddg.meituan.product.service.AttrAttrgroupRelationService;
+import com.ddg.meituan.product.service.AttrService;
+import com.ddg.meituan.product.vo.AttrGroupRelationVo;
+import com.ddg.meituan.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.AttrGroupEntity;
@@ -25,8 +30,14 @@ public class AttrGroupController {
 
     private final AttrGroupService attrGroupService;
 
-    public AttrGroupController(AttrGroupService attrGroupService) {
+    private final AttrService attrService;
+
+    private final AttrAttrgroupRelationService attrAttrgroupRelationService;
+
+    public AttrGroupController(AttrGroupService attrGroupService, AttrService attrService, AttrAttrgroupRelationService attrAttrgroupRelationService) {
         this.attrGroupService = attrGroupService;
+        this.attrService = attrService;
+        this.attrAttrgroupRelationService = attrAttrgroupRelationService;
     }
 
     /**
@@ -82,14 +93,52 @@ public class AttrGroupController {
 
     /**
      *  获取属性分组有关联的其他属性
-     * @param attrGroupId
+     * @param
      * @return
      */
-    @GetMapping("/{attrGroupId}/attr/relation")
-    public CommonResult<?> groupRelation(@PathVariable Long attrGroupId){
+    @GetMapping("/relationAttr")
+    public CommonResult<List<AttrEntity>> groupRelation(Long id){
 
+        List<AttrEntity> entities = attrService.getRelationAttr(id);
+        return CommonResult.success(entities);
+    }
+    /**
+     *  获取属性分组有关联的其他属性
+     * @param pageParam
+     * @return
+     */
+    @GetMapping("/noRelationAttr")
+    public CommonResult<?> groupNoRelation(PageParam pageParam){
+
+        PageUtils<AttrEntity> page = attrService.getNoRelationAttr(pageParam);
+        return CommonResult.success(page);
+    }
+    @PostMapping(value = "/attr/relation")
+    public CommonResult<Boolean> addRelation(@RequestBody List<AttrGroupRelationVo> vos) {
+
+        boolean b = attrAttrgroupRelationService.saveBatchByVo(vos);
+
+        return CommonResult.success(b);
+
+    }
+
+    @PostMapping(value = "/attr/relation/delete")
+    public CommonResult<Object> deleteRelation(@RequestBody List<AttrGroupRelationVo> vos) {
+
+        attrService.deleteRelation(vos);
 
         return CommonResult.success();
+    }
+
+    @GetMapping("/withAttr/{categoryId}")
+    public CommonResult<List<AttrGroupWithAttrsVo>> getAttrGroupWithAttrs(@PathVariable("categoryId") Long categoryId) {
+
+        //1、查出当前分类下的所有属性分组
+        //2、查出每个属性分组下的所有属性
+        List<AttrGroupWithAttrsVo> vos = attrGroupService.getAttrGroupWithAttrsByCategoryId(categoryId);
+
+
+        return CommonResult.success(vos);
     }
 
 }

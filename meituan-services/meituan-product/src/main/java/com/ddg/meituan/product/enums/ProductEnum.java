@@ -39,5 +39,30 @@ public interface ProductEnum{
             this.desc = msg;
         }
     }
+
+    enum AttrType{
+        BASE(1, "base"),
+        SALE(0, "sale")
+        ;
+
+        private int code;
+
+        private String desc;
+
+        private static final String STATUS_DESC = "属性类型状态描述 1 base  0 sale";
+
+        public String getMsg() {
+            return desc;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        AttrType(int code, String msg) {
+            this.code = code;
+            this.desc = msg;
+        }
+    }
 }
 

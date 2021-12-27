@@ -51,11 +51,11 @@ public class PageUtils<T> implements Serializable {
 	 * @param pageSize    每页记录数
 	 * @param currPage    当前页数
 	 */
-	public PageUtils(List<T> list, int totalCount, int pageSize, int currPage) {
+	public PageUtils(List<T> list, long totalCount, long pageSize, long currPage) {
 		this.list = list;
-		this.totalCount = totalCount;
-		this.pageSize = pageSize;
-		this.currPage = currPage;
+		this.totalCount = (int) totalCount;
+		this.pageSize = (int) pageSize;
+		this.currPage = (int) currPage;
 		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
 	}
 
@@ -75,11 +75,14 @@ public class PageUtils<T> implements Serializable {
 
 	public static <T> PageUtils<T> of(IPage<T> page){
 		PageUtils<T> pageUtils = new PageUtils<>();
-		pageUtils.list = page.getRecords();
-		pageUtils.totalCount = (int)page.getTotal();
-		pageUtils.pageSize = (int)page.getSize();
-		pageUtils.currPage = (int)page.getCurrent();
-		pageUtils.totalPage = (int)page.getPages();
+		if(page != null){
+			pageUtils.list = page.getRecords();
+			pageUtils.totalCount = (int)page.getTotal();
+			pageUtils.pageSize = (int)page.getSize();
+			pageUtils.currPage = (int)page.getCurrent();
+			pageUtils.totalPage = (int)page.getPages();
+		}
+
 		return pageUtils;
 	}
 

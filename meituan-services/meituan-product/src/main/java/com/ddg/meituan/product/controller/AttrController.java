@@ -35,9 +35,9 @@ public class AttrController {
      * @return
      */
     @GetMapping("/{attrType}/list")
-    public CommonResult<?> baseAttrList(PageParam pageParam, @PathVariable("attrType")String type){
+    public CommonResult<PageUtils<AttrRespVo>> baseAttrList(PageParam pageParam, @PathVariable("attrType")String type){
 
-        PageUtils<AttrRespVo> page = attrService.queryBaseAttrPage(pageParam,type);
+        PageUtils<AttrRespVo> page = attrService.queryAttrPageByType(pageParam,type);
         return CommonResult.success(page);
     }
 
@@ -58,7 +58,7 @@ public class AttrController {
      */
     @GetMapping("/info/{attrId}")
     public CommonResult<AttrEntity> info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
+		AttrEntity attr = attrService.getInfoById(attrId);
 
         return CommonResult.success(attr);
     }

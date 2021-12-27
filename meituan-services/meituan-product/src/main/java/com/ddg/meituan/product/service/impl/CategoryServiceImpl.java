@@ -82,7 +82,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    @RedisCache(redisKey = "redis_list_parent", resClass = CategoryEntity.class, isList = true)
+    @RedisCache(redisKey = "redis:list:parent", resClass = CategoryEntity.class, isList = true)
     public List<CategoryEntity> getParentList() {
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
         wrapper.ne(ProductConstant.CART_LEVEL, ProductConstant.CAT_LEVEL_THREE);
@@ -114,7 +114,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         Long parentCid = byId.getParentCid();
         //如果当前分类层级 不为1
-        if (!ProductConstant.ROOT_CID.equals(parentCid)) {
+        if (!ProductConstant.ROOT_CID.equals(parentCid) || paths.size() >= ProductConstant.CAT_LEVEL_THREE) {
             findParentPath(parentCid, paths);
             paths.add(parentCid);
         }
