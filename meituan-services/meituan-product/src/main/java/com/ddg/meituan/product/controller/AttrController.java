@@ -1,10 +1,11 @@
 package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
+import com.ddg.meituan.product.entity.ProductAttrValueEntity;
+import com.ddg.meituan.product.service.ProductAttrValueService;
 import com.ddg.meituan.product.vo.AttrRespVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.AttrEntity;
@@ -24,8 +25,14 @@ import com.ddg.meituan.common.api.CommonResult;
 @RestController
 @RequestMapping("product/attr")
 public class AttrController {
-    @Autowired
-    private AttrService attrService;
+    private final AttrService attrService;
+
+    private final ProductAttrValueService productAttrValueService;
+
+    public AttrController(AttrService attrService, ProductAttrValueService productAttrValueService) {
+        this.attrService = attrService;
+        this.productAttrValueService = productAttrValueService;
+    }
 
 
     /**
@@ -89,6 +96,30 @@ public class AttrController {
     @PostMapping("/delete")
     public CommonResult<Object> delete(@RequestBody Long[] attrIds){
 		attrService.removeByIds(Arrays.asList(attrIds));
+
+        return CommonResult.success();
+    }
+
+    /**
+     *  获取spu规格
+     */
+    @GetMapping("baseAttr/spu/{spuId}")
+    public CommonResult<List<ProductAttrValueEntity>> getBaseAttrOfSpu(@PathVariable String spuId){
+        List<ProductAttrValueEntity> entities = productAttrValueService.getBaseAttrOfSpu(spuId);
+        return CommonResult.success(entities);
+    }
+
+    /**
+     * 对spu 的attr 进行修改
+     * @param spuId
+     * @param entities
+     * @return
+     */
+    @PostMapping("/update/{spuId}")
+    public CommonResult<?> updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> entities){
+
+        productAttrValueService.updateSpuAttr(spuId,entities);
 
         return CommonResult.success();
     }

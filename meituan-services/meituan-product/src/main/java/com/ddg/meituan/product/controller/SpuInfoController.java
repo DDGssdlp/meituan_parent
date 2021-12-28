@@ -2,6 +2,7 @@ package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
 
+import com.ddg.meituan.product.entity.param.SpuInfoParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class SpuInfoController {
      * 列表
      */
     @GetMapping("/list")
-    public CommonResult<PageUtils<SpuInfoEntity>> list(PageParam param){
+    public CommonResult<PageUtils<SpuInfoEntity>> list(SpuInfoParam param){
         PageUtils<SpuInfoEntity> page = spuInfoService.queryPage(param);
 
         return CommonResult.success(page);

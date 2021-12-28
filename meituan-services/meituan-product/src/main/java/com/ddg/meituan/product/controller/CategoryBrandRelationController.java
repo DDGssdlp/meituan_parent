@@ -5,6 +5,7 @@ import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.product.constant.BrandConstant;
+import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.service.CategoryBrandRelationService;
 import com.ddg.meituan.product.vo.BrandVo;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -40,10 +42,10 @@ public class CategoryBrandRelationController {
 
 
     @GetMapping("/brands/list")
-    public CommonResult<List<BrandVo>> relationBrandsList(@RequestParam("catId") Long catId){
-        List<BrandVo> BrandVos = categoryBrandRelationService.getBrandsByCatId(catId);
+    public CommonResult<List<BrandVo>> relationBrandsList(@RequestParam(value = "catId", required = false) Long catId){
+        List<BrandVo> brandVos = categoryBrandRelationService.getBrandsByCatId(catId);
 
-        return CommonResult.success(BrandVos);
+        return CommonResult.success(brandVos);
     }
 
     /**
@@ -107,4 +109,6 @@ public class CategoryBrandRelationController {
 
         return CommonResult.success();
     }
+
+
 }

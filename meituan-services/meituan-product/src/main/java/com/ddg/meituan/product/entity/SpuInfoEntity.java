@@ -63,4 +63,15 @@ public class SpuInfoEntity implements Serializable {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
 
+	/**
+	 *  spu 所属分类的 名称
+	 */
+	@TableField(exist = false)
+	private String categoryName;
+	/**
+	 * spu 所属 品牌的 名称
+	 */
+	@TableField(exist = false)
+	private String brandName;
+
 }

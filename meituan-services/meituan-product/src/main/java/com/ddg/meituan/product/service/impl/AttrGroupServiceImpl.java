@@ -16,6 +16,7 @@ import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.product.dao.AttrGroupDao;
 import com.ddg.meituan.product.entity.AttrGroupEntity;
 import com.ddg.meituan.product.service.AttrGroupService;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -73,7 +74,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             attrGroupWithAttrsVo.setAttrs(attrs);
 
             return attrGroupWithAttrsVo;
-        }).collect(Collectors.toList());
+        }).filter(attrGroupWithAttrsVo -> !CollectionUtils.isEmpty(attrGroupWithAttrsVo.getAttrs())).collect(Collectors.toList());
 
         return collect;
     }

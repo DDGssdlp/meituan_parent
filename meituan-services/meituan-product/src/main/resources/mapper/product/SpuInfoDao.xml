@@ -16,6 +16,39 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <select id="selectSpuInfoByParam" resultType="com.ddg.meituan.product.entity.SpuInfoEntity">
+
+        SELECT
+            si.id, si.`spu_name`, si.`spu_description`,
+             si.`category_id`
+            , si.`publish_status`
+            , si.`create_time`, si.`update_time`
+            ,c.`name` AS category_name, b.`name` AS brand_name
+        FROM
+            `pms_spu_info` si
+        LEFT OUTER JOIN
+            `pms_category` c
+        ON  si.`category_id` = c.`cat_id`
+        LEFT OUTER JOIN
+            `pms_brand` b
+        ON si.`brand_id` = b.`brand_id`
+
+        <where>
+            <if test="param.categoryId != null">
+               AND si.`category_id` = #{param.categoryId}
+            </if>
+            <if test="param.brandId != null">
+                AND si.`brand_id` = #{param.brandId}
+            </if>
+            <if test="param.status != null">
+                AND  si.`publish_status` = #{param.status}
+            </if>
+            <if test="param.key != null and param.key != '' ">
+                AND  si.`spu_name` LIKE CONCAT('%', #{param.key} ,'%')
+                OR si.`spu_description` LIKE CONCAT('%', #{param.key} ,'%')
+            </if>
+        </where>
+    </select>
 
 
 </mapper>

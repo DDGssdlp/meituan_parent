@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.product.entity.SpuInfoEntity;
+import com.ddg.meituan.product.entity.param.SpuInfoParam;
 
 import java.util.Map;
 
@@ -16,6 +17,6 @@ import java.util.Map;
  */
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
-    PageUtils<SpuInfoEntity> queryPage(PageParam param);
+    PageUtils<SpuInfoEntity> queryPage(SpuInfoParam param);
 }
 

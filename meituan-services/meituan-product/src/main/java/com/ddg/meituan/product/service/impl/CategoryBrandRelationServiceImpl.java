@@ -24,6 +24,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -103,13 +104,14 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 	public List<BrandVo> getBrandsByCatId(Long catId) {
 		List<CategoryBrandRelationEntity> cateBrandList =
 				categoryBrandRelationDao.selectList
-						(new QueryWrapper<CategoryBrandRelationEntity>().eq(BrandConstant.CATEGORY_ID, catId));
+						(new QueryWrapper<CategoryBrandRelationEntity>().eq(catId != null, BrandConstant.CATEGORY_ID,
+								catId));
 		// 根据品牌id查询详细信息
 		if (CollectionUtils.isEmpty(cateBrandList)){
-			return null;
+			return Collections.emptyList();
 		}
 		List<Long> brandIds =
-				cateBrandList.stream().map(CategoryBrandRelationEntity::getBrandId).collect(Collectors.toList());
+				cateBrandList.stream().map(CategoryBrandRelationEntity::getBrandId).distinct().collect(Collectors.toList());
 		List<BrandEntity> brandEntityList = brandService.getByBrandIds(brandIds);
 		// 转成vo 返回
 		List<BrandVo> collect = brandEntityList.stream().map(brandEntity -> {

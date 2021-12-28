@@ -1,8 +1,12 @@
 package com.ddg.meituan.product.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddg.meituan.product.entity.SpuInfoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ddg.meituan.product.entity.param.SpuInfoParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * spu信息
@@ -13,5 +17,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SpuInfoDao extends BaseMapper<SpuInfoEntity> {
-	
+    /**
+     * 通过param 获取 spuinfo 信息分页返回
+     * @param page
+     * @param param
+     * @return
+     */
+    IPage<SpuInfoEntity> selectSpuInfoByParam(Page<SpuInfoEntity> page, @Param("param") SpuInfoParam param);
 }

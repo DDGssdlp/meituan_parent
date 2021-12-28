@@ -1,10 +1,10 @@
 package com.ddg.meituan.product.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Description:
@@ -53,6 +53,15 @@ public class ProductAttrValueEntity implements Serializable {
      * 快速展示【是否展示在介绍上；0-否 1-是】
      */
     private Integer quickShow;
+
+    @TableLogic
+    private Integer deletedStatus;
+
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 }
 
