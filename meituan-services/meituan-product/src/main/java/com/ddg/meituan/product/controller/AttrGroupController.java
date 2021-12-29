@@ -82,11 +82,11 @@ public class AttrGroupController {
     }
 
     /**
-     * 删除
+     * 删除 同时 将分组所关联的 属性页进行删除：
      */
     @PostMapping("/delete")
     public CommonResult<Object> delete(@RequestBody Long[] attrGroupIds){
-		attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+		attrGroupService.removeGroupAndRelationByIds(Arrays.asList(attrGroupIds));
 
         return CommonResult.success();
     }

@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 优惠卷数据传输模型
  */
 @Data
-public class SKuReduceTo {
+public class SkuReduceTo {
 
     private Long skuId;
     private int fullCount;

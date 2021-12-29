@@ -28,5 +28,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @returnC
      */
     List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCategoryId(Long categoryId);
+
+    void removeGroupAndRelationByIds(List<Long> asList);
 }
 

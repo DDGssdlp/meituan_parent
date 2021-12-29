@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddg.meituan.product.entity.SpuInfoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.product.entity.param.SpuInfoParam;
+import com.ddg.meituan.product.param.SpuInfoParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

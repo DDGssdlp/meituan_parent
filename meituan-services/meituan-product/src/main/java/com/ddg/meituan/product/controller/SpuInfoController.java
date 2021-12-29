@@ -2,14 +2,13 @@ package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
 
-import com.ddg.meituan.product.entity.param.SpuInfoParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ddg.meituan.product.param.SpuInfoParam;
+import com.ddg.meituan.product.vo.SpuInfoVo;
 import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.SpuInfoEntity;
 import com.ddg.meituan.product.service.SpuInfoService;
 import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.api.CommonResult;
 
 
@@ -56,8 +55,8 @@ public class SpuInfoController {
      * 保存
      */
     @PostMapping("/save")
-    public CommonResult<Object> save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public CommonResult<Object> save(@RequestBody SpuInfoVo spuInfo){
+		spuInfoService.saveSpuInfoVo(spuInfo);
 
         return CommonResult.success();
     }

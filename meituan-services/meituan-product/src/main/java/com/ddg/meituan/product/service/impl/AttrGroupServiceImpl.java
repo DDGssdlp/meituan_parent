@@ -1,7 +1,9 @@
 package com.ddg.meituan.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;
 import com.ddg.meituan.product.entity.AttrEntity;
+import com.ddg.meituan.product.service.AttrAttrgroupRelationService;
 import com.ddg.meituan.product.service.AttrService;
 import com.ddg.meituan.product.service.CategoryService;
 import com.ddg.meituan.product.vo.AttrGroupWithAttrsVo;
@@ -16,6 +18,7 @@ import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.product.dao.AttrGroupDao;
 import com.ddg.meituan.product.entity.AttrGroupEntity;
 import com.ddg.meituan.product.service.AttrGroupService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -32,11 +35,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     private final AttrService attrService;
 
+    private final AttrAttrgroupRelationService attrAttrgroupRelationService;
+
     @Autowired
-    public AttrGroupServiceImpl(AttrGroupDao attrGroupDao, CategoryService categoryService, AttrService attrService) {
+    public AttrGroupServiceImpl(AttrGroupDao attrGroupDao, CategoryService categoryService, AttrService attrService, AttrAttrgroupRelationService attrAttrgroupRelationService) {
         this.attrGroupDao = attrGroupDao;
         this.categoryService = categoryService;
         this.attrService = attrService;
+        this.attrAttrgroupRelationService = attrAttrgroupRelationService;
     }
 
     @Override
@@ -77,6 +83,22 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).filter(attrGroupWithAttrsVo -> !CollectionUtils.isEmpty(attrGroupWithAttrsVo.getAttrs())).collect(Collectors.toList());
 
         return collect;
+    }
+
+    /**
+     * 移除分组 同时将所关联的 属性进行释放
+     * @param asList
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeGroupAndRelationByIds(List<Long> asList) {
+        if (!CollectionUtils.isEmpty(asList)) {
+            this.removeByIds(asList);
+            QueryWrapper<AttrAttrgroupRelationEntity> wrapper = new QueryWrapper<>();
+            wrapper.in(!CollectionUtils.isEmpty(asList), "attr_group_id", asList);
+            attrAttrgroupRelationService.remove(wrapper);
+        }
+
     }
 
 }

@@ -1,8 +1,6 @@
-package com.ddg.meituan.product.entity.param;
+package com.ddg.meituan.product.vo;
 
-import com.ddg.meituan.common.utils.PageParam;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Description:
@@ -13,16 +11,12 @@ import lombok.EqualsAndHashCode;
  * @version 1.0
  * <p>
  * ========================================================================
- * @date 2021/12/28 11:01
+ * @date 2021/12/29 09:30
  * @email: wangzhijie0908@gmail.com
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class SpuInfoParam extends PageParam {
-
-    private Integer status;
-
-    private Long categoryId;
-
-    private Long brandId;
+public class AttrVo {
+    private Long attrId;
+    private String attrName;
+    private String attrValue;
 }
