@@ -17,12 +17,16 @@ import lombok.Data;
 @Data
 @TableName("pms_spu_info_desc")
 public class SpuInfoDescEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
+	@TableId
+	private Long id;
 
 	/**
 	 * 商品id
 	 */
-	@TableId
+
 	private Long spuId;
 	/**
 	 * 商品介绍

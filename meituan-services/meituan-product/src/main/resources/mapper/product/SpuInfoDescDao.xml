@@ -5,6 +5,7 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.ddg.meituan.product.entity.SpuInfoDescEntity" id="spuInfoDescMap">
+        <result property="id" column="id"/>
         <result property="spuId" column="spu_id"/>
         <result property="description" column="description"/>
     </resultMap>

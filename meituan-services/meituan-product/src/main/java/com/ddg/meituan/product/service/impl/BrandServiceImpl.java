@@ -67,7 +67,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
     @Override
     public PageUtils<BrandListVo> queryBrandListPage(PageParam param) {
-        String catId = param.getLimit();
+        Long catId = param.getId();
         // 使用catID 将下面的所有品牌进行查询
         QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(BrandConstant.CATEGORY_ID, catId);
@@ -78,7 +78,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         }
         // 获取所有的brand id
         List<Long> brandIds = list.stream()
-                .map(CategoryBrandRelationEntity::getBrandId).collect(Collectors.toList());
+                .map(CategoryBrandRelationEntity::getBrandId).distinct().collect(Collectors.toList());
         IPage<BrandEntity> page = this.page(
                 new Query<BrandEntity>().getPage(param),
                 new QueryWrapper<BrandEntity>().in(BrandConstant.BRAND_ID, brandIds)
