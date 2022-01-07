@@ -1,15 +1,13 @@
 package com.ddg.meituan.product.controller;
 
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.product.entity.AddressEntity;
 import com.ddg.meituan.product.service.AddressService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.api.CommonResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 
 /**
@@ -22,8 +20,12 @@ import com.ddg.meituan.common.api.CommonResult;
 @RestController
 @RequestMapping("product/address")
 public class AddressController {
-    @Autowired
-    private AddressService addressService;
+
+    private final AddressService addressService;
+
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
 
     /**
      * 列表

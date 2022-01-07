@@ -44,10 +44,10 @@
         </dependency>
 
         <!--sentinel 服务降级 和 熔断-->
-       <!-- <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!--&lt;!&ndash;分布式事务&ndash;&gt;
         <dependency>

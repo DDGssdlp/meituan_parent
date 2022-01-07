@@ -13,6 +13,14 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
+  # sentinel
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8858
+        port: 8719
+        clientIp: localhost
+
   redis:
     host: ${ipAddr}
     port: 6379
