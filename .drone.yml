@@ -12,7 +12,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         path: /app/build # 将应用打包好的Jar和执行脚本挂载出来
     commands: # 定义在Docker容器中执行的shell命令
       - mvn clean package # 应用打包命令
-      - cp **/target/*.jar /app/build/
+      - cp /**/target/*.jar /app/build/
       - cp Dockerfile /app/build/Dockerfile
 
   - name: build-start
