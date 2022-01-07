@@ -1,6 +1,6 @@
 kind: pipeline # 定义对象类型，还有secret和signature两种类型
 type: docker # 定义流水线类型，还有kubernetes、exec、ssh等类型
-name: mall-tiny-drone # 定义流水线名称
+name: meituan-parent # 定义流水线名称
 
 steps: # 定义流水线执行步骤，这些步骤将顺序执行
   - name: package # 流水线名称
@@ -12,14 +12,13 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         path: /app/build # 将应用打包好的Jar和执行脚本挂载出来
     commands: # 定义在Docker容器中执行的shell命令
       - mvn clean package # 应用打包命令
-      - cp target/mall-tiny-drone-1.0-SNAPSHOT.jar /app/build/mall-tiny-drone-1.0-SNAPSHOT.jar
+      - cp **/target/*.jar /app/build/
       - cp Dockerfile /app/build/Dockerfile
-      - cp run.sh /app/build/run.sh
 
   - name: build-start
     image: appleboy/drone-ssh # SSH工具镜像
     settings:
-      host: 192.168.5.78 # 远程连接地址
+      host: 101.200.140.80 # 远程连接地址
       username: root # 远程连接账号
       password:
         from_secret: ssh_password # 从Secret中读取SSH密码
