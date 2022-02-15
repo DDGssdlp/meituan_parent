@@ -3,6 +3,7 @@ package com.ddg.meituan.product.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Description:
@@ -37,4 +38,8 @@ public class BrandListVo implements Serializable {
     private String status;
 
     private Integer comment;
+
+    private String description;
+
+    private BigDecimal price;
 }

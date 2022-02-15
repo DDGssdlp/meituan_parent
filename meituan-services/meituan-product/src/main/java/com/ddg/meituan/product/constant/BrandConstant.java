@@ -18,9 +18,13 @@ public interface BrandConstant {
 
     String BRAND_ID = "brand_id";
 
+    String SHOW_STATUS = "show_status";
+
     Long SEVEN_DAY = 1000 * 60 * 60 * 24 * 7L;
 
     String OLD_BRAND = "老店";
 
     String NEW_BRAND = "新店";
+
+
 }

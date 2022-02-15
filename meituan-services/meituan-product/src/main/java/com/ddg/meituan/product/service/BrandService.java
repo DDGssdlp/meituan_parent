@@ -7,7 +7,6 @@ import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.vo.BrandListVo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 品牌
@@ -24,6 +23,11 @@ public interface BrandService extends IService<BrandEntity> {
 
     List<BrandEntity> getByBrandIds(List<Long> ids);
 
+    /**
+     * 获取商家的列表分页展示；
+     * @param param
+     * @return
+     */
     PageUtils<BrandListVo> queryBrandListPage(PageParam param);
 }
 
