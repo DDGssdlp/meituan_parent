@@ -5,7 +5,6 @@ import com.ddg.meituan.common.utils.PageParam;
 import com.ddg.meituan.common.utils.PageUtils;
 import com.ddg.meituan.order.entity.OrderEntity;
 import com.ddg.meituan.order.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -21,9 +20,12 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("order/order")
 public class OrderController {
-    @Autowired
-    private OrderService orderService;
 
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
 
     /**

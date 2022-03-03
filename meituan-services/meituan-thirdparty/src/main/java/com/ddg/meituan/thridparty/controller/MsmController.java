@@ -4,8 +4,8 @@ import com.ddg.meituan.common.api.CommonResult;
 import com.ddg.meituan.thridparty.Service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,13 +30,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class MsmController {
 
     private final MsmService msmService;
-    private final RedisTemplate<String, String> redisTemplate;
+
+    private final RocketMQTemplate rocketMQTemplate;
 
 
     @Autowired
-    public MsmController(MsmService msmService, RedisTemplate<String, String> redisTemplate) {
+    public MsmController(MsmService msmService, RocketMQTemplate rocketMQTemplate) {
         this.msmService = msmService;
-        this.redisTemplate = redisTemplate;
+
+        this.rocketMQTemplate = rocketMQTemplate;
     }
 
     @GetMapping("/send/{phoneNum}")
