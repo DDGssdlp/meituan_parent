@@ -1,15 +1,11 @@
 package com.ddg.meituan.thridparty.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
+import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.miniostarter.MinioHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.coupon.entity.CouponHistoryEntity;
 import com.ddg.meituan.coupon.service.CouponHistoryService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.CommonResult;
 
 
 /**

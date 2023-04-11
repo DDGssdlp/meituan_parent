@@ -1,9 +1,9 @@
 package com.ddg.meituan.product.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.ddg.meituan.common.annotation.vaildator.ListValue;
-import com.ddg.meituan.common.annotation.validgroup.services.AddGroup;
-import com.ddg.meituan.common.annotation.validgroup.services.UpdateGroup;
+import com.ddg.meituan.base.annotation.vaildator.ListValue;
+import com.ddg.meituan.base.annotation.validgroup.services.AddGroup;
+import com.ddg.meituan.base.annotation.validgroup.services.UpdateGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 

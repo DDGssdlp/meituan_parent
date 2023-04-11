@@ -1,10 +1,9 @@
 package com.ddg.meituan.member.controller;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;

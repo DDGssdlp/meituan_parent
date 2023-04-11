@@ -1,7 +1,7 @@
 package com.ddg.meituan.thridparty.cloud;
 
 import com.aliyun.oss.OSSClient;
-import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.base.exception.MeituanSysException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

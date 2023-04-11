@@ -1,11 +1,10 @@
 package com.ddg.meituan.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.constant.BrandConstant;
-import com.ddg.meituan.product.entity.BrandEntity;
 import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.service.CategoryBrandRelationService;
 import com.ddg.meituan.product.vo.BrandVo;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**

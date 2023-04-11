@@ -5,27 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.ddg.meituan.authserver.component.AuthEndpoint;
 import com.ddg.meituan.authserver.config.ThirdPartyProperties;
 
-import com.ddg.meituan.authserver.feign.MemberFeignService;
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
-import com.ddg.meituan.authserver.vo.MemberVo;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.MemberConstant;
-import com.ddg.meituan.common.domain.Oauth2TokenDto;
+import com.ddg.meituan.base.api.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okhttp3.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**

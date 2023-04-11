@@ -4,7 +4,7 @@ package com.ddg.meituan.thridparty.cloud;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.base.exception.MeituanSysException;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.request.UploadFileRequest;

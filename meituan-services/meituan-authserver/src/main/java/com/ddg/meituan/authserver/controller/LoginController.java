@@ -1,15 +1,13 @@
 package com.ddg.meituan.authserver.controller;
 
-import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import com.ddg.meituan.authserver.feign.ThirdPartyFeignService;
 import com.ddg.meituan.authserver.service.LoginService;
 import com.ddg.meituan.authserver.vo.MemberRegisterVo;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.exception.MeituanSysException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

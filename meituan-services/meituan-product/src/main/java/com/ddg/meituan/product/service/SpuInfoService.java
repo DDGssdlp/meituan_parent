@@ -1,7 +1,7 @@
 package com.ddg.meituan.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.entity.SpuInfoEntity;
 import com.ddg.meituan.product.param.SpuInfoParam;
 import com.ddg.meituan.product.vo.SpuInfoVo;

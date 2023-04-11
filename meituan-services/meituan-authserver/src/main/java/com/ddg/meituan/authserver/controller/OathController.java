@@ -1,10 +1,9 @@
 package com.ddg.meituan.authserver.controller;
 
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.Oauth2TokenDto;
-import com.ddg.meituan.common.exception.MeituanLoginException;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.Oauth2TokenDto;
+import com.ddg.meituan.base.exception.MeituanLoginException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

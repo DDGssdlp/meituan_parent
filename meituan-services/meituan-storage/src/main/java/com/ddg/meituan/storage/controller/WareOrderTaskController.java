@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.storage.entity.WareOrderTaskEntity;
 import com.ddg.meituan.storage.service.WareOrderTaskService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.CommonResult;
 
 
 /**

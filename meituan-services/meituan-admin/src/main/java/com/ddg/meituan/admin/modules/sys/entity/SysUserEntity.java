@@ -7,15 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import com.ddg.meituan.common.annotation.validgroup.admin.AddGroup;
-import com.ddg.meituan.common.annotation.validgroup.admin.UpdateGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.AddGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.UpdateGroup;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**

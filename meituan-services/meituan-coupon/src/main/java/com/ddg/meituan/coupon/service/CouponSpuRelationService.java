@@ -1,11 +1,9 @@
 package com.ddg.meituan.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
 import com.ddg.meituan.coupon.entity.CouponSpuRelationEntity;
-
-import java.util.Map;
 
 /**
  * 优惠券与产品关联

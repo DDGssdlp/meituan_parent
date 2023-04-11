@@ -1,11 +1,9 @@
 package com.ddg.meituan.member.service.impl;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.constant.MemberConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.*;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.utils.*;
 
 import com.ddg.meituan.member.entity.MemberLoginLogEntity;
 import com.ddg.meituan.member.enums.MemberEnum;

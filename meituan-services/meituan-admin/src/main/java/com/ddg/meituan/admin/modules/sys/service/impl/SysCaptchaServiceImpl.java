@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysCaptchaDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysCaptchaEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysCaptchaService;
-import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.base.exception.MeituanSysException;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 
 
 /**

@@ -2,13 +2,11 @@ package com.ddg.meituan.authserver.feign;
 
 
 import com.ddg.meituan.authserver.feign.fallback.AdminFeignFallBackFactory;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.domain.UserDto;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.annotation.Resource;
 
 /**
  * Description:

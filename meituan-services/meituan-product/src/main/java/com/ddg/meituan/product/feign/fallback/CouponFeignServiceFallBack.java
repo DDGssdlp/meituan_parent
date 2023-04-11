@@ -1,8 +1,8 @@
 package com.ddg.meituan.product.feign.fallback;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.to.SkuReduceTo;
-import com.ddg.meituan.common.to.SpuBoundsTo;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.to.SkuReduceTo;
+import com.ddg.meituan.base.to.SpuBoundsTo;
 import com.ddg.meituan.product.feign.CouponFeignService;
 import org.springframework.stereotype.Component;
 

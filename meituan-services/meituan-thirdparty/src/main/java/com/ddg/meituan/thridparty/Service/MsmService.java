@@ -1,6 +1,6 @@
 package com.ddg.meituan.thridparty.Service;
 
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.api.CommonResult;
 
 /**
  * Description:

@@ -2,8 +2,7 @@ package com.ddg.meituan.authserver.feign.fallback;
 
 import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.domain.UserDto;
+import com.ddg.meituan.base.api.CommonResult;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

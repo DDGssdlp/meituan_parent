@@ -6,7 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.ddg.meituan.authserver.component.JwtTokenEnhancer;
 import com.ddg.meituan.authserver.filter.MyClientCredentialsTokenEndpointFilter;
 import com.ddg.meituan.authserver.service.impl.UserServiceImpl;
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.api.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

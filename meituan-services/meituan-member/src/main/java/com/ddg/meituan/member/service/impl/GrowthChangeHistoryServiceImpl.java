@@ -1,8 +1,8 @@
 package com.ddg.meituan.member.service.impl;
 
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.utils.Query;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

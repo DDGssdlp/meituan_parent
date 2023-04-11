@@ -1,7 +1,7 @@
 package com.ddg.meituan.authserver.component;
 
 
-import com.ddg.meituan.common.domain.SecurityUser;
+import com.ddg.meituan.base.domain.SecurityUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

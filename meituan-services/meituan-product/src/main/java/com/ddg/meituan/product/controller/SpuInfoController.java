@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ddg.meituan.product.entity.SpuInfoEntity;
 import com.ddg.meituan.product.service.SpuInfoService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
 
 
 /**

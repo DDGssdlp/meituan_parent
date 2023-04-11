@@ -2,7 +2,7 @@
 
 package com.ddg.meituan.thridparty.cloud;
 
-import com.ddg.meituan.common.exception.MeituanSysException;
+import com.ddg.meituan.base.exception.MeituanSysException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;

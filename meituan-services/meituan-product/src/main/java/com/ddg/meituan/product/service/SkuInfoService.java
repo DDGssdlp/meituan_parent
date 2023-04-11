@@ -1,13 +1,10 @@
 package com.ddg.meituan.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
 import com.ddg.meituan.product.entity.SkuInfoEntity;
 import com.ddg.meituan.product.param.SkuInfoParam;
-import com.ddg.meituan.product.vo.SkuInfoVo;
-
-import java.util.Map;
 
 /**
  * sku信息

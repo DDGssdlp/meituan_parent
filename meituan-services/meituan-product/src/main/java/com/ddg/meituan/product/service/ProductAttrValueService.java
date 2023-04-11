@@ -1,12 +1,11 @@
 package com.ddg.meituan.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageParam;
 import com.ddg.meituan.product.entity.ProductAttrValueEntity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * spu属性值

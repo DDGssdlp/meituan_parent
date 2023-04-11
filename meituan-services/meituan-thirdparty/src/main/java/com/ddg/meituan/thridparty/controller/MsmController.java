@@ -1,6 +1,6 @@
 package com.ddg.meituan.thridparty.controller;
 
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.thridparty.Service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

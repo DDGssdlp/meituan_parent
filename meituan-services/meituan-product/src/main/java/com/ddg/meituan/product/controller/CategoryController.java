@@ -2,9 +2,9 @@ package com.ddg.meituan.product.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.entity.CategoryEntity;
 import com.ddg.meituan.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;

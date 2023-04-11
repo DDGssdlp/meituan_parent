@@ -4,18 +4,11 @@ package com.ddg.meituan.thridparty.Service.impl;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageParam;
 import com.ddg.meituan.thridparty.Service.SysConfigService;
 import com.ddg.meituan.thridparty.entity.ConfigEntity;
-import com.google.gson.Gson;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.Map;
 
 @Service("sysConfigService")
 public class SysConfigServiceImpl  implements SysConfigService {

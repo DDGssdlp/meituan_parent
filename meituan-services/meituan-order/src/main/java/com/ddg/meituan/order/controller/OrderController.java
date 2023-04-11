@@ -1,8 +1,8 @@
 package com.ddg.meituan.order.controller;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.order.entity.OrderEntity;
 import com.ddg.meituan.order.service.OrderService;
 import org.springframework.web.bind.annotation.*;

@@ -1,9 +1,9 @@
 package com.ddg.meituan.thridparty.cloud;
 
 
-import com.ddg.meituan.common.annotation.validgroup.admin.AliyunGroup;
-import com.ddg.meituan.common.annotation.validgroup.admin.QcloudGroup;
-import com.ddg.meituan.common.annotation.validgroup.admin.QiniuGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.AliyunGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.QcloudGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.QiniuGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
