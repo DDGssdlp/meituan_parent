@@ -1,13 +1,10 @@
 package com.ddg.meituan.gateway.config;
 
-import cn.hutool.core.util.ArrayUtil;
 import com.ddg.meituan.gateway.authorization.AuthorizationManager;
 import com.ddg.meituan.gateway.component.RestAuthenticationEntryPoint;
 import com.ddg.meituan.gateway.component.RestfulAccessDeniedHandler;
 import com.ddg.meituan.gateway.constant.AuthConstant;
 import com.ddg.meituan.gateway.filter.IgnoreUrlsRemoveJwtFilter;
-
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +18,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-
 import reactor.core.publisher.Mono;
-
 
 
 /**
@@ -68,12 +63,13 @@ public class ResourceServerConfig {
         http.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
         //自定义处理JWT请求头过期或签名错误的结果
-        http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
+        //http.oauth2ResourceServer().accessDeniedHandler(restfulAccessDeniedHandler).authenticationEntryPoint
+        // (restAuthenticationEntryPoint);
         //对白名单路径，直接移除JWT请求头
-        http.addFilterBefore(ignoreUrlsRemoveJwtFilter,SecurityWebFiltersOrder.AUTHENTICATION);
+        http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
                 //白名单配置
-                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()
+                .pathMatchers(ignoreUrlsConfig.getUrls().toArray(new String[0])).permitAll()
                 //鉴权管理器配置
                 .anyExchange().access(authorizationManager)
                 .and().exceptionHandling()
@@ -84,7 +80,6 @@ public class ResourceServerConfig {
                 .and().csrf().disable();
         return http.build();
     }
-
 
 
     @Bean

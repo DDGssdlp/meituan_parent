@@ -21,7 +21,8 @@ import java.util.List;
  * 整合网关的处理，不过整体和默认的异常处理没有什么区别
  * ========================================================================
  * ------------------------------------------------------------------------
- *  order 注解中的值越小 越优先执行
+ * order 注解中的值越小 越优先执行
+ *
  * @author wzj
  * @version 1.0
  * <p>
@@ -31,6 +32,7 @@ import java.util.List;
  */
 @Configuration
 public class GlobalGatewayExceptionConfig {
+
 
     @Primary
     @Bean

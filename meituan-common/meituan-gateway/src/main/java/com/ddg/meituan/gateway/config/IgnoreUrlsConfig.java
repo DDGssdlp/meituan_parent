@@ -7,7 +7,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Component
-@ConfigurationProperties(prefix="secure.ignore")
+@ConfigurationProperties(prefix = "secure.ignore")
 @Slf4j
 public class IgnoreUrlsConfig implements InitializingBean {
     private List<String> urls;

@@ -1,9 +1,7 @@
 package com.ddg.meituan.gateway.component;
 
-
-import cn.hutool.json.JSONUtil;
-
-import com.ddg.meituan.gateway.domain.CommonResult;
+import com.alibaba.fastjson.JSON;
+import com.ddg.meituan.base.api.CommonResult;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,10 +15,17 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
-
 /**
- * 自定义返回结果：没有权限访问时
- * Created by macro on 2018/4/26.
+ * Description: 自定义返回结果：没有权限访问时
+ * ========================================================================
+ * ------------------------------------------------------------------------
+ *
+ * @author Edison
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/1/29 17:35
+ * @email: wangzhijie0908@gmail.com
  */
 @Component
 public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
@@ -29,10 +34,10 @@ public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        response.getHeaders().set("Access-Control-Allow-Origin","*");
-        response.getHeaders().set("Cache-Control","no-cache");
-        String body= JSONUtil.toJsonStr(CommonResult.forbidden(denied.getMessage()));
-        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+        response.getHeaders().set("Access-Control-Allow-Origin", "*");
+        response.getHeaders().set("Cache-Control", "no-cache");
+        String body = JSON.toJSONString(CommonResult.forbidden(denied.getMessage()));
+        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }
 }
