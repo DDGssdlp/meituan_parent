@@ -18,7 +18,7 @@ import java.util.List;
  * Description: 重写的 DefaultErrorWebExceptionHandler 优先级一定要小于内置
  * ResponseStatusExceptionHandler 经过它处理的获取对应错误类的 响应码
  * 其他扩展 可以参考 SentinelBlockExceptionHandler sentinel
- * 整合网关的处理，不过整体和默认的异常处理没有什么区别
+ * 整合网关的处理，不过整体和默认的异常处理没有什么区别 这里处理得时白名单中得uri 出现了异常 如果是auth 不是这里处理
  * ========================================================================
  * ------------------------------------------------------------------------
  * order 注解中的值越小 越优先执行

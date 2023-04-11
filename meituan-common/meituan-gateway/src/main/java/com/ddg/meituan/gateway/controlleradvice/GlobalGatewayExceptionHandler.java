@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Description: 网关异常全局处理 ErrorWebExceptionHandler
+ * Description: 网关异常全局处理 ErrorWebExceptionHandler 处理得非auth异常
  * ========================================================================
  * ------------------------------------------------------------------------
  *
@@ -42,7 +42,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
     private List<HttpMessageReader<?>> messageReaders = Collections.emptyList();
     private List<HttpMessageWriter<?>> messageWriters = Collections.emptyList();
     private List<ViewResolver> viewResolvers = Collections.emptyList();
-    private ThreadLocal<CommonResult<?>> threadLocal = new ThreadLocal<>();
+    private final ThreadLocal<CommonResult<?>> threadLocal = new ThreadLocal<>();
 
 
     @Override
