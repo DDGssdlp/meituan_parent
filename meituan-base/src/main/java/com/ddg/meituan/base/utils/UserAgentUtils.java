@@ -3,8 +3,16 @@ package com.ddg.meituan.base.utils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author: hotpot
- * @since: 2021/02/23
+ * Description: 判断客户端得agent 客户端
+ * ========================================================================
+ * ------------------------------------------------------------------------
+ *
+ * @author wzj
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/12/21 09:15
+ * @email: wangzhijie0908@gmail.com
  */
 public class UserAgentUtils {
     /**

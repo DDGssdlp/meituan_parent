@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
-import com.ddg.meituan.base.utils.Query;
+import com.ddg.meituan.base.api.PageParam;
 
 import com.ddg.meituan.coupon.dao.SkuLadderDao;
 import com.ddg.meituan.coupon.entity.SkuLadderEntity;

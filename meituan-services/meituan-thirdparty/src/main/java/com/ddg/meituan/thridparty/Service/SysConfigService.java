@@ -4,7 +4,7 @@ package com.ddg.meituan.thridparty.Service;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.thridparty.entity.ConfigEntity;
 
 

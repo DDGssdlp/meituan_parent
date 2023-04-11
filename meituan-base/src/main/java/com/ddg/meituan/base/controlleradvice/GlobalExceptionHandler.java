@@ -15,9 +15,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Objects;
 
 /**
- * @Author: DDG
- * @Date: 2020/5/10 12:11
- * @Description:
+ * Description: 全局异常处理
+ * ========================================================================
+ * ------------------------------------------------------------------------
+ *
+ * @author Edison
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/4/27 12:27
+ * @email: wangzhijie0908@gmail.com
  */
 @RestControllerAdvice
 @Slf4j

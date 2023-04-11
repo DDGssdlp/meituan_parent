@@ -3,9 +3,8 @@ package com.ddg.meituan.product.service.impl;
 
 import com.ddg.meituan.base.annotation.RedisCache;
 import com.ddg.meituan.base.annotation.RemoveCache;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.Query;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.CategoryDao;
 import com.ddg.meituan.product.entity.CategoryEntity;

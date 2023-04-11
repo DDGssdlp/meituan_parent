@@ -1,4 +1,4 @@
-package com.ddg.meituan.base.utils;
+package com.ddg.meituan.base.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModel;

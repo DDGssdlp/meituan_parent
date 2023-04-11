@@ -36,7 +36,7 @@ public class CodeProperties implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         log.info("动态配置状态码 CodeProperties custom= {}", custom);
     }
 }

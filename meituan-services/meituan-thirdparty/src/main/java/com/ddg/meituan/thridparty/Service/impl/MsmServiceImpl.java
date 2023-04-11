@@ -10,7 +10,6 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.utils.RandomUtil;
 import com.ddg.meituan.thridparty.Service.MsmService;
 import com.ddg.meituan.thridparty.component.OSSConfigurationProperties;
 import com.ddg.meituan.thridparty.constant.ThirdPartyConstant;

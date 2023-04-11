@@ -1,6 +1,6 @@
 package com.ddg.meituan.base.config.code;
 
-import com.ddg.meituan.base.dynamiccode.DynamicEnumUtils;
+import com.ddg.meituan.base.utils.DynamicEnumUtils;
 import com.ddg.meituan.base.enums.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

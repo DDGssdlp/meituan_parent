@@ -1,5 +1,3 @@
-
-
 package com.ddg.meituan.base.utils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +7,16 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * IP地址
+ * Description: 获取用户得真实ip工具类
+ * ========================================================================
+ * ------------------------------------------------------------------------
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Edison
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/4/27 12:27
+ * @email: wangzhijie0908@gmail.com
  */
 @Slf4j
 public class IPUtils {
@@ -46,7 +51,7 @@ public class IPUtils {
         }
         
         //使用代理，则获取第一个IP地址
-        if(StringUtils.isEmpty(ip) && ip.length() > 15) {
+        if(!StringUtils.isEmpty(ip) && ip.length() > 15) {
 			if(ip.indexOf(",") > 0) {
 				ip = ip.substring(0, ip.indexOf(","));
 			}

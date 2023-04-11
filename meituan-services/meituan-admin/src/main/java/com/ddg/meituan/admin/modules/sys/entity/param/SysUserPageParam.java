@@ -1,6 +1,6 @@
 package com.ddg.meituan.admin.modules.sys.entity.param;
 
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import lombok.Data;
 
 /**

@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 /**
- * Description:
+ * Description: 生成用户名称工具类
  * ========================================================================
  * ------------------------------------------------------------------------
  *

@@ -7,7 +7,7 @@ import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysConfigService;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

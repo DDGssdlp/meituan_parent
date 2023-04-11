@@ -7,9 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysLogDao;
 import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.Query;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 

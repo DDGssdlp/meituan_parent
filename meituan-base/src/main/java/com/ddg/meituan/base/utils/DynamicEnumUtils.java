@@ -1,4 +1,4 @@
-package com.ddg.meituan.base.dynamiccode;
+package com.ddg.meituan.base.utils;
 
 import sun.reflect.ConstructorAccessor;
 import sun.reflect.FieldAccessor;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Description:
+ * Description: 动态枚举工具类
  * ========================================================================
  * ------------------------------------------------------------------------
  *

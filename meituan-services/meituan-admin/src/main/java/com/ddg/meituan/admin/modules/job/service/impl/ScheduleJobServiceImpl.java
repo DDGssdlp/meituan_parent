@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.job.dao.ScheduleJobDao;
 import com.ddg.meituan.admin.modules.job.entity.ScheduleJobEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobService;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.stereotype.Service;
 

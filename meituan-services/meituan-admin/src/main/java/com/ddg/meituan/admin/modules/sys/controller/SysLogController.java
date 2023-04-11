@@ -4,7 +4,7 @@ package com.ddg.meituan.admin.modules.sys.controller;
 import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

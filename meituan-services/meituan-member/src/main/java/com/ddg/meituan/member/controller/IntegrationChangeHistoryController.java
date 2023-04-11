@@ -5,7 +5,7 @@ import java.util.Arrays;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

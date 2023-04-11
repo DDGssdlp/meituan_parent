@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ddg.meituan.coupon.entity.SeckillPromotionEntity;
 import com.ddg.meituan.coupon.service.SeckillPromotionService;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.api.CommonResult;
 
 

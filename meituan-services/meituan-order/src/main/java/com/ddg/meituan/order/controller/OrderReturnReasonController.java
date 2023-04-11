@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ddg.meituan.order.entity.OrderReturnReasonEntity;
 import com.ddg.meituan.order.service.OrderReturnReasonService;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.api.CommonResult;
 
 

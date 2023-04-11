@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ddg.meituan.product.entity.AttrEntity;
 import com.ddg.meituan.product.service.AttrService;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.api.CommonResult;
 
 

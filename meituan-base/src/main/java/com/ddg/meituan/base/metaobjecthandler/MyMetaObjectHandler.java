@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
- * Description: Mybatis-plus
+ * Description: Mybatis-plus 对LocalDateTime 类型处理
  * ========================================================================
  * ------------------------------------------------------------------------
  *

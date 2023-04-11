@@ -2,7 +2,7 @@ package com.ddg.meituan.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.order.entity.OrderSettingEntity;
 
 /**
