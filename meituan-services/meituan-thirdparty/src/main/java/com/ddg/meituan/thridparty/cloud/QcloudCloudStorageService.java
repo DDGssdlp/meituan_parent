@@ -1,5 +1,3 @@
-
-
 package com.ddg.meituan.thridparty.cloud;
 
 
@@ -22,7 +20,7 @@ import java.io.InputStream;
 public class QcloudCloudStorageService extends CloudStorageService {
     private COSClient client;
 
-    public QcloudCloudStorageService(CloudStorageConfig config){
+    public QcloudCloudStorageService(CloudStorageConfig config) {
 
         super.config = config;
 
@@ -30,31 +28,31 @@ public class QcloudCloudStorageService extends CloudStorageService {
         init();
     }
 
-    private void init(){
-    	Credentials credentials = new Credentials(config.getQcloudAppId(), config.getQcloudSecretId(),
+    private void init() {
+        Credentials credentials = new Credentials(config.getQcloudAppId(), config.getQcloudSecretId(),
                 config.getQcloudSecretKey());
-    	
-    	//初始化客户端配置
+
+        //初始化客户端配置
         ClientConfig clientConfig = new ClientConfig();
         //设置bucket所在的区域，华南：gz 华北：tj 华东：sh
         clientConfig.setRegion(config.getQcloudRegion());
-        
-    	client = new COSClient(clientConfig, credentials);
+
+        client = new COSClient(clientConfig, credentials);
     }
 
     @Override
     public String upload(byte[] data, String path) {
         //腾讯云必需要以"/"开头
-        if(!path.startsWith("/")) {
+        if (!path.startsWith("/")) {
             path = "/" + path;
         }
-        
+
         //上传到腾讯云
         UploadFileRequest request = new UploadFileRequest(config.getQcloudBucketName(), path, data);
         String response = client.uploadFile(request);
 
         JSONObject jsonObject = JSONObject.parseObject(response);
-        if(jsonObject.getInteger("code") != 0) {
+        if (jsonObject.getInteger("code") != 0) {
             throw new MeituanSysException("文件上传失败，" + jsonObject.getString("message"));
         }
 
@@ -63,7 +61,7 @@ public class QcloudCloudStorageService extends CloudStorageService {
 
     @Override
     public String upload(InputStream inputStream, String path) {
-    	try {
+        try {
             byte[] data = IOUtils.toByteArray(inputStream);
             return upload(data, path);
         } catch (IOException e) {

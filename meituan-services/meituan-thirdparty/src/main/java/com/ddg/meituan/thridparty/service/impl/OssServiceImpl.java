@@ -1,8 +1,8 @@
-package com.ddg.meituan.thridparty.Service.impl;
+package com.ddg.meituan.thridparty.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.ddg.meituan.thridparty.Service.OssService;
+import com.ddg.meituan.thridparty.service.OssService;
 import com.ddg.meituan.thridparty.component.OSSConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

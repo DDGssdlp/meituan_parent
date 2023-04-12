@@ -1,21 +1,21 @@
-package com.ddg.meituan.thridparty.Service;
-
-import org.springframework.web.multipart.MultipartFile;
+package com.ddg.meituan.thridparty.constant;
 
 /**
- * Description:
+ * Description: 系统参数相关Key
  * ========================================================================
  * ------------------------------------------------------------------------
  *
- * @author Edison
+ * @author 13060
  * @version 1.0
  * <p>
  * ========================================================================
- * @date 2021/1/30 18:16
+ * @date 2023/4/12 11:11
  * @email: wangzhijie0908@gmail.com
  */
+public interface ConfigConstant {
 
-public interface OssService {
-
-    String uploadFileAvatar(MultipartFile file);
+    /**
+     * 云存储配置KEY
+     */
+    String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
 }

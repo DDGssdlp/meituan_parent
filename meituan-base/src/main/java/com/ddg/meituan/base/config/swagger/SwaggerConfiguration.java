@@ -1,7 +1,5 @@
 package com.ddg.meituan.base.config.swagger;
 
-
-
 import io.swagger.models.auth.In;
 import org.apache.commons.lang.reflect.FieldUtils;
 import org.springframework.boot.SpringBootVersion;
@@ -20,11 +18,21 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * @author DELL
+ * Description:
+ * ========================================================================
+ * ------------------------------------------------------------------------
+ *
+ * @author wzj
+ * @version 1.0
+ * <p>
+ * ========================================================================
+ * @date 2021/12/9 13:42
+ * @email: wangzhijie0908@gmail.com
  */
 @Configuration
 @EnableOpenApi
@@ -54,8 +62,10 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
                 // 选择哪些接口作为swagger的doc发布
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.ddg.meituan"))
                 .paths(PathSelectors.any())
+                //swagger3//错误路径 和 健康检查路径不监控
+                //.paths(PathSelectors.regex("/error").negate())
                 .build()
 
                 // 支持的通讯协议集合
@@ -111,7 +121,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@NotNull InterceptorRegistry registry) {
         try {
             Field registrationsField = FieldUtils.getField(InterceptorRegistry.class, "registrations", true);
             List<InterceptorRegistration> registrations = (List<InterceptorRegistration>) ReflectionUtils.getField(registrationsField, registry);

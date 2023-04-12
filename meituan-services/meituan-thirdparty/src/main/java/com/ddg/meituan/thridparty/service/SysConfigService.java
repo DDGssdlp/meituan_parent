@@ -1,5 +1,5 @@
 
-package com.ddg.meituan.thridparty.Service;
+package com.ddg.meituan.thridparty.service;
 
 
 

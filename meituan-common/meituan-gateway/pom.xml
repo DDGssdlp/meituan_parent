@@ -12,6 +12,20 @@
     <artifactId>meituan-gateway</artifactId>
 
     <dependencies>
+
+        <!--Spring Cloud Alibaba 服务注册与发现-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!--服务配置中心-->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>-->
+
+
         <!--网关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

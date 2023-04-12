@@ -1,11 +1,11 @@
 
 
-package com.ddg.meituan.thridparty.Service.impl;
+package com.ddg.meituan.thridparty.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddg.meituan.base.api.PageParam;
-import com.ddg.meituan.thridparty.Service.SysConfigService;
+import com.ddg.meituan.thridparty.service.SysConfigService;
 import com.ddg.meituan.thridparty.entity.ConfigEntity;
 
 import org.springframework.stereotype.Service;

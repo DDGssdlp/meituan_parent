@@ -1,6 +1,8 @@
 package com.ddg.meituan.thridparty.cloud;
 
-import com.ddg.meituan.thridparty.Service.SysConfigService;
+import com.ddg.meituan.thridparty.service.SysConfigService;
+import com.ddg.meituan.thridparty.constant.ConfigConstant;
+import com.ddg.meituan.thridparty.constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 

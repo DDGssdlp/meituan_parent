@@ -1,4 +1,4 @@
-package com.ddg.meituan.thridparty.Service;
+package com.ddg.meituan.thridparty.service;
 
 import com.ddg.meituan.base.api.CommonResult;
 

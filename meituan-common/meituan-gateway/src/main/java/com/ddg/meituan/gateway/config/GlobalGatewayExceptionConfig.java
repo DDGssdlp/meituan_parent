@@ -4,7 +4,6 @@ import com.ddg.meituan.gateway.controlleradvice.GlobalGatewayExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -30,7 +29,7 @@ import java.util.List;
  * @date 2021/10/26 14:15
  * @email: wangzhijie0908@gmail.com
  */
-@Configuration
+//@Configuration
 public class GlobalGatewayExceptionConfig {
 
 

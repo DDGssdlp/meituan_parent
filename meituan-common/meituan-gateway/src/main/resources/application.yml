@@ -32,7 +32,7 @@ spring:
           predicates:
             - Path=/api/thirdparty/**
           filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+            - StripPrefix=2
         - id: admin_route
           uri: lb://meituan-admin
           predicates:
@@ -51,8 +51,15 @@ spring:
           jwk-set-uri: 'http://localhost:9000/rsa/publicKey'
   redis:
     host: ${ipAddr}
-    password: redis123
+    # password: redis123
 
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}
 
 secure:
   ignore:
@@ -61,8 +68,9 @@ secure:
       - "/api/oauth/token"
       - "/doc.html"
       - "/swagger-resources/**"
-      - "/swagger/**"
-      - "/**/v2/api-docs"
+      - "/swagger-ui/**"
+      - "/webjars/**"
+      - "/**/v3/api-docs"
       - "/**/*.js"
       - "/**/*.css"
       - "/**/*.png"
@@ -71,5 +79,6 @@ secure:
     # --- 前台首页 ---
       - "/api/product/category/listWithTree"
       - "/api/auth/registerUser"
-      - "/api/thirdparty/msm/send/**"
+      - "/api/thirdparty/**"
       - "/api/auth/*/Callback"
+      - "/api/test/**"

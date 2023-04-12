@@ -9,7 +9,9 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
+import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 
 /**
@@ -36,7 +38,7 @@ public class RedisPoolConfig {
     /**
      *  redis 的密码 默认的为空
      */
-    @Value("${spring.redis.password: ''}")
+    @Value("${spring.redis.password:''}")
     private String password;
 
     @Value("${spring.redis.port:6379}")
@@ -64,7 +66,11 @@ public class RedisPoolConfig {
         redisStandaloneConfiguration.setDatabase(database);
         redisStandaloneConfiguration.setHostName(host);
         redisStandaloneConfiguration.setPort(port);
-        redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
+        if(!StringUtils.isEmpty(password) && !"''".equals(password)){
+            redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
+        }
+
+
 
         // 集群版配置
 //        RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
@@ -92,6 +98,7 @@ public class RedisPoolConfig {
      * @return
      */
     @Bean
+    @NotNull
     public GenericObjectPoolConfig genericObjectPoolConfig() {
         GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
         genericObjectPoolConfig.setMaxIdle(maxIdle);

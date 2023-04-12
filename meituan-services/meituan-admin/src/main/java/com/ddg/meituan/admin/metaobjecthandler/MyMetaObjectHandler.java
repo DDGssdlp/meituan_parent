@@ -1,4 +1,4 @@
-package com.ddg.meituan.base.metaobjecthandler;
+package com.ddg.meituan.admin.metaobjecthandler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;

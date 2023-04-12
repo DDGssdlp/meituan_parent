@@ -33,9 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MeituanSysException.class)
     public CommonResult<Object> validMeituanSysExceptionHandel(MeituanSysException e){
         log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
-
         return CommonResult.failed(e.getMessage());
-
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

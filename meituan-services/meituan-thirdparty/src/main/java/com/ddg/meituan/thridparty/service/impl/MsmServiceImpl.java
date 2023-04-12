@@ -1,4 +1,4 @@
-package com.ddg.meituan.thridparty.Service.impl;
+package com.ddg.meituan.thridparty.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.CommonRequest;
@@ -8,11 +8,11 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.thridparty.Service.MsmService;
+import com.ddg.meituan.thridparty.service.MsmService;
 import com.ddg.meituan.thridparty.component.OSSConfigurationProperties;
 import com.ddg.meituan.thridparty.constant.ThirdPartyConstant;
+import com.ddg.meituan.thridparty.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

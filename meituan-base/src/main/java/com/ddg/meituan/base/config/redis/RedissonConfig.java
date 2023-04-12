@@ -3,9 +3,11 @@ package com.ddg.meituan.base.config.redis;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
@@ -47,9 +49,12 @@ public class RedissonConfig {
         Config config = new Config();
         // 目前使用的是单节点模式：需要注意的就是redis地址有问题 redis配置的address 需要使用redis://
         // 或者是rediss://开头 如果redis启动的是ssl安全链接 使用rediss://
-        config.useSingleServer()
-                .setAddress("redis://" + host + ":" + port + "").setPassword(password).setDatabase(DATABASE);
+        SingleServerConfig singleServerConfig = config.useSingleServer();
+        singleServerConfig.setAddress("redis://" + host + ":" + port + "").setDatabase(DATABASE);
         // 创建实例
+        if(!StringUtils.isEmpty(password) && !"''".equals(password)){
+            singleServerConfig.setPassword(password);
+        }
         return Redisson.create(config);
     }
 
