@@ -1,4 +1,4 @@
-package com.ddg.meituan.authserver.vo;
+package com.ddg.meituan.authserver.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

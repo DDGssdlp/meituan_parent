@@ -1,4 +1,4 @@
-ipAddr: 101.200.140.80
+ipAddr: 127.0.0.1
 spring:
 
 #    sentinel:
@@ -7,7 +7,7 @@ spring:
 
   redis:
     host: ${ipAddr}
-    password: redis123
+    # password: redis123
     port: 6379
     lettuce:
       # 在关闭客户端连接之前等待任务处理完成的最长时间，在这之后，无论任务是否执行完成，都会被执行器关闭，默认100ms

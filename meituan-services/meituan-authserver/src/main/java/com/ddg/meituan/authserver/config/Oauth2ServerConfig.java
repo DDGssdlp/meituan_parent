@@ -1,18 +1,11 @@
 package com.ddg.meituan.authserver.config;
 
-
-import cn.hutool.http.HttpStatus;
-import cn.hutool.json.JSONUtil;
 import com.ddg.meituan.authserver.component.JwtTokenEnhancer;
-import com.ddg.meituan.authserver.filter.MyClientCredentialsTokenEndpointFilter;
+import com.ddg.meituan.authserver.filter.CustomClientCredentialsTokenEndpointFilter;
 import com.ddg.meituan.authserver.service.impl.UserServiceImpl;
-import com.ddg.meituan.base.api.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -56,27 +49,32 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
      */
     private final UserServiceImpl userDetailsService;
     /**
-     *  认证管理器
+     * 认证管理器
      */
     private final AuthenticationManager authenticationManager;
     /**
-     *  jwt内容增强器用于存储用户id
+     * jwt内容增强器用于存储用户id
      */
     private final JwtTokenEnhancer jwtTokenEnhancer;
 
     private final SecurityClientConfigurationProperties properties;
 
-    @Autowired
+    /**
+     * 自定义 invalid_client Bad client credentials
+     */
+    private final AuthenticationEntryPoint resultAuthenticationEntryPoint;
+
     public Oauth2ServerConfig(PasswordEncoder passwordEncoder,
                               UserServiceImpl userDetailsService,
                               AuthenticationManager authenticationManager,
                               JwtTokenEnhancer jwtTokenEnhancer,
-                              SecurityClientConfigurationProperties properties) {
+                              SecurityClientConfigurationProperties properties, AuthenticationEntryPoint resultAuthenticationEntryPoint) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenEnhancer = jwtTokenEnhancer;
         this.properties = properties;
+        this.resultAuthenticationEntryPoint = resultAuthenticationEntryPoint;
     }
 
     @Override
@@ -113,43 +111,22 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .accessTokenConverter(accessTokenConverter())
                 .tokenEnhancer(enhancerChain);
-
-
     }
 
-    /**
-     *  异常自定义处理：
-     * @param security
-     */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.allowFormAuthenticationForClients();
-        MyClientCredentialsTokenEndpointFilter endpointFilter = new MyClientCredentialsTokenEndpointFilter(security);
+    public void configure(AuthorizationServerSecurityConfigurer securityConfigurer) {
+        CustomClientCredentialsTokenEndpointFilter endpointFilter = new CustomClientCredentialsTokenEndpointFilter(securityConfigurer);
         endpointFilter.afterPropertiesSet();
-        endpointFilter.setAuthenticationEntryPoint(authenticationEntryPoint());
-        security.addTokenEndpointAuthenticationFilter(endpointFilter);
-
-        security.authenticationEntryPoint(authenticationEntryPoint())
-                .tokenKeyAccess("isAuthenticated()")
-                .checkTokenAccess("permitAll()");
+        endpointFilter.setAuthenticationEntryPoint(resultAuthenticationEntryPoint);
+        // 客户端认证之前的过滤器
+        securityConfigurer.addTokenEndpointAuthenticationFilter(endpointFilter);
+        // 如果使用自定义的过滤器不要在使用 allowFormAuthenticationForClients
+        //securityConfigurer.allowFormAuthenticationForClients();
     }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, e) -> {
-            response.setStatus(HttpStatus.HTTP_OK);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Cache-Control", "no-cache");
-            CommonResult<?> result = CommonResult.failed(e.getMessage());
-            response.getWriter().print(JSONUtil.toJsonStr(result));
-            response.getWriter().flush();
-        };
-    }
-
 
     /**
-     *  accessToken 转换器 jks公钥
+     * accessToken 转换器 jks公钥
+     *
      * @return
      */
     @Bean
@@ -161,12 +138,15 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 从classpath下的证书中获取秘钥对
+     *
      * @return
      */
     @Bean
     public KeyPair keyPair() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
+        String keyPairPassword = properties.getJwt().getKeyPairPassword();
+        KeyStoreKeyFactory keyStoreKeyFactory =
+                new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), keyPairPassword.toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", keyPairPassword.toCharArray());
     }
 
 }

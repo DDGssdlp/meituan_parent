@@ -1,6 +1,6 @@
 package com.ddg.meituan.authserver.service;
 
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
+import com.ddg.meituan.authserver.domain.vo.MemberRegisterVo;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.exception.MeituanSysException;
 

@@ -1,39 +1,34 @@
 package com.ddg.meituan.authserver.filter;
 
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-
 /**
- * Description: 重写filter实现客户端自定义异常处理
+ * Description: spring
  * ========================================================================
  * ------------------------------------------------------------------------
  *
- * @author wzj
+ * @author 13060
  * @version 1.0
  * <p>
  * ========================================================================
- * @date 2021/11/26 14:35
+ * @date 2023/4/13 11:06
  * @email: wangzhijie0908@gmail.com
  */
+public class CustomClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
 
-public class MyClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
+    private final AuthorizationServerSecurityConfigurer configurer;
+    private AuthenticationEntryPoint resultAuthenticationEntryPoint;
 
-    private AuthorizationServerSecurityConfigurer configurer;
-    private AuthenticationEntryPoint authenticationEntryPoint;
-
-
-    public MyClientCredentialsTokenEndpointFilter(AuthorizationServerSecurityConfigurer configurer) {
+    public CustomClientCredentialsTokenEndpointFilter(AuthorizationServerSecurityConfigurer configurer) {
         this.configurer = configurer;
     }
 
     @Override
     public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
-        super.setAuthenticationEntryPoint(null);
-        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.resultAuthenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Override
@@ -43,8 +38,9 @@ public class MyClientCredentialsTokenEndpointFilter extends ClientCredentialsTok
 
     @Override
     public void afterPropertiesSet() {
-        setAuthenticationFailureHandler((request, response, e) -> authenticationEntryPoint.commence(request, response, e));
+        setAuthenticationFailureHandler((request, response, exception) -> resultAuthenticationEntryPoint.commence(request, response, exception));
         setAuthenticationSuccessHandler((request, response, authentication) -> {
+            // no-op - just allow filter chain to continue to token endpoint
         });
     }
 }

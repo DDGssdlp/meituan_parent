@@ -1,10 +1,10 @@
 package com.ddg.meituan.authserver.feign;
 
+import com.ddg.meituan.authserver.domain.UserDto;
+import com.ddg.meituan.authserver.domain.vo.MemberRegisterVo;
+import com.ddg.meituan.authserver.domain.vo.MemberVo;
 import com.ddg.meituan.authserver.feign.fallback.MemberFeignFallBack;
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
-import com.ddg.meituan.authserver.vo.MemberVo;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

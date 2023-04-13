@@ -18,15 +18,9 @@ spring:
         - id: auth_route
           uri: lb://meituan-authserver
           predicates:
-            - Path=/api/oauth/**
-          filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
-        - id: oauth_route
-          uri: lb://meituan-authserver
-          predicates:
             - Path=/api/auth/**
           filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+            - StripPrefix=2
         - id: oss_route
           uri: lb://meituan-third-party
           predicates:
@@ -61,24 +55,20 @@ swagger:
   application-description: springfox swagger 3.0整合Demo
   try-host: http://localhost:${server.port}
 
+
 secure:
   ignore:
     urls: #配置白名单路径
       - "/actuator/**"
-      - "/api/oauth/token"
+
       - "/doc.html"
       - "/swagger-resources/**"
       - "/swagger-ui/**"
       - "/webjars/**"
       - "/**/v3/api-docs"
-      - "/**/*.js"
-      - "/**/*.css"
-      - "/**/*.png"
-      - "/**/*.jpg"
-      - "/**/*.ico"
+
     # --- 前台首页 ---
       - "/api/product/category/listWithTree"
-      - "/api/auth/registerUser"
       - "/api/thirdparty/**"
-      - "/api/auth/*/Callback"
-      - "/api/test/**"
+      - "/api/auth/**"
+

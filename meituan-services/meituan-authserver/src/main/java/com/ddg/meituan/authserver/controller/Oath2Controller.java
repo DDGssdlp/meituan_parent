@@ -24,8 +24,8 @@ import java.util.Objects;
  * @author DELL
  */
 @Slf4j
-@RestController
-@RequestMapping("/auth")
+//@RestController
+@RequestMapping("/")
 public class Oath2Controller {
 
 
@@ -67,7 +67,7 @@ public class Oath2Controller {
 							ThirdPartyProperties.UserInfo.class);
 					// TODO：社交登录获取用户的手机号
 					OAuth2AccessToken token = authEndpoint.getToken(servletRequest, userInfo.getName(),
-							MemberConstant.PHONE_CODE_MOCK, "portal-app", "123456");
+							"123", "portal-app", "123456");
 					return CommonResult.success(token.getValue());
 
 				}

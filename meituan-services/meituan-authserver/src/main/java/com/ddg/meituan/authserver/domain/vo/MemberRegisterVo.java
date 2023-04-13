@@ -1,4 +1,4 @@
-package com.ddg.meituan.authserver.vo;
+package com.ddg.meituan.authserver.domain.vo;
 
 import lombok.Builder;
 import lombok.Data;

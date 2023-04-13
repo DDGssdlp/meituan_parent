@@ -1,10 +1,10 @@
 package com.ddg.meituan.authserver.feign.fallback;
 
+import com.ddg.meituan.authserver.domain.UserDto;
+import com.ddg.meituan.authserver.domain.vo.MemberRegisterVo;
+import com.ddg.meituan.authserver.domain.vo.MemberVo;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
-import com.ddg.meituan.authserver.vo.MemberVo;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.domain.UserDto;
 import org.springframework.stereotype.Component;
 
 /**

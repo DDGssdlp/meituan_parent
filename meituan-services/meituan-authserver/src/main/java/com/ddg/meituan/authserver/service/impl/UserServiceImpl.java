@@ -1,16 +1,15 @@
 package com.ddg.meituan.authserver.service.impl;
 
 
+import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import com.ddg.meituan.authserver.constant.MessageConstant;
+import com.ddg.meituan.authserver.domain.SecurityUser;
+import com.ddg.meituan.authserver.domain.UserDto;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
-
-import com.ddg.meituan.base.enums.Code;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.domain.SecurityUser;
-import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.enums.Code;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -18,7 +17,6 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +57,7 @@ public class UserServiceImpl implements UserDetailsService {
         String code = request.getParameter("phoneCode");
         CommonResult<UserDto> userDtoCommonResult = null;
         try {
-            if (AuthConstant.ADMIN_CLIENT_ID.equals(clientId)) {
+            if (AuthServerConstant.ADMIN_CLIENT_ID.equals(clientId)) {
 
                 String uuid = request.getParameter("uuid");
                 userDtoCommonResult = adminFeignService.loadUserByUsername(username, code, uuid);
@@ -71,18 +69,15 @@ public class UserServiceImpl implements UserDetailsService {
             log.error("UserDto 获取错误 error = {}", e.getMessage());
 
         }
-        if (Objects.isNull(userDtoCommonResult)){
+        if (Objects.isNull(userDtoCommonResult) || Objects.isNull(userDtoCommonResult.getData())){
             throw new InvalidGrantException(MessageConstant.SERVER_ERROR);
         }
 
-        if (Code.OPERATION_FAIL.getValue().equals(userDtoCommonResult.getCode())){
+        if (!Code.NO_PROBLEM.getValue().equals(userDtoCommonResult.getCode())){
             throw new InvalidGrantException(userDtoCommonResult.getMessage());
         }
         UserDto user = userDtoCommonResult.getData();
 
-        if (Objects.isNull(user)) {
-            throw new InvalidGrantException(MessageConstant.USERNAME_PASSWORD_ERROR);
-        }
         user.setClientId(clientId);
         SecurityUser securityUser = new SecurityUser(user);
         if (!securityUser.isEnabled()) {
@@ -96,6 +91,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
         return securityUser;
     }
+
 
 
 }

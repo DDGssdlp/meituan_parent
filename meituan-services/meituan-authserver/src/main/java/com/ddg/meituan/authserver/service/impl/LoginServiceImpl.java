@@ -3,7 +3,7 @@ package com.ddg.meituan.authserver.service.impl;
 import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
 import com.ddg.meituan.authserver.service.LoginService;
-import com.ddg.meituan.authserver.vo.MemberRegisterVo;
+import com.ddg.meituan.authserver.domain.vo.MemberRegisterVo;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.exception.MeituanSysException;
 import org.springframework.beans.factory.annotation.Autowired;

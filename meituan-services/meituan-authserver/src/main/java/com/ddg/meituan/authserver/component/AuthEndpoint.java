@@ -3,9 +3,6 @@ package com.ddg.meituan.authserver.component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -30,10 +27,6 @@ import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -64,7 +57,7 @@ public class AuthEndpoint {
 
     private final AuthorizationServerEndpointsConfiguration conf;
 
-    private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
+    private final GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
     /**
      * 自定义获取令牌端点

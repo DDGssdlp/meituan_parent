@@ -2,11 +2,11 @@ package com.ddg.meituan.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.member.entity.MemberEntity;
+import com.ddg.meituan.member.entity.dto.UserDto;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 
 /**

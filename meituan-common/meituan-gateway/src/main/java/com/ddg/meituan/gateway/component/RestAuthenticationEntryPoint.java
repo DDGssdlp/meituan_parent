@@ -1,6 +1,5 @@
 package com.ddg.meituan.gateway.component;
 
-
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.base.api.CommonResult;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -17,7 +16,7 @@ import reactor.core.publisher.Mono;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Description: 自定义返回结果：没有登录或token过期时
+ * Description: 自定义返回结果：没有登录或token过期时 这里使用web flux
  * ========================================================================
  * ------------------------------------------------------------------------
  *

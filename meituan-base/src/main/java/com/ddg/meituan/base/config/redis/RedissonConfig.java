@@ -32,7 +32,6 @@ public class RedissonConfig {
      * @return
      * @throws IOException
      */
-
     @Value("${spring.redis.host}")
     private String host;
 
@@ -49,6 +48,10 @@ public class RedissonConfig {
         Config config = new Config();
         // 目前使用的是单节点模式：需要注意的就是redis地址有问题 redis配置的address 需要使用redis://
         // 或者是rediss://开头 如果redis启动的是ssl安全链接 使用rediss://
+        // 这里redission 默认 会创建16个工作线程 会创建32个netty 线程
+        config.setThreads(4);
+        config.setNettyThreads(4);
+
         SingleServerConfig singleServerConfig = config.useSingleServer();
         singleServerConfig.setAddress("redis://" + host + ":" + port + "").setDatabase(DATABASE);
         // 创建实例

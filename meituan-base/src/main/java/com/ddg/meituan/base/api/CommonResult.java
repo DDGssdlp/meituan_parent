@@ -39,6 +39,12 @@ public class CommonResult<T> {
         this.timestamp = LocalDateTime.now();
     }
 
+    protected CommonResult(String code, String message) {
+        this.code = code;
+        this.message = message;
+        this.timestamp = LocalDateTime.now();
+    }
+
     /**
      * 成功返回结果
      *
@@ -99,6 +105,10 @@ public class CommonResult<T> {
         return failed(errorCode.getValue(), errorCode.getHintMessage(), null);
     }
 
+    public static <T> CommonResult<T> failed(Code errorCode, String message) {
+        return failed(errorCode.getValue(), message, null);
+    }
+
     /**
      * 失败返回结果
      */
@@ -119,21 +129,21 @@ public class CommonResult<T> {
      * @param message 提示信息
      */
     public static <T> CommonResult<T> validateFailed(String message) {
-        return new CommonResult<T>(Code.ILLEGAL_VALUE.getValue(), message, null);
+        return new CommonResult<T>(Code.ILLEGAL_VALUE.getValue(), message);
     }
 
     /**
      * 未登录返回结果
      */
-    public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(Code.UNAUTHORIZED.getValue(), Code.UNAUTHORIZED.getHintMessage(), data);
+    public static <T> CommonResult<T> unauthorized(String message) {
+        return new CommonResult<T>(Code.UNAUTHORIZED.getValue(), message);
     }
 
     /**
      * 未授权返回结果
      */
-    public static <T> CommonResult<T> forbidden(T data) {
-        return new CommonResult<T>(Code.FORBIDDEN.getValue(), Code.FORBIDDEN.getHintMessage(), data);
+    public static <T> CommonResult<T> forbidden(String message) {
+        return new CommonResult<T>(Code.FORBIDDEN.getValue(), message);
     }
 
     public String getCode() {

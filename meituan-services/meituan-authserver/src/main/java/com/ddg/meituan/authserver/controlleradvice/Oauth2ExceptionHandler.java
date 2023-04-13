@@ -2,8 +2,8 @@ package com.ddg.meituan.authserver.controlleradvice;
 
 
 import com.ddg.meituan.base.api.CommonResult;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import com.ddg.meituan.base.enums.Code;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,19 +28,8 @@ public class Oauth2ExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(InvalidGrantException.class)
-    public CommonResult<Object> handleInvalidGrantException(InvalidGrantException e) {
-        return CommonResult.failed(e.getMessage());
-    }
-
-    /**
-     * 账户异常(禁用、锁定、过期)
-     *
-     * @param e
-     * @return
-     */
-    @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public CommonResult<Object> handleInternalAuthenticationServiceException(InternalAuthenticationServiceException e) {
-        return CommonResult.failed(e.getMessage());
+    @ExceptionHandler(OAuth2Exception.class)
+    public CommonResult<?> handleInvalidGrantException(OAuth2Exception e) {
+        return CommonResult.failed(Code.UNAUTHORIZED, e.getMessage());
     }
 }
