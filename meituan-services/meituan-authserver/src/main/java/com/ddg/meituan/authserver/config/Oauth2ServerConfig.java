@@ -2,7 +2,7 @@ package com.ddg.meituan.authserver.config;
 
 import com.ddg.meituan.authserver.component.JwtTokenEnhancer;
 import com.ddg.meituan.authserver.filter.CustomClientCredentialsTokenEndpointFilter;
-import com.ddg.meituan.authserver.service.impl.UserServiceImpl;
+import com.ddg.meituan.authserver.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -60,7 +60,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     /**
      * 加载用户信息
      */
-    private final UserServiceImpl userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
     /**
      * 认证管理器
      */
@@ -78,7 +78,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
      */
     private final AuthenticationEntryPoint resultAuthenticationEntryPoint;
 
-    public Oauth2ServerConfig(PasswordEncoder passwordEncoder, UserServiceImpl userDetailsService, AuthenticationManager authenticationManager, JwtTokenEnhancer jwtTokenEnhancer, SecurityClientConfigurationProperties properties, AuthenticationEntryPoint resultAuthenticationEntryPoint) {
+    public Oauth2ServerConfig(PasswordEncoder passwordEncoder, CustomUserDetailsService userDetailsService, AuthenticationManager authenticationManager, JwtTokenEnhancer jwtTokenEnhancer, SecurityClientConfigurationProperties properties, AuthenticationEntryPoint resultAuthenticationEntryPoint) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
@@ -95,7 +95,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .withClient(jwt.getAdminAppName())
                 .secret(passwordEncoder.encode(jwt.getKeyPairPassword()))
                 .scopes(jwt.getScopes())
-                .authorizedGrantTypes(jwt.getAuthorizedGrantTypes())
+                .authorizedGrantTypes(jwt.getAdminAuthorizedGrantTypes())
                 .accessTokenValiditySeconds(jwt.getTokenExpire())
                 .refreshTokenValiditySeconds(jwt.getRefreshTokenExpire())
                 .and()
@@ -103,13 +103,13 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .withClient(jwt.getPortalAppName())
                 .secret(passwordEncoder.encode(jwt.getKeyPairPassword()))
                 .scopes(jwt.getScopes())
-                .authorizedGrantTypes(jwt.getAuthorizedGrantTypes())
+                .authorizedGrantTypes(jwt.getPortalAuthorizedGrantTypes())
                 .accessTokenValiditySeconds(jwt.getTokenExpire())
                 .refreshTokenValiditySeconds(jwt.getRefreshTokenExpire());
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints){
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> delegates = new ArrayList<>();
         delegates.add(jwtTokenEnhancer);

@@ -1,13 +1,13 @@
-package com.ddg.meituan.authserver.service.impl;
+package com.ddg.meituan.authserver.service;
 
 
 import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import com.ddg.meituan.authserver.constant.MessageConstant;
 import com.ddg.meituan.authserver.domain.SecurityUser;
-import com.ddg.meituan.authserver.domain.UserDto;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
 import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.dto.UserDto;
 import com.ddg.meituan.base.enums.Code;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
-public class UserServiceImpl implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Resource
     private AdminFeignService adminFeignService;
@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserDetailsService {
             throw new InvalidGrantException(userDtoCommonResult.getMessage());
         }
         UserDto user = userDtoCommonResult.getData();
+        user.setId(1L);
 
         user.setClientId(clientId);
         SecurityUser securityUser = new SecurityUser(user);
@@ -90,9 +91,10 @@ public class UserServiceImpl implements UserDetailsService {
         return securityUser;
     }
 
-    public UserDetails loadUserByUsernameAndSmsCode(String username, String code) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsernameAndSmsCode(String phone, String code) throws UsernameNotFoundException {
         SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1));
         zhangsan.setPhone("1231231313");
+        zhangsan.setId(1L);
         return zhangsan;
     }
 

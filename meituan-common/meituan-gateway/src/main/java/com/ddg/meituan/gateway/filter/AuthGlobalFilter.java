@@ -1,12 +1,9 @@
 package com.ddg.meituan.gateway.filter;
 
 
-import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.base.constant.AuthConstant;
 import com.nimbusds.jose.JWSObject;
-import com.nimbusds.jose.Payload;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;

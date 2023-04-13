@@ -3,7 +3,7 @@ package com.ddg.meituan.gateway.config;
 import com.ddg.meituan.gateway.authorization.AuthorizationManager;
 import com.ddg.meituan.gateway.component.RestAuthenticationEntryPoint;
 import com.ddg.meituan.gateway.component.RestfulAccessDeniedHandler;
-import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.base.constant.AuthConstant;
 import com.ddg.meituan.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

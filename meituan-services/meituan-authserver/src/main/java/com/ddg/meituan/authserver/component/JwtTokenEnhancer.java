@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Description: Jwt 内容增强器（将用户id client_id 添加进去）
+ * Description: Jwt 内容增强器（将用户id client_id 添加进去） DefaultAccessTokenConverter
  * ========================================================================
  * ------------------------------------------------------------------------
  *

@@ -1,15 +1,12 @@
 package com.ddg.meituan.authserver.config;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 /**
  * Description:
@@ -60,7 +57,9 @@ public class SecurityClientConfigurationProperties  {
 
         private Integer refreshTokenExpire;
 
-        private String[] authorizedGrantTypes;
+        private String[] portalAuthorizedGrantTypes;
+
+        private String[] adminAuthorizedGrantTypes;
     }
 
 }

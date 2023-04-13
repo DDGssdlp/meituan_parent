@@ -1,7 +1,7 @@
 package com.ddg.meituan.gateway.filter;
 
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
-import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.base.constant.AuthConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

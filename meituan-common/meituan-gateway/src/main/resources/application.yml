@@ -69,6 +69,6 @@ secure:
 
     # --- 前台首页 ---
       - "/api/product/category/listWithTree"
-      - "/api/thirdparty/**"
+     # - "/api/thirdparty/msm/hello"
       - "/api/auth/**"
 

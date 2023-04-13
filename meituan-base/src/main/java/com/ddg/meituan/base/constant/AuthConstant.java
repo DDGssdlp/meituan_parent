@@ -1,4 +1,4 @@
-package com.ddg.meituan.gateway.constant;
+package com.ddg.meituan.base.constant;
 
 /**
  * Description: 权限相关常量定义

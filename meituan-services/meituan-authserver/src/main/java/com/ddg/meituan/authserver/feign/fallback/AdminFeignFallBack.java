@@ -1,6 +1,6 @@
 package com.ddg.meituan.authserver.feign.fallback;
 
-import com.ddg.meituan.authserver.domain.UserDto;
+import com.ddg.meituan.base.domain.dto.UserDto;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.base.api.CommonResult;
 

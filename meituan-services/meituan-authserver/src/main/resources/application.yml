@@ -37,11 +37,13 @@ security:
     admin-app-name: admin-app
     portal-app-name: portal-app
     scopes: all
-    authorized-grant-types:
+    portal-authorized-grant-types:
       - password
       - refresh_token
       - sms_code
-
+    admin-authorized-grant-types:
+      - password
+      - refresh_token
 # swagger 配置
 swagger:
   enable: true

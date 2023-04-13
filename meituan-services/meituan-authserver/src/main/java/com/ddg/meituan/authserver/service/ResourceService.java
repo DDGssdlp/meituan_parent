@@ -1,4 +1,4 @@
-package com.ddg.meituan.authserver.service.impl;
+package com.ddg.meituan.authserver.service;
 
 import com.ddg.meituan.authserver.constant.AuthServerConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ import java.util.TreeMap;
  * @date 2020/6/19
  */
 @Service
-public class ResourceServiceImpl {
+public class ResourceService {
 
     private Map<String, String> resourceRolesMap;
     private final StringRedisTemplate redisTemplate;
 
     @Autowired
-    public ResourceServiceImpl(StringRedisTemplate redisTemplate) {
+    public ResourceService(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

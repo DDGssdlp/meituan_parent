@@ -1,14 +1,13 @@
 package com.ddg.meituan.thridparty.controller;
 
 import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.domain.dto.UserDto;
 import com.ddg.meituan.thridparty.service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Description:
@@ -46,9 +45,9 @@ public class MsmController {
 
     @GetMapping("/hello")
     @ApiOperation("通过手机号发送短信验证码")
-    public String getHello() {
+    public String getHello(@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto) {
         redisTemplate.opsForValue().set("1", "1");
 
-        return "hello world";
+        return userDto.toString();
     }
 }

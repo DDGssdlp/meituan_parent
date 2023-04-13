@@ -1,4 +1,4 @@
-package com.ddg.meituan.authserver.domain;
+package com.ddg.meituan.base.domain.dto;
 
 
 import lombok.*;

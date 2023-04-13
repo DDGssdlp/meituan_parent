@@ -3,7 +3,7 @@ package com.ddg.meituan.gateway.authorization;
 
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
-import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.base.constant.AuthConstant;
 import com.ddg.meituan.gateway.domain.UserDto;
 import com.nimbusds.jose.JWSObject;
 import org.springframework.beans.factory.annotation.Autowired;
