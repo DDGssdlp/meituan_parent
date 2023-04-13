@@ -43,6 +43,9 @@ public class SecurityUser implements UserDetails {
      * 登录客户端ID
      */
     private String clientId;
+
+    private String phone;
+
     /**
      * 权限数据
      */

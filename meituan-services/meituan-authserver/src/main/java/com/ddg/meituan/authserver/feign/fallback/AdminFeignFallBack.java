@@ -19,7 +19,7 @@ import com.ddg.meituan.base.api.CommonResult;
 //@Component
 public class AdminFeignFallBack implements AdminFeignService {
     @Override
-    public CommonResult<UserDto> loadUserByUsername(String username, String code, String uuid) {
+    public CommonResult<UserDto> loadUserByUsername(String username, String uuid) {
         return CommonResult.success(new UserDto("zhangsan", "1", 1));
     }
 }

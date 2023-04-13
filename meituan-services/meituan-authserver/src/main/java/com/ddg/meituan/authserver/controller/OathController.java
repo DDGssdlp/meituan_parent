@@ -58,8 +58,8 @@ public class OathController {
 
 
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
-        if (oAuth2AccessToken == null){
-            throw  new MeituanLoginException("获取token失败");
+        if (oAuth2AccessToken == null) {
+            throw new MeituanLoginException("获取token失败");
         }
 
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()

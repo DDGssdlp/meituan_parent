@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -29,13 +28,6 @@ import org.springframework.util.PathMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final AuthenticationEntryPoint resultAuthenticationEntryPoint;
-
-    public WebSecurityConfig(AuthenticationEntryPoint resultAuthenticationEntryPoint) {
-        this.resultAuthenticationEntryPoint = resultAuthenticationEntryPoint;
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -24,10 +24,10 @@ public interface AdminFeignService {
 
     /**
      * @param username
-     * @param code
+
      * @param uuid
      * @return
      */
     @GetMapping("/sys/login/loadByUsername")
-    CommonResult<UserDto> loadUserByUsername(@RequestParam String username, @RequestParam String code, @RequestParam String uuid);
+    CommonResult<UserDto> loadUserByUsername(@RequestParam String username, @RequestParam String uuid);
 }

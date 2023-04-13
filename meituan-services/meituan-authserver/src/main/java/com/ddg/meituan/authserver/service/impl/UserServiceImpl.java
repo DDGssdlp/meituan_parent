@@ -54,26 +54,24 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         String clientId = request.getParameter("client_id");
-        String code = request.getParameter("phoneCode");
         CommonResult<UserDto> userDtoCommonResult = null;
         try {
             if (AuthServerConstant.ADMIN_CLIENT_ID.equals(clientId)) {
-
                 String uuid = request.getParameter("uuid");
-                userDtoCommonResult = adminFeignService.loadUserByUsername(username, code, uuid);
+                userDtoCommonResult = adminFeignService.loadUserByUsername(username, uuid);
             } else {
-                userDtoCommonResult = memberFeignService.loadUserByUsername(username, code);
+                userDtoCommonResult = memberFeignService.loadUserByUsername(username);
             }
 
         } catch (Exception e) {
             log.error("UserDto 获取错误 error = {}", e.getMessage());
 
         }
-        if (Objects.isNull(userDtoCommonResult) || Objects.isNull(userDtoCommonResult.getData())){
+        if (Objects.isNull(userDtoCommonResult) || Objects.isNull(userDtoCommonResult.getData())) {
             throw new InvalidGrantException(MessageConstant.SERVER_ERROR);
         }
 
-        if (!Code.NO_PROBLEM.getValue().equals(userDtoCommonResult.getCode())){
+        if (!Code.NO_PROBLEM.getValue().equals(userDtoCommonResult.getCode())) {
             throw new InvalidGrantException(userDtoCommonResult.getMessage());
         }
         UserDto user = userDtoCommonResult.getData();
@@ -92,6 +90,10 @@ public class UserServiceImpl implements UserDetailsService {
         return securityUser;
     }
 
-
+    public UserDetails loadUserByUsernameAndSmsCode(String username, String code) throws UsernameNotFoundException {
+        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1));
+        zhangsan.setPhone("1231231313");
+        return zhangsan;
+    }
 
 }

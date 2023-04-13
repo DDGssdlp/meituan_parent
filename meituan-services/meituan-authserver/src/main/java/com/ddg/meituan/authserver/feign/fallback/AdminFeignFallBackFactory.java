@@ -26,6 +26,6 @@ public class AdminFeignFallBackFactory implements FallbackFactory<AdminFeignServ
 
     @Override
     public AdminFeignService create(Throwable cause) {
-        return (username, code, uuid) -> CommonResult.success(new UserDto("zhangsan", "$2a$10$6syVlF30TXrD7Mw0psUiY.uCdTdLcCiLsnoqu8rxWgssJcwxI.xsO", 1));
+        return (username, uuid) -> CommonResult.success(new UserDto("zhangsan", "$2a$10$6syVlF30TXrD7Mw0psUiY.uCdTdLcCiLsnoqu8rxWgssJcwxI.xsO", 1));
     }
 }
