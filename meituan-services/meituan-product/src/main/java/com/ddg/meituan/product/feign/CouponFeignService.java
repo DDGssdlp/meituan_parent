@@ -1,8 +1,8 @@
 package com.ddg.meituan.product.feign;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.to.SkuReduceTo;
-import com.ddg.meituan.common.to.SpuBoundsTo;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.to.SkuReduceTo;
+import com.ddg.meituan.base.to.SpuBoundsTo;
 import com.ddg.meituan.product.feign.fallback.CouponFeignServiceFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

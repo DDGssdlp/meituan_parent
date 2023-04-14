@@ -1,6 +1,5 @@
 package com.ddg.meituan.admin.modules.sys.controller;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.annotation.validator.Assert;
 import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
@@ -11,14 +10,12 @@ import com.ddg.meituan.admin.modules.sys.entity.vo.SysUserEntityVo;
 import com.ddg.meituan.admin.modules.sys.form.PasswordForm;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
-import com.ddg.meituan.common.annotation.validgroup.admin.AddGroup;
-import com.ddg.meituan.common.annotation.validgroup.admin.UpdateGroup;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.annotation.validgroup.admin.AddGroup;
+import com.ddg.meituan.base.annotation.validgroup.admin.UpdateGroup;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

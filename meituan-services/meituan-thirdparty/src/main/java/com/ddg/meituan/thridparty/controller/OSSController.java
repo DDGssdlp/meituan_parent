@@ -1,7 +1,7 @@
 package com.ddg.meituan.thridparty.controller;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.thridparty.Service.OssService;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.thridparty.service.OssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @email: wangzhijie0908@gmail.com
  */
 @RestController
-@RequestMapping("/thirdparty/oss")
+@RequestMapping("/oss")
 @Api("阿里云oss 文件上传")
 public class OSSController {
 

@@ -8,9 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.job.dao.ScheduleJobLogDao;
 import com.ddg.meituan.admin.modules.job.entity.ScheduleJobLogEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobLogService;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 

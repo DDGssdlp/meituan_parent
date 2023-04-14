@@ -6,6 +6,7 @@
     <modules>
         <module>meituan-common</module>
         <module>meituan-services</module>
+        <module>meituan-base</module>
     </modules>
 
     <parent>
@@ -16,7 +17,7 @@
     </parent>
 
     <groupId>com.ddg</groupId>
-    <artifactId>meituan-parent</artifactId>
+    <artifactId>meituan-swarm</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -74,10 +75,8 @@
         <kaptcha.version>0.0.9</kaptcha.version>
         <qiniu.version>7.2.23</qiniu.version>
         <qcloud.cos.version>4.4</qcloud.cos.version>
-        <spring.context.version>5.2.2.RELEASE</spring.context.version>
-        <spring.data.redis.version>2.2.4.RELEASE</spring.data.redis.version>
+        <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
         <redisson.version>3.12.0</redisson.version>
-        <spring.configuration.version>2.2.4.RELEASE</spring.configuration.version>
         <mongo.version>3.11.0</mongo.version>
         <druid.version>1.1.13</druid.version>
         <page-helper.version>1.2.10</page-helper.version>
@@ -209,17 +208,6 @@
                 <version>${aliyun-sdk-oss.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>aliyun-java-sdk-vod</artifactId>
-                <version>${aliyun-java-sdk-vod.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>aliyun-java-vod-upload</artifactId>
-                <version>${aliyun-java-vod-upload.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -231,7 +219,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring.data.redis.version}</version>
+                <version>${spring-boot.version}</version>
             </dependency>
 
             <dependency>
@@ -244,7 +232,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${spring.configuration.version}</version>
+                <version>${spring-boot.version}</version>
                 <optional>true</optional>
             </dependency>
 

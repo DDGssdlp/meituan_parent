@@ -1,33 +1,27 @@
 package com.ddg.meituan.member.service.impl;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.constant.MemberConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.*;
-
-import com.ddg.meituan.member.entity.MemberLoginLogEntity;
+import com.baomidou.mybatisplus.core.conditions.query.Query;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.utils.UsernameUtils;
+import com.ddg.meituan.member.constant.MemberConstant;
+import com.ddg.meituan.member.dao.MemberDao;
+import com.ddg.meituan.member.entity.MemberEntity;
+import com.ddg.meituan.member.entity.dto.UserDto;
 import com.ddg.meituan.member.enums.MemberEnum;
 import com.ddg.meituan.member.service.MemberLoginLogService;
+import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import com.ddg.meituan.member.dao.MemberDao;
-import com.ddg.meituan.member.entity.MemberEntity;
-import com.ddg.meituan.member.service.MemberService;
 import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -127,27 +121,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }else{
             userDto.setPassword(memberEntity.getPassword());
         }
-        userDto.setClientId(AuthConstant.PORTAL_CLIENT_ID);
         userDto.setId(memberEntity.getId());
 
         return CommonResult.success(userDto);
     }
 
-    /**
-     * 保存登录日志 这里使用异步的形式
-     */
-    private void saveLoginLog(Long memberId) {
-        HttpServletRequest request = ServletContextUtils.getHttpServletRequest();
-        String ipAddr = IPUtils.getIpAddr(request);
-        MemberLoginLogEntity entity = new MemberLoginLogEntity()
-                .setMemberId(memberId)
-                .setCreateTime(new Date())
-                .setIp(ipAddr)
-                // TODO 获取城市名称
-                .setCity("unknown")
-                .setLoginType(UserAgentUtils.isMobileTerminal(request) ? 2 : 1);
-        memberLoginLogService.save(entity);
-    }
 
     private String getPhoneCodeFromRedis(String phone, String phoneCode) {
 

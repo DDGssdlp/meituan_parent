@@ -1,23 +1,20 @@
 package com.ddg.meituan.product.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.entity.CategoryEntity;
+import com.ddg.meituan.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.ddg.meituan.product.service.CategoryService;
-
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
+
+//import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 
 /**
@@ -42,17 +39,20 @@ public class CategoryController {
      * 列表
      */
     @GetMapping("/list")
-    public CommonResult<PageUtils> list(PageParam param){
-        PageUtils page = categoryService.queryPage(param);
+    public CommonResult<PageUtils<CategoryEntity>> list(PageParam param){
+        PageUtils<CategoryEntity> page = categoryService.queryPage(param);
+
 
         return CommonResult.success(page);
     }
+
 
     /**
      * 获取所有的菜单分类 以树状结构返回
      * @return
      */
     @GetMapping("/listWithTree")
+    @SentinelResource("listWithTree")
     public CommonResult<List<CategoryEntity>> getListWithTree(){
         List<CategoryEntity> list =  categoryService.getListWithTree();
 

@@ -1,11 +1,9 @@
 package com.ddg.meituan.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.coupon.entity.SpuBoundsEntity;
-
-import java.util.Map;
 
 /**
  * 商品spu积分设置

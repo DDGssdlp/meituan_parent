@@ -1,12 +1,11 @@
 package com.ddg.meituan.member.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.PageParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

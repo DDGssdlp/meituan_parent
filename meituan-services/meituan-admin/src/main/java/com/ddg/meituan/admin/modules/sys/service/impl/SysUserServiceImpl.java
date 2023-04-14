@@ -11,10 +11,8 @@ import com.ddg.meituan.admin.modules.sys.entity.param.SysUserPageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 

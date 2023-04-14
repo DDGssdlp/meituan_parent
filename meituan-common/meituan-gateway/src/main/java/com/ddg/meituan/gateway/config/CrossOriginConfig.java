@@ -22,7 +22,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 public class CrossOriginConfig {
 
     @Bean
-    public CorsWebFilter corsWebFilter(){
+    public CorsWebFilter corsWebFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration();
         // 进行跨域的配置

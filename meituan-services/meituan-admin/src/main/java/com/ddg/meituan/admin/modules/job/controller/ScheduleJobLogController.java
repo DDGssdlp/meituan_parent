@@ -3,9 +3,9 @@ package com.ddg.meituan.admin.modules.job.controller;
 
 import com.ddg.meituan.admin.modules.job.entity.ScheduleJobLogEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobLogService;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

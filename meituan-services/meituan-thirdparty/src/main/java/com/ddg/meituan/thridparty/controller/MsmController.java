@@ -1,15 +1,13 @@
 package com.ddg.meituan.thridparty.controller;
 
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.thridparty.Service.MsmService;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.thridparty.service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Description:
@@ -25,29 +23,31 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/thirdparty/msm")
+@RequestMapping("/msm")
 @Api("短信验证")
 public class MsmController {
 
     private final MsmService msmService;
+
     private final RedisTemplate<String, String> redisTemplate;
 
-
-    @Autowired
     public MsmController(MsmService msmService, RedisTemplate<String, String> redisTemplate) {
         this.msmService = msmService;
         this.redisTemplate = redisTemplate;
     }
 
+
     @GetMapping("/send/{phoneNum}")
     @ApiOperation("通过手机号发送短信验证码")
-    public CommonResult<String> getSendPhoneNum(@PathVariable("phoneNum") String phoneNum){
-     return msmService.sendCode(phoneNum);
+    public CommonResult<String> getSendPhoneNum(@PathVariable("phoneNum") String phoneNum) {
+        return msmService.sendCode(phoneNum);
     }
 
     @GetMapping("/hello")
     @ApiOperation("通过手机号发送短信验证码")
-    public String getHello(){
-        return "hello world";
+    public String getHello(@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto) {
+        redisTemplate.opsForValue().set("1", "1");
+
+        return userDto.toString();
     }
 }

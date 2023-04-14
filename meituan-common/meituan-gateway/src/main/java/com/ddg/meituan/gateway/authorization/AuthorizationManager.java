@@ -1,12 +1,9 @@
 package com.ddg.meituan.gateway.authorization;
 
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
-import com.ddg.meituan.gateway.constant.AuthConstant;
+import com.ddg.meituan.base.constant.AuthConstant;
 import com.ddg.meituan.gateway.domain.UserDto;
 import com.nimbusds.jose.JWSObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.text.ParseException;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -76,13 +73,13 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //不同用户体系登录不允许互相访问
         try {
             String token = request.getHeaders().getFirst(AuthConstant.JWT_TOKEN_HEADER);
-            if (StrUtil.isEmpty(token)) {
+            if (StringUtils.isEmpty(token)) {
                 return Mono.just(new AuthorizationDecision(false));
             }
             String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
-            UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
+            UserDto userDto = JSON.parseObject(userStr, UserDto.class);
             final boolean match = pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
                     pathMatcher.match(AuthConstant.APP_URL_PATTERN, uri.getPath()) ||
                     pathMatcher.match(AuthConstant.SYS_URL_PATTERN, uri.getPath());
@@ -102,7 +99,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         if (StringUtils.isEmpty(roles)) {
             return Mono.just(new AuthorizationDecision(true));
         }
-        List<String> authorities = Convert.toList(String.class, roles);
+        List<String> authorities = JSON.parseArray(roles, String.class);
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
         return mono

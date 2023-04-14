@@ -2,26 +2,17 @@
 
 package com.ddg.meituan.admin.modules.sys.controller;
 
-import cn.hutool.core.collection.CollUtil;
 import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
-import com.ddg.meituan.admin.modules.sys.entity.vo.SysUserEntityVo;
 import com.ddg.meituan.admin.modules.sys.service.SysCaptchaService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
-import com.ddg.meituan.common.api.CommonResult;
+import com.ddg.meituan.base.api.CommonResult;
 
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import jodd.util.ObjectUtil;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.exception.MeituanSysException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 登录相关

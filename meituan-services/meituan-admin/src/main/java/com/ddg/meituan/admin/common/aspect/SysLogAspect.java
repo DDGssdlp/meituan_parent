@@ -5,9 +5,8 @@ import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.utils.HttpContextUtils;
 import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.utils.IPUtils;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.utils.IPUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 /**

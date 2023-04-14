@@ -2,13 +2,10 @@ package com.ddg.meituan.authserver.config;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.Map;
 
@@ -33,7 +30,7 @@ public class ThirdPartyProperties implements InitializingBean {
     Map<String, ThirdPartyEntity> thirdparty;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         log.info("第三方登录：" +  JSON.toJSONString(thirdparty));
     }
 

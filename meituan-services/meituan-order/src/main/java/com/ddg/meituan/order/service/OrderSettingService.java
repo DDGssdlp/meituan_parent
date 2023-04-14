@@ -1,11 +1,9 @@
 package com.ddg.meituan.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.order.entity.OrderSettingEntity;
-
-import java.util.Map;
 
 /**
  * 订单配置信息

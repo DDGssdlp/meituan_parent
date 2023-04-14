@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
-import com.ddg.meituan.common.annotation.vaildator.ListValue;
-import com.ddg.meituan.common.annotation.validgroup.services.AddGroup;
-import com.ddg.meituan.common.annotation.validgroup.services.UpdateGroup;
+import com.ddg.meituan.base.annotation.vaildator.ListValue;
+import com.ddg.meituan.base.annotation.validgroup.services.AddGroup;
+import com.ddg.meituan.base.annotation.validgroup.services.UpdateGroup;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;

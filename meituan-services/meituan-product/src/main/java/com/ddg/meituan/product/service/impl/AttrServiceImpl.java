@@ -2,7 +2,6 @@ package com.ddg.meituan.product.service.impl;
 
 import com.ddg.meituan.product.dao.AttrAttrgroupRelationDao;
 import com.ddg.meituan.product.dao.AttrGroupDao;
-import com.ddg.meituan.product.dao.CategoryDao;
 import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;
 import com.ddg.meituan.product.entity.AttrGroupEntity;
 import com.ddg.meituan.product.entity.CategoryEntity;
@@ -12,22 +11,18 @@ import com.ddg.meituan.product.vo.AttrGroupRelationVo;
 import com.ddg.meituan.product.vo.AttrRespVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.PageParam;
 
 import com.ddg.meituan.product.dao.AttrDao;
 import com.ddg.meituan.product.entity.AttrEntity;
 import com.ddg.meituan.product.service.AttrService;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

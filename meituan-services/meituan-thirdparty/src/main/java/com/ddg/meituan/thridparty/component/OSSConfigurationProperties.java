@@ -34,6 +34,6 @@ public class OSSConfigurationProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("oss配置读取完成", toString());
+        log.info("oss配置读取完成  OSSConfigurationProperties = {}", this);
     }
 }

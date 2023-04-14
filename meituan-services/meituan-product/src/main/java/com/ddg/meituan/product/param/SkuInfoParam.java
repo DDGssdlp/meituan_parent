@@ -1,6 +1,6 @@
 package com.ddg.meituan.product.param;
 
-import com.ddg.meituan.common.utils.PageParam;
+import com.ddg.meituan.base.api.PageParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

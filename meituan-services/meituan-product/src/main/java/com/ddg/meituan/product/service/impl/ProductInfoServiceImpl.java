@@ -3,10 +3,9 @@ package com.ddg.meituan.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.ProductInfoDao;
 import com.ddg.meituan.product.entity.ProductInfoEntity;
@@ -15,8 +14,6 @@ import com.ddg.meituan.product.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.Map;
 
 /**
  * Description:

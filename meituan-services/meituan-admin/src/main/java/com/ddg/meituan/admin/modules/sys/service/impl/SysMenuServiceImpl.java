@@ -12,7 +12,6 @@ import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
 
-import com.ddg.meituan.common.exception.MeituanSysException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

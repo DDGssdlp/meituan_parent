@@ -1,19 +1,17 @@
 package com.ddg.meituan.product.controller;
 
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.product.entity.BrandEntity;
+import com.ddg.meituan.product.service.BrandService;
+import com.ddg.meituan.product.vo.BrandListVo;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.Arrays;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.product.vo.BrandListVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import com.ddg.meituan.product.entity.BrandEntity;
-import com.ddg.meituan.product.service.BrandService;
-
-import javax.validation.Valid;
 
 
 /**

@@ -1,14 +1,12 @@
 package com.ddg.meituan.product.service.impl;
 
 import com.ddg.meituan.product.vo.AttrGroupRelationVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.base.api.PageParam;
 
 import com.ddg.meituan.product.dao.AttrAttrgroupRelationDao;
 import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;

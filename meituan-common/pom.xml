@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>meituan-parent</artifactId>
+        <artifactId>meituan-swarm</artifactId>
         <groupId>com.ddg</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>meituan-base</module>
         <module>meituan-gateway</module>
         <module>meituan-monitor</module>
     </modules>

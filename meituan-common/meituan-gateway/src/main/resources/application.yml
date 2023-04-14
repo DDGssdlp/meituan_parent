@@ -1,4 +1,4 @@
-ipAddr: 101.200.140.80
+ipAddr: 127.0.0.1
 spring:
   cloud:
     gateway:
@@ -18,21 +18,15 @@ spring:
         - id: auth_route
           uri: lb://meituan-authserver
           predicates:
-            - Path=/api/oauth/**
-          filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
-        - id: oauth_route
-          uri: lb://meituan-authserver
-          predicates:
             - Path=/api/auth/**
           filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+            - StripPrefix=2
         - id: oss_route
           uri: lb://meituan-third-party
           predicates:
             - Path=/api/thirdparty/**
           filters:
-            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+            - StripPrefix=2
         - id: admin_route
           uri: lb://meituan-admin
           predicates:
@@ -51,25 +45,30 @@ spring:
           jwk-set-uri: 'http://localhost:9000/rsa/publicKey'
   redis:
     host: ${ipAddr}
-    password: redis123
+    # password: redis123
+
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}
 
 
 secure:
   ignore:
     urls: #配置白名单路径
       - "/actuator/**"
-      - "/api/oauth/token"
+
       - "/doc.html"
       - "/swagger-resources/**"
-      - "/swagger/**"
-      - "/**/v2/api-docs"
-      - "/**/*.js"
-      - "/**/*.css"
-      - "/**/*.png"
-      - "/**/*.jpg"
-      - "/**/*.ico"
+      - "/swagger-ui/**"
+      - "/webjars/**"
+      - "/**/v3/api-docs"
+
     # --- 前台首页 ---
       - "/api/product/category/listWithTree"
-      - "/api/auth/registerUser"
-      - "/api/thirdparty/msm/send/**"
-      - "/api/auth/*/Callback"
+     # - "/api/thirdparty/msm/hello"
+      - "/api/auth/**"
+

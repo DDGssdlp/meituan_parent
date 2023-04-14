@@ -1,11 +1,10 @@
 package com.ddg.meituan.product.service.impl;
 
 
-import com.ddg.meituan.common.annotation.RedisCache;
-import com.ddg.meituan.common.annotation.RemoveCache;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
-import com.ddg.meituan.common.utils.Query;
+import com.ddg.meituan.base.annotation.RedisCache;
+import com.ddg.meituan.base.annotation.RemoveCache;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.CategoryDao;
 import com.ddg.meituan.product.entity.CategoryEntity;
@@ -22,7 +21,6 @@ import com.ddg.meituan.product.service.CategoryService;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
 
 
 @Service("categoryService")

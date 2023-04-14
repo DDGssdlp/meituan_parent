@@ -1,7 +1,7 @@
 package com.ddg.meituan.authserver.component;
 
 
-import com.ddg.meituan.common.domain.SecurityUser;
+import com.ddg.meituan.authserver.domain.SecurityUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Description: Jwt 内容增强器（将用户id client_id 添加进去）
+ * Description: Jwt 内容增强器（将用户id client_id 添加进去） DefaultAccessTokenConverter
  * ========================================================================
  * ------------------------------------------------------------------------
  *
@@ -29,8 +29,9 @@ public class JwtTokenEnhancer implements TokenEnhancer {
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         Map<String, Object> info = new HashMap<>(2);
-        //把用户ID设置到JWT中
+        //把用户ID 和 手机号设置到JWT中
         info.put("id", securityUser.getId());
+        // info.put("phone", securityUser.getPhone());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;
     }

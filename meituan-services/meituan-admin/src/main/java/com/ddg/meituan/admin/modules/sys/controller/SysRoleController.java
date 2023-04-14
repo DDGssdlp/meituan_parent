@@ -9,11 +9,9 @@ import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
 import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.constant.AuthConstant;
-import com.ddg.meituan.common.domain.UserDto;
-import com.ddg.meituan.common.utils.PageParam;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.domain.UserDto;
+import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 角色管理

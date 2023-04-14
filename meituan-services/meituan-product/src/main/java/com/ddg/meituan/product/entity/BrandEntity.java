@@ -1,18 +1,16 @@
 package com.ddg.meituan.product.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import com.ddg.meituan.common.annotation.vaildator.ListValue;
-import com.ddg.meituan.common.annotation.validgroup.services.AddGroup;
-import com.ddg.meituan.common.annotation.validgroup.services.UpdateGroup;
+import com.ddg.meituan.base.annotation.vaildator.ListValue;
+import com.ddg.meituan.base.annotation.validgroup.services.AddGroup;
+import com.ddg.meituan.base.annotation.validgroup.services.UpdateGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 品牌
@@ -89,5 +87,10 @@ public class BrandEntity implements Serializable {
 	 *  地址：
 	 * */
 	private String address;
+
+	/**
+	 * 最低价格商品维护
+	 */
+	private BigDecimal price;
 
 }

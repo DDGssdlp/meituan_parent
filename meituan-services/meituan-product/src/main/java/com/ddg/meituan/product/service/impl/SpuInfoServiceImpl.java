@@ -2,10 +2,9 @@ package com.ddg.meituan.product.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ddg.meituan.common.api.CommonResult;
-import com.ddg.meituan.common.exception.MeituanSysException;
-import com.ddg.meituan.common.to.SkuReduceTo;
-import com.ddg.meituan.common.to.SpuBoundsTo;
+import com.ddg.meituan.base.exception.MeituanSysException;
+import com.ddg.meituan.base.to.SkuReduceTo;
+import com.ddg.meituan.base.to.SpuBoundsTo;
 import com.ddg.meituan.product.entity.*;
 import com.ddg.meituan.product.feign.CouponFeignService;
 import com.ddg.meituan.product.param.SpuInfoParam;
@@ -15,28 +14,17 @@ import com.ddg.meituan.product.vo.SkuInfoVo;
 import com.ddg.meituan.product.vo.SpuInfoVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.common.utils.PageUtils;
+import com.ddg.meituan.base.utils.PageUtils;
 
 import com.ddg.meituan.product.dao.SpuInfoDao;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 
