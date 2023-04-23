@@ -21,8 +21,8 @@ public interface ProductEnum{
         SPU_DOWN(2,"商品下架"),
         ;
 
-        private int code;
-        private String desc;
+        private final int code;
+        private final String desc;
 
         private static final String STATUS_DESC = "上架状态枚举描述 0 新建 1 商品上架 2 商品下架";
 

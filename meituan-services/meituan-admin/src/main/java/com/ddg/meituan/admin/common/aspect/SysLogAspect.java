@@ -3,11 +3,11 @@ package com.ddg.meituan.admin.common.aspect;
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.utils.HttpContextUtils;
-import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.base.utils.IPUtils;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -78,8 +78,7 @@ public class SysLogAspect {
 		//请求的参数
 		Object[] args = joinPoint.getArgs();
 		try{
-			String params = new Gson().toJson(args);
-			sysLog.setParams(params);
+			sysLog.setParams(JSON.toJSONString(args));
 
 			//获取request
 			HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
@@ -87,7 +86,7 @@ public class SysLogAspect {
 			sysLog.setIp(IPUtils.getIpAddr(request));
 
 			//用户名
-			String user = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
+			String user = request.getHeader(BaseConstant.USER_TOKEN_HEADER);
 
 			UserDto userDto = JSON.parseObject(user, UserDto.class);
 

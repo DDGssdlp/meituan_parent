@@ -1,19 +1,19 @@
 package com.ddg.meituan.admin.modules.sys.controller;
 
 
-import cn.hutool.core.map.MapUtil;
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
-import com.ddg.meituan.admin.common.utils.Constant;
-import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
-import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
+import com.ddg.meituan.admin.constant.Constant;
+import com.ddg.meituan.admin.modules.sys.domain.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.domain.param.SysRolePageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.base.utils.PageUtils;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,13 +42,14 @@ public class SysRoleController {
 	 * 角色列表
 	 */
 	@GetMapping("/list")
-	public CommonResult<PageUtils> list(SysRolePageParam params, @RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto){
+	public CommonResult<PageUtils<SysRoleEntity>> list(SysRolePageParam params,
+										 @RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto){
 
 		if(userDto.getId() != Constant.SUPER_ADMIN){
 			params.setCreateUserId(userDto.getId());
 		}
 
-		PageUtils page = sysRoleService.queryPage(params);
+		PageUtils<SysRoleEntity> page = sysRoleService.queryPage(params);
 
 		return CommonResult.success(page);
 	}
@@ -57,8 +58,8 @@ public class SysRoleController {
 	 * 角色列表
 	 */
 	@GetMapping("/select")
-	public CommonResult<List<SysRoleEntity>> select( @RequestHeader(AuthConstant.USER_TOKEN_HEADER)UserDto userDto){
-		HashMap<String, Object> map = MapUtil.newHashMap(2);
+	public CommonResult<List<SysRoleEntity>> select( @RequestHeader(BaseConstant.USER_TOKEN_HEADER)UserDto userDto){
+		HashMap<String, Object> map = Maps.newHashMap();
 
 		//如果不是超级管理员，则只查询自己所拥有的角色列表
 		if(userDto.getId() != Constant.SUPER_ADMIN){
@@ -89,7 +90,7 @@ public class SysRoleController {
 	@SysLog("保存角色")
 	@PostMapping("/save")
 	public CommonResult<Object> save(@RequestBody SysRoleEntity role,
-									 @RequestHeader(AuthConstant.USER_TOKEN_HEADER)UserDto userDto,
+									 @RequestHeader(BaseConstant.USER_TOKEN_HEADER)UserDto userDto,
 									 HttpServletRequest request){
 
 		System.out.println(request);

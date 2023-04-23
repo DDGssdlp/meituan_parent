@@ -3,7 +3,7 @@ package com.ddg.meituan.admin.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysRoleMenuDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysRoleMenuEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysRoleMenuEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

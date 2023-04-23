@@ -1,4 +1,4 @@
-ipAddr: 101.200.140.80
+ipAddr: 127.0.0.1
 # 配置应用名称 nacos 使用
 spring:
   datasource:
@@ -37,7 +37,7 @@ spring:
         # 连接池最大连接数（使用负值表示没有限制）
         max-active: 8
     timeout: 50000
-    password: redis123
+    # password: redis123
   #   设置缓存类型
   cache:
     type: redis
@@ -47,7 +47,7 @@ spring:
 #      如果指定了前缀就用我们指定的 如果没有就用缓存的名字作为前缀
 #      key-prefix: CACHE_
 #      是否缓存空值
-      cache-null-values: true
+      cache-null-values: false
 #    cache-names:
 
 mybatis-plus:

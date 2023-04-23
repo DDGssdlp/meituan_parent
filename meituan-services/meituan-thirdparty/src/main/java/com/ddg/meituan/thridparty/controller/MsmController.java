@@ -1,8 +1,8 @@
 package com.ddg.meituan.thridparty.controller;
 
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.constant.AuthConstant;
-import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.base.constant.BaseConstant;
+import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.thridparty.service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,7 +45,7 @@ public class MsmController {
 
     @GetMapping("/hello")
     @ApiOperation("通过手机号发送短信验证码")
-    public String getHello(@RequestHeader(AuthConstant.USER_TOKEN_HEADER) UserDto userDto) {
+    public String getHello(@RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto) {
         redisTemplate.opsForValue().set("1", "1");
 
         return userDto.toString();

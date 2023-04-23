@@ -3,7 +3,7 @@ package com.ddg.meituan.admin.modules.job.controller;
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
-import com.ddg.meituan.admin.modules.job.entity.ScheduleJobEntity;
+import com.ddg.meituan.admin.modules.job.domian.ScheduleJobEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobService;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;

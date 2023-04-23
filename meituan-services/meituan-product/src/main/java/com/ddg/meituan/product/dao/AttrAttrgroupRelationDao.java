@@ -1,8 +1,8 @@
 package com.ddg.meituan.product.dao;
 
-import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;
+import com.ddg.meituan.product.domain.AttrAttrgroupRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.product.vo.AttrGroupRelationVo;
+import com.ddg.meituan.product.domain.vo.AttrGroupRelationVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

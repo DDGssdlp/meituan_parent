@@ -3,8 +3,8 @@
 package com.ddg.meituan.admin.modules.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
-import com.ddg.meituan.admin.modules.sys.entity.param.SysUserPageParam;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.domain.param.SysUserPageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface SysUserService extends IService<SysUserEntity> {
 
-	PageUtils queryPage(SysUserPageParam param);
+	PageUtils<SysUserEntity> queryPage(SysUserPageParam param);
 
 	/**
 	 * 查询用户的所有权限

@@ -1,9 +1,10 @@
 package com.ddg.meituan.member.controller;
 
 import com.ddg.meituan.base.api.CommonResult;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.member.entity.MemberEntity;
 import com.ddg.meituan.member.service.MemberService;
 import com.ddg.meituan.member.vo.MemberRegisterVo;
@@ -104,7 +105,7 @@ public class MemberController {
      * @param
      */
     @GetMapping("/getLoginUser")
-    public CommonResult<UserDto> getLoginUser(@RequestHeader(value = AuthConstant.USER_TOKEN_HEADER, required = false) UserDto userDto) {
+    public CommonResult<UserDto> getLoginUser(@RequestHeader(value = BaseConstant.USER_TOKEN_HEADER, required = false) UserDto userDto) {
 
         return CommonResult.success(userDto);
     }

@@ -19,8 +19,8 @@
         <module>meituan-search</module>
         <module>meituan-product</module>
         <module>meituan-coupon</module>
-        <module>meituan-admin</module>
         <module>meituan-storage</module>
+        <module>meituan-admin</module>
     </modules>
 
     <dependencies>
@@ -47,6 +47,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-xml</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 

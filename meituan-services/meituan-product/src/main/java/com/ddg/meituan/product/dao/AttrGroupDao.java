@@ -3,7 +3,7 @@ package com.ddg.meituan.product.dao;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddg.meituan.base.api.PageParam;
-import com.ddg.meituan.product.entity.AttrGroupEntity;
+import com.ddg.meituan.product.domain.AttrGroupEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

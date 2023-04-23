@@ -7,7 +7,7 @@ import com.ddg.meituan.authserver.domain.SecurityUser;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.authserver.feign.MemberFeignService;
 import com.ddg.meituan.base.api.CommonResult;
-import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.base.enums.Code;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -92,7 +92,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public UserDetails loadUserByUsernameAndSmsCode(String phone, String code) throws UsernameNotFoundException {
-        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1));
+        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1, 1L));
         zhangsan.setPhone("1231231313");
         zhangsan.setId(1L);
         return zhangsan;

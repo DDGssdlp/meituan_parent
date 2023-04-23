@@ -2,9 +2,9 @@ package com.ddg.meituan.product.dao;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ddg.meituan.product.entity.SkuInfoEntity;
+import com.ddg.meituan.product.domain.SkuInfoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.product.param.SkuInfoParam;
+import com.ddg.meituan.product.domain.param.SkuInfoParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

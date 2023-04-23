@@ -1,7 +1,7 @@
 package com.ddg.meituan.base.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.base.annotation.RedisCache;
+import com.ddg.meituan.base.annotation.cache.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -55,7 +55,7 @@ public class RedisCacheAspect {
     /**
      * 定义切点
      */
-    @Pointcut("@annotation(com.ddg.meituan.base.annotation.RedisCache)")
+    @Pointcut("@annotation(com.ddg.meituan.base.annotation.cache.RedisCache)")
     public void redisCachePointCut() {
     }
 

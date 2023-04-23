@@ -1,7 +1,7 @@
 package com.ddg.meituan.gateway.filter;
 
 
-import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -33,18 +33,18 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String token = exchange.getRequest().getHeaders().getFirst(AuthConstant.JWT_TOKEN_HEADER);
+        String token = exchange.getRequest().getHeaders().getFirst(BaseConstant.JWT_TOKEN_HEADER);
         if (StringUtils.isEmpty(token)) {
             return chain.filter(exchange);
         }
         try {
             //从token中解析用户信息并设置到Header中去
-            String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
+            String realToken = token.replace(BaseConstant.JWT_TOKEN_PREFIX, "");
             JWSObject jwsObject = JWSObject.parse(realToken);
 
             String userStr = jwsObject.getPayload().toString();
             log.info("token 解析用户信息设置header中 AuthGlobalFilter.filter() user:{}",userStr);
-            ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.USER_TOKEN_HEADER, userStr).build();
+            ServerHttpRequest request = exchange.getRequest().mutate().header(BaseConstant.USER_TOKEN_HEADER, userStr).build();
             exchange = exchange.mutate().request(request).build();
         } catch (ParseException e) {
             log.error("从token中解析用户信息并设置到Header异常 AuthGlobalFilter  message = {}", e.getMessage());

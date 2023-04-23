@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 
-import com.ddg.meituan.product.entity.CategoryEntity;
+import com.ddg.meituan.product.domain.CategoryEntity;
 
 import java.util.List;
 

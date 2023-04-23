@@ -1,7 +1,7 @@
 package com.ddg.meituan.admin.modules.job.controller;
 
 
-import com.ddg.meituan.admin.modules.job.entity.ScheduleJobLogEntity;
+import com.ddg.meituan.admin.modules.job.domian.ScheduleJobLogEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobLogService;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;

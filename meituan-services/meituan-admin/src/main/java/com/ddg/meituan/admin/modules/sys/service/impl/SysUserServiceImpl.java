@@ -4,18 +4,18 @@ package com.ddg.meituan.admin.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.admin.common.utils.Constant;
+import com.ddg.meituan.admin.constant.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysUserDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
-import com.ddg.meituan.admin.modules.sys.entity.param.SysUserPageParam;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.domain.param.SysUserPageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
+import com.ddg.meituan.base.api.Query;
 import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +40,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	@Resource
 	private SysRoleService sysRoleService;
 
-	@Autowired
+
 	public SysUserServiceImpl(PasswordEncoder passwordEncoder, SysUserRoleService sysUserRoleService) {
 		this.passwordEncoder = passwordEncoder;
 		this.sysUserRoleService = sysUserRoleService;
@@ -48,7 +48,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 
 	@Override
-	public PageUtils queryPage(SysUserPageParam param) {
+	public PageUtils<SysUserEntity> queryPage(SysUserPageParam param) {
 
 
 		Long createUserId = param.getCreateUserId();
@@ -61,7 +61,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 						.eq(createUserId != null,"create_user_id", createUserId)
 		);
 
-		return new PageUtils(page);
+		return PageUtils.of(page);
 	}
 
 	@Override

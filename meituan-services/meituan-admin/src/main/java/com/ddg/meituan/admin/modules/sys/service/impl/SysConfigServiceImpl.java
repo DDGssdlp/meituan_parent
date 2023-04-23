@@ -1,18 +1,18 @@
 package com.ddg.meituan.admin.modules.sys.service.impl;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysConfigDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity;
 import com.ddg.meituan.admin.modules.sys.redis.SysConfigRedis;
 import com.ddg.meituan.admin.modules.sys.service.SysConfigService;
-
-import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.api.Query;
+import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,7 +92,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
 	public <T> T getConfigObject(String key, Class<T> clazz) {
 		String value = getValue(key);
 		if(StringUtils.isNotBlank(value)){
-			return new Gson().fromJson(value, clazz);
+			return JSON.parseObject(value, clazz);
 		}
 
 		try {

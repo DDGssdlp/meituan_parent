@@ -4,7 +4,7 @@
 <mapper namespace="com.ddg.meituan.product.dao.AttrGroupDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.ddg.meituan.product.entity.AttrGroupEntity" id="attrGroupMap">
+    <resultMap type="com.ddg.meituan.product.domain.AttrGroupEntity" id="attrGroupMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
@@ -12,7 +12,7 @@
         <result property="icon" column="icon"/>
         <result property="categoryId" column="catelog_id"/>
     </resultMap>
-    <select id="selectAttrById" resultType="com.ddg.meituan.product.entity.AttrGroupEntity">
+    <select id="selectAttrById" resultType="com.ddg.meituan.product.domain.AttrGroupEntity">
         SELECT
             ag.`attr_group_id`,
             ag.`attr_group_name`,

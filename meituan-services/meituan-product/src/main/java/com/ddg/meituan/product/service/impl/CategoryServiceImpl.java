@@ -1,26 +1,26 @@
 package com.ddg.meituan.product.service.impl;
 
 
-import com.ddg.meituan.base.annotation.RedisCache;
-import com.ddg.meituan.base.annotation.RemoveCache;
-import com.ddg.meituan.base.api.PageParam;
-import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.product.constant.ProductConstant;
-import com.ddg.meituan.product.dao.CategoryDao;
-import com.ddg.meituan.product.entity.CategoryEntity;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
+import com.ddg.meituan.base.annotation.cache.RedisCache;
+import com.ddg.meituan.base.annotation.cache.RemoveCache;
+import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.api.Query;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.product.constant.ProductConstant;
+import com.ddg.meituan.product.dao.CategoryDao;
+import com.ddg.meituan.product.domain.CategoryEntity;
 import com.ddg.meituan.product.service.CategoryService;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service("categoryService")

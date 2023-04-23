@@ -4,7 +4,7 @@ package com.ddg.meituan.admin.modules.sys.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.admin.modules.sys.entity.SysMenuEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysMenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

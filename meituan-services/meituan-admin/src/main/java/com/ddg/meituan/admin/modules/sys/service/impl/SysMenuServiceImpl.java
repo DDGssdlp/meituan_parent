@@ -1,17 +1,17 @@
 package com.ddg.meituan.admin.modules.sys.service.impl;
 
 
-import cn.hutool.core.collection.ListUtil;
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.admin.common.utils.Constant;
+import com.ddg.meituan.admin.constant.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysMenuDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysMenuEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysMenuEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -62,7 +62,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		//用户菜单列表
 		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
 		if(CollectionUtils.isEmpty(menuIdList)){
-			return ListUtil.toList();
+			return Lists.newArrayList();
 		}
 		return getMenuList(menuIdList);
 	}
@@ -101,7 +101,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		//删除菜单
 		this.removeById(menuId);
 		//删除菜单与角色关联
-		HashMap<String, Object> map = MapUtil.newHashMap(2);
+		HashMap<String, Object> map = Maps.newHashMap();
 		map.put("menu_id", menuId);
 		sysRoleMenuService.removeByMap(map);
 	}

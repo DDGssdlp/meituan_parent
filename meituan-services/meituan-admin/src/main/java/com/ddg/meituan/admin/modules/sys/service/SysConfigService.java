@@ -5,7 +5,7 @@ package com.ddg.meituan.admin.modules.sys.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 

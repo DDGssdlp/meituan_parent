@@ -2,11 +2,11 @@ package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
 
-import com.ddg.meituan.product.param.SpuInfoParam;
-import com.ddg.meituan.product.vo.SpuInfoVo;
+import com.ddg.meituan.product.domain.param.SpuInfoParam;
+import com.ddg.meituan.product.domain.vo.SpuInfoVo;
 import org.springframework.web.bind.annotation.*;
 
-import com.ddg.meituan.product.entity.SpuInfoEntity;
+import com.ddg.meituan.product.domain.SpuInfoEntity;
 import com.ddg.meituan.product.service.SpuInfoService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.CommonResult;

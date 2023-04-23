@@ -1,11 +1,11 @@
 package com.ddg.meituan.admin.modules.sys.service.impl;
 
 
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.admin.modules.sys.dao.SysUserRoleDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserRoleEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserRoleEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleDao, SysUserR
 	@Override
 	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
 		//先删除用户与角色关系
-		HashMap<String, Object> map = MapUtil.newHashMap();
+		HashMap<String, Object> map = Maps.newHashMap();
 		map.put("user_id", userId);
 		this.removeByMap(map);
 

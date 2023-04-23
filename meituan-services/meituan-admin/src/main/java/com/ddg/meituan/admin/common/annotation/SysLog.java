@@ -1,5 +1,3 @@
-
-
 package com.ddg.meituan.admin.common.annotation;
 
 import java.lang.annotation.Documented;

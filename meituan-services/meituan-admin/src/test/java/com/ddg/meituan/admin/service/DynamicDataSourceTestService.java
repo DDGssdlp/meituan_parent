@@ -5,7 +5,7 @@ package com.ddg.meituan.admin.service;
 import com.ddg.meituan.admin.datasource.annotation.DataSource;
 
 import com.ddg.meituan.admin.modules.sys.dao.SysUserDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
