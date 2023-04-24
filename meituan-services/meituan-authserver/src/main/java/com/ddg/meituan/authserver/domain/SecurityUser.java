@@ -7,8 +7,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Description: 登录的用户信息封装
  * ========================================================================
@@ -62,10 +64,7 @@ public class SecurityUser implements UserDetails {
         this.setPassword(userDto.getPassword());
         this.setEnabled(userDto.getStatus() == 1);
         this.setClientId(userDto.getClientId());
-        if (userDto.getRoles() != null) {
-            authorities = new ArrayList<>();
-            userDto.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
-        }
+        Optional.ofNullable(userDto.getRoles()).ifPresent(a -> authorities = a.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
     }
 
     @Override

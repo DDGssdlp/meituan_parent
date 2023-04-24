@@ -4,6 +4,8 @@ import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.base.api.CommonResult;
 
+import java.util.Collections;
+
 /**
  * Description:
  * ========================================================================
@@ -20,6 +22,6 @@ import com.ddg.meituan.base.api.CommonResult;
 public class AdminFeignFallBack implements AdminFeignService {
     @Override
     public CommonResult<UserDto> loadUserByUsername(String username, String uuid) {
-        return CommonResult.success(new UserDto("zhangsan", "1", 1, 1L));
+        return CommonResult.success(new UserDto("zhangsan", "1", 1, 1L, Collections.emptyList()));
     }
 }

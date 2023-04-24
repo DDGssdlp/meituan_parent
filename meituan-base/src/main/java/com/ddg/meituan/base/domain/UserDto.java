@@ -30,10 +30,11 @@ public class UserDto {
     private String clientId;
     private List<String> roles;
 
-    public UserDto(String username, String password, Integer status, long id) {
+    public UserDto(String username, String password, Integer status, long id, List<String> roles) {
         this.username = username;
         this.password = password;
         this.status = status;
         this.id = id;
+        this.roles = roles;
     }
 }

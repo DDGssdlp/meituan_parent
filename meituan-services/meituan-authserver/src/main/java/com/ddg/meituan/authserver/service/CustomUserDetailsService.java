@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -88,13 +90,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         } else if (!securityUser.isCredentialsNonExpired()) {
             throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
         }
+
+        securityUser.setAuthorities(Collections.singleton( new SimpleGrantedAuthority("ROLE_ADMIN")));
         return securityUser;
     }
 
     public UserDetails loadUserByUsernameAndSmsCode(String phone, String code) throws UsernameNotFoundException {
-        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1, 1L));
+        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1, 1L, null));
         zhangsan.setPhone("1231231313");
         zhangsan.setId(1L);
+        zhangsan.setAuthorities(Collections.emptyList());
         return zhangsan;
     }
 

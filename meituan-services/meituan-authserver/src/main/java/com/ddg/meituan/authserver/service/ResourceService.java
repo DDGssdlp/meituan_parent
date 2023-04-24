@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,13 +26,13 @@ public class ResourceService {
         this.redisTemplate = redisTemplate;
     }
 
-    //@PostConstruct
+    @PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
         resourceRolesMap.put("/api/product/category/list", "ADMIN");
         resourceRolesMap.put("/api/user/currentUser", "ADMIN,TEST");
         resourceRolesMap.put("/api/thirdparty/minio/upload", "ADMIN");
-        resourceRolesMap.put("/api/sys/user/info", "ADMIN");
+        resourceRolesMap.put("/api/sys/user/info", "['ADMIN']");
         resourceRolesMap.put("/api/member/member/getLoginUser", "");
         redisTemplate.opsForHash().putAll(AuthServerConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }
