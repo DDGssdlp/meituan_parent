@@ -1,6 +1,6 @@
 package com.ddg.meituan.base.aspect;
 
-import com.ddg.meituan.base.annotation.RemoveCache;
+import com.ddg.meituan.base.annotation.cache.RemoveCache;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -40,7 +40,7 @@ public class RemoveCacheAspect {
     /**
      * 定义切点
      */
-    @Pointcut("@annotation(com.ddg.meituan.base.annotation.RemoveCache)")
+    @Pointcut("@annotation(com.ddg.meituan.base.annotation.cache.RemoveCache)")
     public void removeCachePointCut() {
     }
 

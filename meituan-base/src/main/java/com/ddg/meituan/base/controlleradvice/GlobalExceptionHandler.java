@@ -31,13 +31,13 @@ import java.util.Objects;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MeituanSysException.class)
-    public CommonResult<Object> validMeituanSysExceptionHandel(MeituanSysException e){
+    public CommonResult<?> validMeituanSysExceptionHandel(MeituanSysException e){
         log.error("出现了异常: {} , 出现的原因是: {}", e.getClass().getSimpleName(), e.getMessage());
         return CommonResult.failed(e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public CommonResult<Object> validMethodArgumentNotValidExceptionHandel(MethodArgumentNotValidException e){
+    public CommonResult<?> validMethodArgumentNotValidExceptionHandel(MethodArgumentNotValidException e){
 
         BindingResult bindingResult = e.getBindingResult();
         String message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
 
     }
     @ExceptionHandler(Exception.class)
-    public CommonResult<Object> validExceptionHandle(Exception e){
+    public CommonResult<?> validExceptionHandle(Exception e){
         log.error("出现了异常:{} , 出现的原因是{}", e.getClass().getSimpleName(), e.getMessage());
         return CommonResult.failed(Code.UN_NONE_EXCEPTION, e.getMessage());
     }

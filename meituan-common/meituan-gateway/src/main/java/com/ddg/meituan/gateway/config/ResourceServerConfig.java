@@ -3,7 +3,7 @@ package com.ddg.meituan.gateway.config;
 import com.ddg.meituan.gateway.authorization.AuthorizationManager;
 import com.ddg.meituan.gateway.component.RestAuthenticationEntryPoint;
 import com.ddg.meituan.gateway.component.RestfulAccessDeniedHandler;
-import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -83,8 +83,8 @@ public class ResourceServerConfig {
     @Bean
     public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(AuthConstant.AUTHORITY_PREFIX);
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(AuthConstant.AUTHORITY_CLAIM_NAME);
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(BaseConstant.AUTHORITY_PREFIX);
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(BaseConstant.AUTHORITY_CLAIM_NAME);
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);

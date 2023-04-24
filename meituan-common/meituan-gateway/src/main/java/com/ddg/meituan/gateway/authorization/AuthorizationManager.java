@@ -3,7 +3,7 @@ package com.ddg.meituan.gateway.authorization;
 
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
-import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.gateway.domain.UserDto;
 import com.nimbusds.jose.JWSObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,19 +72,19 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         //不同用户体系登录不允许互相访问
         try {
-            String token = request.getHeaders().getFirst(AuthConstant.JWT_TOKEN_HEADER);
+            String token = request.getHeaders().getFirst(BaseConstant.JWT_TOKEN_HEADER);
             if (StringUtils.isEmpty(token)) {
                 return Mono.just(new AuthorizationDecision(false));
             }
-            String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
+            String realToken = token.replace(BaseConstant.JWT_TOKEN_PREFIX, "");
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             UserDto userDto = JSON.parseObject(userStr, UserDto.class);
-            final boolean match = pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
-                    pathMatcher.match(AuthConstant.APP_URL_PATTERN, uri.getPath()) ||
-                    pathMatcher.match(AuthConstant.SYS_URL_PATTERN, uri.getPath());
+            final boolean match = pathMatcher.match(BaseConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
+                    pathMatcher.match(BaseConstant.APP_URL_PATTERN, uri.getPath()) ||
+                    pathMatcher.match(BaseConstant.SYS_URL_PATTERN, uri.getPath());
             // 前端的用户不能获取后端的接口
-            if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && match) {
+            if (BaseConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && match) {
                 return Mono.just(new AuthorizationDecision(false));
             }
         } catch (ParseException e) {
@@ -94,13 +94,13 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //其余需要校验权限
         //认证通过且角色匹配的用户可访问当前路径
         //从Redis中获取当前路径可访问角色列表  使用 redis 进行的是路径粒度 和 权限的区分
-        String roles = (String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
+        String roles = (String) redisTemplate.opsForHash().get(BaseConstant.RESOURCE_ROLES_MAP, uri.getPath());
         // 这里方便测试 先放开
         if (StringUtils.isEmpty(roles)) {
             return Mono.just(new AuthorizationDecision(true));
         }
         List<String> authorities = JSON.parseArray(roles, String.class);
-        authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+        authorities = authorities.stream().map(i -> i = BaseConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
         return mono
                 .filter(Authentication::isAuthenticated)

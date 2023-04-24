@@ -3,12 +3,12 @@ package com.ddg.meituan.product.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import com.ddg.meituan.product.entity.ProductAttrValueEntity;
+import com.ddg.meituan.product.domain.ProductAttrValueEntity;
 import com.ddg.meituan.product.service.ProductAttrValueService;
-import com.ddg.meituan.product.vo.AttrRespVo;
+import com.ddg.meituan.product.domain.vo.AttrRespVo;
 import org.springframework.web.bind.annotation.*;
 
-import com.ddg.meituan.product.entity.AttrEntity;
+import com.ddg.meituan.product.domain.AttrEntity;
 import com.ddg.meituan.product.service.AttrService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.PageParam;

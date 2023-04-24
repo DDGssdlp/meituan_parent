@@ -8,7 +8,7 @@
 	</update>
 
 	<!-- 根据key，查询value -->
-	<select id="queryByKey" parameterType="string" resultType="com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity">
+	<select id="queryByKey" parameterType="string" resultType="com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity">
 		select * from sys_config where param_key = #{paramKey}
 	</select>
 	

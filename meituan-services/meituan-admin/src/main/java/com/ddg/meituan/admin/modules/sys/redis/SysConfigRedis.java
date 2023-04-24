@@ -2,8 +2,8 @@ package com.ddg.meituan.admin.modules.sys.redis;
 
 
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.admin.common.utils.RedisKeys;
-import com.ddg.meituan.admin.modules.sys.entity.SysConfigEntity;
+import com.ddg.meituan.admin.common.utils.RedisKeysUtils;
+import com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -29,17 +29,17 @@ public class SysConfigRedis {
         if(config == null){
             return ;
         }
-        String key = RedisKeys.getSysConfigKey(config.getParamKey());
+        String key = RedisKeysUtils.getSysConfigKey(config.getParamKey());
         redisTemplate.opsForValue().set(key, JSON.toJSONString(config), DEFAULT_EXPIRE, TimeUnit.SECONDS);
     }
 
     public void delete(String configKey) {
-        String key = RedisKeys.getSysConfigKey(configKey);
+        String key = RedisKeysUtils.getSysConfigKey(configKey);
         redisTemplate.delete(key);
     }
 
     public SysConfigEntity get(String configKey){
-        String key = RedisKeys.getSysConfigKey(configKey);
+        String key = RedisKeysUtils.getSysConfigKey(configKey);
         String configStr = redisTemplate.opsForValue().get(key);
         SysConfigEntity sysConfigEntity = null;
         if(!StringUtils.isEmpty(configStr)){

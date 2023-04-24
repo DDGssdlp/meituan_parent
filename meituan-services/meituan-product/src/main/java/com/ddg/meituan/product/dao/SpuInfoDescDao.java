@@ -1,6 +1,6 @@
 package com.ddg.meituan.product.dao;
 
-import com.ddg.meituan.product.entity.SpuInfoDescEntity;
+import com.ddg.meituan.product.domain.SpuInfoDescEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

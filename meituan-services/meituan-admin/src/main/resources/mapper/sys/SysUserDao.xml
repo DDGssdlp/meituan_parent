@@ -17,7 +17,7 @@
 		where ur.user_id = #{userId}
 	</select>
 	
-	<select id="queryByUserName" resultType="com.ddg.meituan.admin.modules.sys.entity.SysUserEntity">
+	<select id="queryByUserName" resultType="com.ddg.meituan.admin.modules.sys.domain.SysUserEntity">
 		select * from sys_user where username = #{username}
 	</select>
     <select id="queryRole" resultType="java.lang.String">

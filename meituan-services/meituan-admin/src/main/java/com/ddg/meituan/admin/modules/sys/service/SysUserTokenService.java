@@ -4,7 +4,7 @@ package com.ddg.meituan.admin.modules.sys.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserTokenEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserTokenEntity;
 import com.ddg.meituan.base.api.CommonResult;
 
 /**

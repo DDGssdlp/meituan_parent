@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -26,7 +25,7 @@ public class ResourceService {
         this.redisTemplate = redisTemplate;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
         resourceRolesMap.put("/api/product/category/list", "ADMIN");

@@ -2,7 +2,7 @@ package com.ddg.meituan.admin.modules.job.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.admin.modules.job.entity.ScheduleJobEntity;
+import com.ddg.meituan.admin.modules.job.domian.ScheduleJobEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;

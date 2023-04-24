@@ -1,7 +1,7 @@
 package com.ddg.meituan.gateway.filter;
 
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
-import com.ddg.meituan.base.constant.AuthConstant;
+import com.ddg.meituan.base.constant.BaseConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -47,7 +47,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         for (String ignoreUrl : ignoreUrls) {
             if (pathMatcher.match(ignoreUrl, uri.getPath())) {
 
-                request = exchange.getRequest().mutate().headers(httpHeaders -> httpHeaders.remove(AuthConstant.JWT_TOKEN_HEADER)).build();
+                request = exchange.getRequest().mutate().headers(httpHeaders -> httpHeaders.remove(BaseConstant.JWT_TOKEN_HEADER)).build();
                 exchange = exchange.mutate().request(request).build();
                 return chain.filter(exchange);
             }

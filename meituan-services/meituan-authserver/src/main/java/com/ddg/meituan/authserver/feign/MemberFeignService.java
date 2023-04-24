@@ -1,6 +1,6 @@
 package com.ddg.meituan.authserver.feign;
 
-import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.authserver.feign.fallback.MemberFeignFallBack;
 import com.ddg.meituan.base.api.CommonResult;
 import org.springframework.cloud.openfeign.FeignClient;

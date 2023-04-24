@@ -3,8 +3,8 @@ package com.ddg.meituan.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.PageParam;
-import com.ddg.meituan.product.entity.AttrGroupEntity;
-import com.ddg.meituan.product.vo.AttrGroupWithAttrsVo;
+import com.ddg.meituan.product.domain.AttrGroupEntity;
+import com.ddg.meituan.product.domain.vo.AttrGroupWithAttrsVo;
 
 import java.util.List;
 

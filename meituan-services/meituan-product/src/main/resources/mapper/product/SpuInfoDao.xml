@@ -4,7 +4,7 @@
 <mapper namespace="com.ddg.meituan.product.dao.SpuInfoDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.ddg.meituan.product.entity.SpuInfoEntity" id="spuInfoMap">
+    <resultMap type="com.ddg.meituan.product.domain.SpuInfoEntity" id="spuInfoMap">
         <result property="id" column="id"/>
         <result property="spuName" column="spu_name"/>
         <result property="spuDescription" column="spu_description"/>
@@ -16,7 +16,7 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-    <select id="selectSpuInfoByParam" resultType="com.ddg.meituan.product.entity.SpuInfoEntity">
+    <select id="selectSpuInfoByParam" resultType="com.ddg.meituan.product.domain.SpuInfoEntity">
 
         SELECT
             si.id, si.`spu_name`, si.`spu_description`,

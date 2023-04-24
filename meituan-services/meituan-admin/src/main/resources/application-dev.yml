@@ -1,11 +1,16 @@
-ipAddr: 101.200.140.80
-
 spring:
     datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: root
         url: jdbc:mysql://${ipAddr}:3306/meituan-admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        pool-prepared-statements: true
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
 
 
 ##多数据源的配置
@@ -24,13 +29,13 @@ spring:
 
 
 #分布式事务Seata配置
-seata:
-    tx-service-group: ${spring.application.name}
-    enabled: true
-    enable-auto-data-source-proxy: true
-    service:
-        vgroup-mapping:
-            payment: default
-        grouplist:
-            default: 101.200.140.80:8091
+#seata:
+#    tx-service-group: ${spring.application.name}
+#    enabled: true
+#    enable-auto-data-source-proxy: true
+#    service:
+#        vgroup-mapping:
+#            payment: default
+#        grouplist:
+#            default: 101.200.140.80:8091
 

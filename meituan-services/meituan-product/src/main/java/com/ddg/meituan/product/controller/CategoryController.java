@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.product.entity.CategoryEntity;
+import com.ddg.meituan.product.domain.CategoryEntity;
 import com.ddg.meituan.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 
 /**
@@ -41,7 +40,6 @@ public class CategoryController {
     @GetMapping("/list")
     public CommonResult<PageUtils<CategoryEntity>> list(PageParam param){
         PageUtils<CategoryEntity> page = categoryService.queryPage(param);
-
 
         return CommonResult.success(page);
     }

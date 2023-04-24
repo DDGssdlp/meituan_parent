@@ -1,6 +1,6 @@
 package com.ddg.meituan.authserver.feign.fallback;
 
-import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.base.domain.UserDto;
 import com.ddg.meituan.authserver.feign.AdminFeignService;
 import com.ddg.meituan.base.api.CommonResult;
 
@@ -20,6 +20,6 @@ import com.ddg.meituan.base.api.CommonResult;
 public class AdminFeignFallBack implements AdminFeignService {
     @Override
     public CommonResult<UserDto> loadUserByUsername(String username, String uuid) {
-        return CommonResult.success(new UserDto("zhangsan", "1", 1));
+        return CommonResult.success(new UserDto("zhangsan", "1", 1, 1L));
     }
 }

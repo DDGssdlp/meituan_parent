@@ -3,8 +3,8 @@ package com.ddg.meituan.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.PageParam;
-import com.ddg.meituan.product.entity.SkuInfoEntity;
-import com.ddg.meituan.product.param.SkuInfoParam;
+import com.ddg.meituan.product.domain.SkuInfoEntity;
+import com.ddg.meituan.product.domain.param.SkuInfoParam;
 
 /**
  * sku信息

@@ -1,7 +1,7 @@
 package com.ddg.meituan.authserver.domain;
 
 
-import com.ddg.meituan.base.domain.dto.UserDto;
+import com.ddg.meituan.base.domain.UserDto;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

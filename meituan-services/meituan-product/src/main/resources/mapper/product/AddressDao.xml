@@ -4,7 +4,7 @@
 <mapper namespace="com.ddg.meituan.product.dao.AddressDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.ddg.meituan.product.entity.AddressEntity" id="addressMap">
+    <resultMap type="com.ddg.meituan.product.domain.AddressEntity" id="addressMap">
         <result property="addressId" column="address_id"/>
         <result property="addressName" column="address_name"/>
         <result property="continentId" column="continent_id"/>

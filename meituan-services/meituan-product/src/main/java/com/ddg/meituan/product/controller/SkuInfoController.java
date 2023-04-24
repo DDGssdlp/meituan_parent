@@ -2,11 +2,11 @@ package com.ddg.meituan.product.controller;
 
 import java.util.Arrays;
 
-import com.ddg.meituan.product.param.SkuInfoParam;
+import com.ddg.meituan.product.domain.param.SkuInfoParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.ddg.meituan.product.entity.SkuInfoEntity;
+import com.ddg.meituan.product.domain.SkuInfoEntity;
 import com.ddg.meituan.product.service.SkuInfoService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.CommonResult;

@@ -5,9 +5,9 @@ import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.constant.BrandConstant;
-import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
+import com.ddg.meituan.product.domain.CategoryBrandRelationEntity;
 import com.ddg.meituan.product.service.CategoryBrandRelationService;
-import com.ddg.meituan.product.vo.BrandVo;
+import com.ddg.meituan.product.domain.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

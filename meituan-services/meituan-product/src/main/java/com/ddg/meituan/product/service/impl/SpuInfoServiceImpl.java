@@ -2,27 +2,22 @@ package com.ddg.meituan.product.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.base.exception.MeituanSysException;
-import com.ddg.meituan.base.to.SkuReduceTo;
-import com.ddg.meituan.base.to.SpuBoundsTo;
-import com.ddg.meituan.product.entity.*;
-import com.ddg.meituan.product.feign.CouponFeignService;
-import com.ddg.meituan.product.param.SpuInfoParam;
+import com.ddg.meituan.base.utils.PageUtils;
+import com.ddg.meituan.product.dao.SpuInfoDao;
+import com.ddg.meituan.product.domain.*;
+import com.ddg.meituan.product.domain.vo.AttrVo;
+import com.ddg.meituan.product.domain.vo.SkuInfoVo;
+import com.ddg.meituan.product.domain.vo.SpuInfoVo;
+import com.ddg.meituan.product.domain.param.SpuInfoParam;
 import com.ddg.meituan.product.service.*;
-import com.ddg.meituan.product.vo.AttrVo;
-import com.ddg.meituan.product.vo.SkuInfoVo;
-import com.ddg.meituan.product.vo.SpuInfoVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.base.utils.PageUtils;
-
-import com.ddg.meituan.product.dao.SpuInfoDao;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -42,7 +37,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     private final ProductAttrValueService productAttrValueService;
 
-    public final CouponFeignService couponFeignService;
 
     private final SkuInfoService skuInfoService;
 
@@ -56,7 +50,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                               SpuImagesService spuImagesService,
                               AttrService attrService,
                               ProductAttrValueService productAttrValueService,
-                              CouponFeignService couponFeignService,
                               SkuInfoService skuInfoService,
                               SkuImagesService skuImagesService,
                               SkuSaleAttrValueService skuSaleAttrValueService) {
@@ -65,7 +58,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         this.spuImagesService = spuImagesService;
         this.attrService = attrService;
         this.productAttrValueService = productAttrValueService;
-        this.couponFeignService = couponFeignService;
         this.skuInfoService = skuInfoService;
         this.skuImagesService = skuImagesService;
         this.skuSaleAttrValueService = skuSaleAttrValueService;
@@ -136,15 +128,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         final CompletableFuture<Void> boundsFuture = CompletableFuture.runAsync(() -> {
 
-            //5、保存spu的积分信息：
-            SpuInfoVo.Bounds bounds = spuInfo.getBounds();
-            SpuBoundsTo spuBoundTo = new SpuBoundsTo();
-            spuBoundTo.setBuyBounds(bounds.getBuyBounds());
-            spuBoundTo.setGrowBounds(bounds.getGrowBounds());
-            BeanUtils.copyProperties(bounds, spuBoundTo);
-            spuBoundTo.setSpuId(spuInfoEntity.getId());
-            // TODO: 分布式事务实现：
-            couponFeignService.saveSpuBounds(spuBoundTo);
+
         }).exceptionally((throwable) ->{
             throw new MeituanSysException(throwable.getMessage());
         });
@@ -200,13 +184,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
                     skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
 
-                    //5、4）、sku的优惠、满减等信息：gulimall_sms--->sms_sku_ladder、sms_sku_full_reduction、sms_member_price
-                    SkuReduceTo skuReduceTo = new SkuReduceTo();
-                    BeanUtils.copyProperties(skuInfoVo, skuReduceTo);
-                    skuReduceTo.setSkuId(skuId);
-                    if (skuReduceTo.getFullCount() > 0 || skuReduceTo.getFullPrice().compareTo(BigDecimal.ZERO) > 0) {
-                        couponFeignService.saveSkuReduction(skuReduceTo);
-                    }
+
                 });
             }
 

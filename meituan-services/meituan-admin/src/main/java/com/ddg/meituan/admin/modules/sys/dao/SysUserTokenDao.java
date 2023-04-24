@@ -3,7 +3,7 @@ package com.ddg.meituan.admin.modules.sys.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserTokenEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserTokenEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

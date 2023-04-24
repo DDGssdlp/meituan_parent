@@ -1,8 +1,8 @@
 package com.ddg.meituan.admin.modules.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
-import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
+import com.ddg.meituan.admin.modules.sys.domain.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.domain.param.SysRolePageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface SysRoleService extends IService<SysRoleEntity> {
 
-	PageUtils queryPage(SysRolePageParam params);
+	PageUtils<SysRoleEntity> queryPage(SysRolePageParam params);
 
 	void saveRole(SysRoleEntity role);
 

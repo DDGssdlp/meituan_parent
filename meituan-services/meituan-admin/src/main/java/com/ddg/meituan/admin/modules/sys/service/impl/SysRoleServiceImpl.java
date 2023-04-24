@@ -3,14 +3,15 @@ package com.ddg.meituan.admin.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ddg.meituan.admin.common.utils.Constant;
+import com.ddg.meituan.admin.constant.Constant;
 import com.ddg.meituan.admin.modules.sys.dao.SysRoleDao;
-import com.ddg.meituan.admin.modules.sys.entity.SysRoleEntity;
-import com.ddg.meituan.admin.modules.sys.entity.param.SysRolePageParam;
+import com.ddg.meituan.admin.modules.sys.domain.SysRoleEntity;
+import com.ddg.meituan.admin.modules.sys.domain.param.SysRolePageParam;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleMenuService;
 import com.ddg.meituan.admin.modules.sys.service.SysRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserRoleService;
 import com.ddg.meituan.admin.modules.sys.service.SysUserService;
+import com.ddg.meituan.base.api.Query;
 import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +46,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	}
 
 	@Override
-	public PageUtils queryPage(SysRolePageParam params) {
+	public PageUtils<SysRoleEntity> queryPage(SysRolePageParam params) {
 		String roleName = params.getRoleName();
 		Long createUserId = params.getCreateUserId();
 
@@ -56,7 +57,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 				.eq(createUserId != null,"create_user_id", createUserId)
 		);
 
-		return new PageUtils(page);
+		return PageUtils.of(page);
 	}
 
     @Override

@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 
-import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
-import com.ddg.meituan.product.vo.BrandVo;
+import com.ddg.meituan.product.domain.CategoryBrandRelationEntity;
+import com.ddg.meituan.product.domain.vo.BrandVo;
 
 import java.util.List;
 

@@ -6,15 +6,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.base.api.PageParam;
+import com.ddg.meituan.base.api.Query;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.product.constant.BrandConstant;
 import com.ddg.meituan.product.constant.ProductConstant;
 import com.ddg.meituan.product.dao.BrandDao;
 import com.ddg.meituan.product.dao.CategoryBrandRelationDao;
-import com.ddg.meituan.product.entity.BrandEntity;
-import com.ddg.meituan.product.entity.CategoryBrandRelationEntity;
+import com.ddg.meituan.product.domain.BrandEntity;
+import com.ddg.meituan.product.domain.CategoryBrandRelationEntity;
+import com.ddg.meituan.product.domain.vo.BrandListVo;
 import com.ddg.meituan.product.service.BrandService;
-import com.ddg.meituan.product.vo.BrandListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -91,7 +92,6 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
             brandListVo.setStatus(diffSevenDays ? BrandConstant.OLD_BRAND : BrandConstant.NEW_BRAND);
             // todo: 商家的类型 和 评论 补充
             brandListVo.setType("景店");
-            brandListVo.setComment(Integer.valueOf(RandomUtil.getFourBitRandom()));
             brandListVo.setRate((int) (Math.random() * 5) + 1);
             brandListVo.setDescription(brandEntity.getDescription());
             brandListVo.setPrice(brandEntity.getPrice());

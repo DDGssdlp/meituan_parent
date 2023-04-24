@@ -3,7 +3,7 @@ package com.ddg.meituan.product.controller;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
-import com.ddg.meituan.product.entity.ProductInfoEntity;
+import com.ddg.meituan.product.domain.ProductInfoEntity;
 import com.ddg.meituan.product.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

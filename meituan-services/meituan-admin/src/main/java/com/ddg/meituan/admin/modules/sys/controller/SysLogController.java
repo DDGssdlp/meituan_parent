@@ -1,7 +1,7 @@
 package com.ddg.meituan.admin.modules.sys.controller;
 
 
-import com.ddg.meituan.admin.modules.sys.entity.SysLogEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;

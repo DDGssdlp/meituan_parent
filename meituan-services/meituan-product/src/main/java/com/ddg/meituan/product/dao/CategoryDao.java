@@ -1,7 +1,7 @@
 package com.ddg.meituan.product.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.product.entity.CategoryEntity;
+import com.ddg.meituan.product.domain.CategoryEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

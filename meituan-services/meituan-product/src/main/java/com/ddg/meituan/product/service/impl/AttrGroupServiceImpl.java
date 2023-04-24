@@ -1,12 +1,12 @@
 package com.ddg.meituan.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;
-import com.ddg.meituan.product.entity.AttrEntity;
+import com.ddg.meituan.product.domain.AttrAttrgroupRelationEntity;
+import com.ddg.meituan.product.domain.AttrEntity;
 import com.ddg.meituan.product.service.AttrAttrgroupRelationService;
 import com.ddg.meituan.product.service.AttrService;
 import com.ddg.meituan.product.service.CategoryService;
-import com.ddg.meituan.product.vo.AttrGroupWithAttrsVo;
+import com.ddg.meituan.product.domain.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.product.dao.AttrGroupDao;
-import com.ddg.meituan.product.entity.AttrGroupEntity;
+import com.ddg.meituan.product.domain.AttrGroupEntity;
 import com.ddg.meituan.product.service.AttrGroupService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -72,7 +72,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 categoryId));
 
         //2、查询所有属性
-        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+
+        return attrGroupEntities.stream().map(group -> {
             AttrGroupWithAttrsVo attrGroupWithAttrsVo = new AttrGroupWithAttrsVo();
             BeanUtils.copyProperties(group,attrGroupWithAttrsVo);
 
@@ -81,8 +82,6 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
             return attrGroupWithAttrsVo;
         }).filter(attrGroupWithAttrsVo -> !CollectionUtils.isEmpty(attrGroupWithAttrsVo.getAttrs())).collect(Collectors.toList());
-
-        return collect;
     }
 
     /**

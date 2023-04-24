@@ -2,7 +2,7 @@ package com.ddg.meituan.admin.modules.sys.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserRoleEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserRoleEntity;
 
 import java.util.List;
 

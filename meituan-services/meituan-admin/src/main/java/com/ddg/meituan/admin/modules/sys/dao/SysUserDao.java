@@ -2,7 +2,7 @@ package com.ddg.meituan.admin.modules.sys.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ddg.meituan.admin.modules.sys.entity.SysUserEntity;
+import com.ddg.meituan.admin.modules.sys.domain.SysUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

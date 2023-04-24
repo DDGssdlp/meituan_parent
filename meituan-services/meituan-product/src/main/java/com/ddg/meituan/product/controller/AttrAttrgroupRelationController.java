@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.ddg.meituan.product.entity.AttrAttrgroupRelationEntity;
+import com.ddg.meituan.product.domain.AttrAttrgroupRelationEntity;
 import com.ddg.meituan.product.service.AttrAttrgroupRelationService;
 import com.ddg.meituan.base.utils.PageUtils;
 import com.ddg.meituan.base.api.PageParam;

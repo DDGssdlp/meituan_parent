@@ -1,5 +1,3 @@
-
-
 package com.ddg.meituan.admin.common.annotation.validator;
 
 import com.ddg.meituan.base.exception.MeituanSysException;
