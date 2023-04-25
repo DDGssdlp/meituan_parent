@@ -142,8 +142,15 @@ public class CommonResult<T> {
     /**
      * 未授权返回结果
      */
+    public static <T> CommonResult<T> forbidden() {
+         return CommonResult.failed(Code.FORBIDDEN);
+    }
+
+    /**
+     * 未授权返回结果
+     */
     public static <T> CommonResult<T> forbidden(String message) {
-        return new CommonResult<T>(Code.FORBIDDEN.getValue(), message);
+        return  new CommonResult<T>(Code.FORBIDDEN.getValue(), message);
     }
 
     public String getCode() {

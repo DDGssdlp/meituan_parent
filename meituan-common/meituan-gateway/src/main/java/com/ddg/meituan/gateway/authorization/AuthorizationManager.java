@@ -6,7 +6,6 @@ import com.ddg.meituan.base.constant.BaseConstant;
 import com.ddg.meituan.gateway.config.IgnoreUrlsConfig;
 import com.ddg.meituan.gateway.domain.UserDto;
 import com.nimbusds.jose.JWSObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -45,7 +44,6 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     private final StringRedisTemplate redisTemplate;
     private final IgnoreUrlsConfig ignoreUrlsConfig;
 
-    @Autowired
     public AuthorizationManager(StringRedisTemplate redisTemplate,
                                 IgnoreUrlsConfig ignoreUrlsConfig) {
         this.redisTemplate = redisTemplate;
@@ -80,9 +78,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             UserDto userDto = JSON.parseObject(userStr, UserDto.class);
-            final boolean match = pathMatcher.match(BaseConstant.ADMIN_URL_PATTERN, uri.getPath()) ||
-                    pathMatcher.match(BaseConstant.APP_URL_PATTERN, uri.getPath()) ||
-                    pathMatcher.match(BaseConstant.SYS_URL_PATTERN, uri.getPath());
+            final boolean match = pathMatcher.match(BaseConstant.SYS_URL_PATTERN, uri.getPath());
             // 前端的用户不能获取后端的接口
             if (BaseConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && match) {
                 return Mono.just(new AuthorizationDecision(false));

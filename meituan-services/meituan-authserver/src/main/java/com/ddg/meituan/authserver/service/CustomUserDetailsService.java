@@ -14,7 +14,6 @@ import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -91,7 +90,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
         }
 
-        securityUser.setAuthorities(Collections.singleton( new SimpleGrantedAuthority("ROLE_ADMIN")));
         return securityUser;
     }
 
