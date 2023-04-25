@@ -41,18 +41,11 @@ public interface BaseConstant {
     String PORTAL_CLIENT_ID = "portal-app";
 
     /**
-     * 后台管理接口路径匹配
+     * 后台请求路径
      */
-    String ADMIN_URL_PATTERN = "/api/admin/**";
-
     String SYS_URL_PATTERN = "/api/sys/**";
 
-    String APP_URL_PATTERN = "/api/app/**";
 
-    /**
-     * Redis缓存权限规则key
-     */
-    String RESOURCE_ROLES_MAP_KEY = "auth:resourceRolesMap";
 
     /**
      * 认证信息Http请求头

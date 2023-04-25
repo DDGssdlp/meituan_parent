@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -88,13 +89,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         } else if (!securityUser.isCredentialsNonExpired()) {
             throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
         }
+
         return securityUser;
     }
 
     public UserDetails loadUserByUsernameAndSmsCode(String phone, String code) throws UsernameNotFoundException {
-        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1, 1L));
+        SecurityUser zhangsan = new SecurityUser(new UserDto("zhangsan", null, 1, 1L, null));
         zhangsan.setPhone("1231231313");
         zhangsan.setId(1L);
+        zhangsan.setAuthorities(Collections.emptyList());
         return zhangsan;
     }
 
