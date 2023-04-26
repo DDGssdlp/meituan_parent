@@ -36,7 +36,6 @@ public class SysUserEntityVo extends SysUserEntity {
         super.setEmail(sysUserEntity.getEmail());
         super.setMobile(sysUserEntity.getMobile());
         super.setPassword(sysUserEntity.getPassword());
-        super.setSalt(sysUserEntity.getSalt());
         super.setStatus(sysUserEntity.getStatus());
         super.setUsername(sysUserEntity.getUsername());
     }

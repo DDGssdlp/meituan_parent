@@ -58,8 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         CommonResult<UserDto> userDtoCommonResult = null;
         try {
             if (AuthServerConstant.ADMIN_CLIENT_ID.equals(clientId)) {
-                String uuid = request.getParameter("uuid");
-                userDtoCommonResult = adminFeignService.loadUserByUsername(username, uuid);
+                userDtoCommonResult = adminFeignService.loadUserByUsername(username);
             } else {
                 userDtoCommonResult = memberFeignService.loadUserByUsername(username);
             }
@@ -76,7 +75,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new InvalidGrantException(userDtoCommonResult.getMessage());
         }
         UserDto user = userDtoCommonResult.getData();
-        user.setId(1L);
 
         user.setClientId(clientId);
         SecurityUser securityUser = new SecurityUser(user);

@@ -2,7 +2,6 @@ package com.ddg.meituan.admin.modules.sys.controller;
 
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
-import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.constant.Constant;
 import com.ddg.meituan.admin.modules.sys.domain.SysRoleEntity;
 import com.ddg.meituan.admin.modules.sys.domain.param.SysRolePageParam;
@@ -93,9 +92,6 @@ public class SysRoleController {
 									 @RequestHeader(BaseConstant.USER_TOKEN_HEADER)UserDto userDto,
 									 HttpServletRequest request){
 
-		System.out.println(request);
-		ValidatorUtils.validateEntity(role);
-		
 		role.setCreateUserId(userDto.getId());
 		sysRoleService.saveRole(role);
 		
@@ -108,7 +104,6 @@ public class SysRoleController {
 	@SysLog("修改角色")
 	@PostMapping("/update")
 	public CommonResult<Object> update(@RequestBody SysRoleEntity role){
-		ValidatorUtils.validateEntity(role);
 		
 		role.setCreateUserId(1L);
 		sysRoleService.update(role);

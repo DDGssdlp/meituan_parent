@@ -34,7 +34,7 @@ public class SysLoginController {
 	 * 登录
 	 */
 	@GetMapping("/loadByUsername")
-	public CommonResult<UserDto> loadByUsername(@RequestParam String username, @RequestParam  String code, @RequestParam String uuid){
+	public CommonResult<UserDto> loadByUsername(@RequestParam String username){
 
 		//用户信息
 		SysUserEntity user = sysUserService.queryByUserName(username);

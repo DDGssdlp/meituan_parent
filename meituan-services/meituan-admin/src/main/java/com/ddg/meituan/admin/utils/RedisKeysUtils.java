@@ -1,4 +1,4 @@
-package com.ddg.meituan.admin.common.utils;
+package com.ddg.meituan.admin.utils;
 
 /**
  * Redis所有Keys

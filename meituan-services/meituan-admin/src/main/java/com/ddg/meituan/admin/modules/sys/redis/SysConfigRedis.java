@@ -2,7 +2,7 @@ package com.ddg.meituan.admin.modules.sys.redis;
 
 
 import com.alibaba.fastjson.JSON;
-import com.ddg.meituan.admin.common.utils.RedisKeysUtils;
+import com.ddg.meituan.admin.utils.RedisKeysUtils;
 import com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

@@ -2,14 +2,16 @@ package com.ddg.meituan.admin.modules.job.controller;
 
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
-import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.modules.job.domian.ScheduleJobEntity;
 import com.ddg.meituan.admin.modules.job.service.ScheduleJobService;
 import com.ddg.meituan.base.api.CommonResult;
 import com.ddg.meituan.base.api.PageParam;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -48,8 +50,8 @@ public class ScheduleJobController {
 	 */
 	@SysLog("保存定时任务")
 	@RequestMapping("/save")
-	public CommonResult<Object> save(@RequestBody ScheduleJobEntity scheduleJob){
-		ValidatorUtils.validateEntity(scheduleJob);
+	public CommonResult<?> save(@RequestBody ScheduleJobEntity scheduleJob){
+
 		
 		scheduleJobService.saveJob(scheduleJob);
 		
@@ -62,7 +64,7 @@ public class ScheduleJobController {
 	@SysLog("修改定时任务")
 	@RequestMapping("/update")
 	public CommonResult<Object> update(@RequestBody ScheduleJobEntity scheduleJob){
-		ValidatorUtils.validateEntity(scheduleJob);
+
 				
 		scheduleJobService.update(scheduleJob);
 		

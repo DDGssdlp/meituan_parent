@@ -2,7 +2,6 @@ package com.ddg.meituan.admin.modules.sys.controller;
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
 import com.ddg.meituan.admin.common.annotation.validator.Assert;
-import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.constant.Constant;
 import com.ddg.meituan.admin.modules.sys.domain.SysUserEntity;
 import com.ddg.meituan.admin.modules.sys.domain.param.SysUserPageParam;
@@ -19,6 +18,7 @@ import com.ddg.meituan.base.exception.MeituanSysException;
 import com.ddg.meituan.base.utils.PageUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -77,8 +77,8 @@ public class SysUserController {
      */
     @SysLog("保存用户")
     @PostMapping("/save")
-    public CommonResult<Object> save(@RequestBody SysUserEntity user, @RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto) {
-        ValidatorUtils.validateEntity(user, AddGroup.class);
+    public CommonResult<Object> save(@RequestBody @Validated(AddGroup.class) SysUserEntity user,
+                                     @RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto) {
 
         user.setCreateUserId(userDto.getId());
         sysUserService.saveUser(user);
@@ -91,8 +91,8 @@ public class SysUserController {
      */
     @SysLog("修改用户")
     @PostMapping("/update")
-    public CommonResult<Object> update(@RequestBody SysUserEntity user, @RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto) {
-        ValidatorUtils.validateEntity(user, UpdateGroup.class);
+    public CommonResult<Object> update(@RequestBody @Validated(UpdateGroup.class) SysUserEntity user,
+                                       @RequestHeader(BaseConstant.USER_TOKEN_HEADER) UserDto userDto) {
 
         user.setCreateUserId(userDto.getId());
         sysUserService.update(user);

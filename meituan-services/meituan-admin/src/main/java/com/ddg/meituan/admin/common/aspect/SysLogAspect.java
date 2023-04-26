@@ -2,7 +2,7 @@ package com.ddg.meituan.admin.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.ddg.meituan.admin.common.annotation.SysLog;
-import com.ddg.meituan.admin.common.utils.HttpContextUtils;
+import com.ddg.meituan.admin.utils.HttpContextUtils;
 import com.ddg.meituan.admin.modules.sys.domain.SysLogEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysLogService;
 import com.ddg.meituan.base.constant.BaseConstant;

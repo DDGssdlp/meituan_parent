@@ -44,11 +44,6 @@ public class SysUserEntity implements Serializable {
 	private String password;
 
 	/**
-	 * 盐
-	 */
-	private String salt;
-
-	/**
 	 * 邮箱
 	 */
 	@NotBlank(message="邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
@@ -81,5 +76,11 @@ public class SysUserEntity implements Serializable {
 	 */
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
+
+	/**
+	 * 创建时间
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updateTime;
 
 }

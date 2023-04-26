@@ -3,13 +3,12 @@ package com.ddg.meituan.admin.datasource.aspect;
 
 import com.ddg.meituan.admin.datasource.annotation.DataSource;
 import com.ddg.meituan.admin.datasource.config.DynamicContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -24,11 +23,11 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
 public class DataSourceAspect {
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(com.ddg.meituan.admin.datasource.annotation.DataSource) " +
-            "|| @within(com.ddg.meituan.admin.datasource.annotation.DataSource)")
+
+    @Pointcut("@annotation(com.ddg.meituan.admin.datasource.annotation.DataSource)")
     public void dataSourcePointCut() {
 
     }
@@ -50,14 +49,14 @@ public class DataSourceAspect {
             }
 
             DynamicContextHolder.push(value);
-            logger.debug("set datasource is {}", value);
+            log.debug("set datasource is {}", value);
         }
 
         try {
             return point.proceed();
         } finally {
             DynamicContextHolder.poll();
-            logger.debug("clean datasource");
+            log.debug("clean datasource");
         }
     }
 }

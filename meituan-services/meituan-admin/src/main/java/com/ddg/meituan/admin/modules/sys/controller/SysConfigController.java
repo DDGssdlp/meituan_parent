@@ -2,7 +2,6 @@ package com.ddg.meituan.admin.modules.sys.controller;
 
 
 import com.ddg.meituan.admin.common.annotation.SysLog;
-import com.ddg.meituan.admin.common.annotation.validator.ValidatorUtils;
 import com.ddg.meituan.admin.modules.sys.domain.SysConfigEntity;
 import com.ddg.meituan.admin.modules.sys.service.SysConfigService;
 import com.ddg.meituan.base.api.CommonResult;
@@ -54,7 +53,7 @@ public class SysConfigController  {
 	@SysLog("保存配置")
 	@PostMapping("/save")
 	public CommonResult<Object> save(@RequestBody SysConfigEntity config){
-		ValidatorUtils.validateEntity(config);
+
 
 		sysConfigService.saveConfig(config);
 		
@@ -67,8 +66,6 @@ public class SysConfigController  {
 	@SysLog("修改配置")
 	@PostMapping("/update")
 	public CommonResult<Object> update(@RequestBody SysConfigEntity config){
-		ValidatorUtils.validateEntity(config);
-		
 		sysConfigService.update(config);
 		
 		return CommonResult.success();
